@@ -7,7 +7,6 @@
   outline: none;
   padding: 0;
   min-width: 100%;
-  overflow: hidden;
 }
 
 * {
@@ -67,25 +66,23 @@ label svg {
 
 body,
 html {
-  height: 100%;
+  min-height: 100%;
   width: 100%;
 }
 
 .wrapper {
-  height: 100%;
+  width: 100%;
 }
 
 #canvas {
   background-color: black;
-  height: 100%;
   position: relative;
 }
 
 .main {
   display: block;
-  height: 100vh;
-  overflow: auto;
-  width: 100vw;
+  min-height: 100vh;
+  width: 100%;
 }
 
 .frame {
@@ -124,7 +121,7 @@ html {
 
 @media only screen and (min-width: 1025px), screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
   .frame__header .logo {
-    font-size: 31px;
+    font-size: calc(31px + .82vmin);
   }
 }
 
@@ -135,6 +132,11 @@ html {
 .frame__nav li {
   display: block;
   margin-bottom: .7rem;
+}
+
+.frame__nav a:hover {
+  background-color: #f3ff43;
+  text-decoration: underline;
 }
 
 .home-container {
