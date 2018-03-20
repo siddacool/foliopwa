@@ -2022,6 +2022,10 @@ var _WorkView = __webpack_require__(46);
 
 var _WorkView2 = _interopRequireDefault(_WorkView);
 
+var _FolderView = __webpack_require__(55);
+
+var _FolderView2 = _interopRequireDefault(_FolderView);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var routes = [{
@@ -2033,6 +2037,10 @@ var routes = [{
   name: 'Work',
   path: '/work/:is',
   view: _WorkView2.default
+}, {
+  name: 'Folder',
+  path: '/folder/:id',
+  view: _FolderView2.default
 }];
 
 exports.default = routes;
@@ -3066,7 +3074,7 @@ exports.default = class extends _domrA.Component {
   }
 
   dom() {
-    return '\n      <div class="work-container">\n      </div>\n    ';
+    return '\n      <ul class="work-container">\n      </ul>\n    ';
   }
 
   delay() {
@@ -3080,7 +3088,10 @@ exports.default = class extends _domrA.Component {
 
       albums.forEach(function (album) {
         if (album.type === _this.work_is) {
-          console.log(album.album_id);
+          var workAlbum = new _WorkAlbum2.default(album, _this.images_api);
+          var self = _this.target();
+
+          workAlbum.addTo(self);
         }
       });
     });
@@ -3100,18 +3111,188 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrA = __webpack_require__(2);
 
-exports.default = class extends _domrA.Component {
-  constructor() {
-    var album = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    var imagesApi = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+var _axios = __webpack_require__(26);
 
+var _axios2 = _interopRequireDefault(_axios);
+
+var _WorkAlbumCover = __webpack_require__(54);
+
+var _WorkAlbumCover2 = _interopRequireDefault(_WorkAlbumCover);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = class extends _domrA.Component {
+  constructor(album, imagesApi) {
     super();
     this.album = album;
-    this.images_api = imagesApi;
+    this.imagesApi = imagesApi;
   }
 
   dom() {
-    return '\n      <li class="album-card" data-type="' + this.album.type + '">\n        <a href="#" class="album-card__container">\n          <div class="album-card__img">\n          <img src="" alt="" />\n          </div>\n          <h3 class="album-card__name">' + this.album.name + '</h3>\n        </a>\n      </li>\n    ';
+    return '\n      <li class="album-card" data-type="' + this.album.type + '" data-cover-id="' + this.album.cover_pic + '">\n        <a href="#/folder/' + this.album.album_id + '" class="album-card__container">\n          <div class="album-card__img"><img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs" alt="" /></div>\n          <div class="album-card__name">\n            <h3 class="highlight">' + this.album.name + '</h3>\n          </div>\n        </a>\n      </li>\n    ';
+  }
+
+  delay() {
+    var _this = this;
+
+    if (this.album.cover_pic) {
+      (0, _axios2.default)({
+        method: 'get',
+        url: this.imagesApi
+      }).then(function (response) {
+        var images = response.data;
+
+        images.forEach(function (image) {
+          if (image.image_id === _this.album.cover_pic) {
+            var self = _this.target();
+            var cardImgContainer = self.querySelector('.album-card__img');
+            var workAlbumCover = new _WorkAlbumCover2.default(image);
+            workAlbumCover.replaceContentOf(cardImgContainer);
+          }
+        });
+      });
+    }
+  }
+};
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrA = __webpack_require__(2);
+
+exports.default = class extends _domrA.Component {
+  constructor(photo) {
+    super();
+    this.photo = photo;
+  }
+
+  dom() {
+    return '\n      <img src="' + this.photo.img.thumb_small + '" alt="" />\n    ';
+  }
+};
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (data) {
+  if (data && data.metadata && data.metadata.id) {
+    var main = document.getElementById('main');
+    var id = data.metadata.id;
+    var homePageContainer = new _FolderPageContainer2.default(jsonApiAlbums, jsonApiImages, id);
+
+    main.innerHTML = homePageContainer.render();
+  }
+};
+
+var _FolderPageContainer = __webpack_require__(56);
+
+var _FolderPageContainer2 = _interopRequireDefault(_FolderPageContainer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var jsonApiAlbums = 'https://sid-mangela-folio-db.firebaseapp.com/albums.json';
+var jsonApiImages = 'https://sid-mangela-folio-db.firebaseapp.com/images.json';
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrA = __webpack_require__(2);
+
+var _axios = __webpack_require__(26);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _HomePageAlbum = __webpack_require__(45);
+
+var _HomePageAlbum2 = _interopRequireDefault(_HomePageAlbum);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = class extends _domrA.Component {
+  constructor() {
+    var albumsApi = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    var imagesApi = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+    var id = arguments[2];
+
+    super();
+    this.albums_api = albumsApi;
+    this.images_api = imagesApi;
+    this.album_id = id;
+  }
+
+  dom() {
+    return '\n      <div class="home-container">\n      </div>\n    ';
+  }
+
+  delay() {
+    var _this = this;
+
+    (0, _axios2.default)({
+      method: 'get',
+      url: this.albums_api
+    }).then(function (responseAlbums) {
+      var albums = responseAlbums.data;
+
+      albums.forEach(function (album) {
+        if (album.album_id === _this.album_id) {
+          var photosList = album.photos_list;
+          var homeContainer = _this.target();
+
+          (0, _axios2.default)({
+            method: 'get',
+            url: _this.images_api
+          }).then(function (responseImages) {
+            var images = responseImages.data;
+            var allImages = [];
+            images.forEach(function (image) {
+              if (album.photos_list.includes(image.image_id)) {
+                allImages.push(image);
+              }
+            });
+
+            var _loop = function _loop(i) {
+              var isData = allImages.find(function (x) {
+                return x.image_id === photosList[i];
+              });
+              if (isData) {
+                var homePageAlbum = new _HomePageAlbum2.default(isData);
+                if (homeContainer) {
+                  homePageAlbum.addTo(homeContainer);
+                }
+              }
+            };
+
+            for (var i = 0; i < photosList.length; i++) {
+              _loop(i);
+            }
+          });
+        }
+      });
+    });
   }
 };
 

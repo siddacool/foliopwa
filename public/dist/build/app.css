@@ -85,6 +85,14 @@ html {
   width: 100%;
 }
 
+.highlight {
+  background-color: #fff;
+  font-weight: 600;
+  line-height: 1;
+  padding: 1px;
+  text-transform: capitalize;
+}
+
 .frame {
   display: inline-block;
   left: 0;
@@ -95,14 +103,6 @@ html {
 
 .frame__container {
   padding: 2rem 0 1rem 2rem;
-}
-
-.frame .highlight {
-  background-color: #fff;
-  font-weight: 600;
-  line-height: 1;
-  padding: 1px;
-  text-transform: capitalize;
 }
 
 .frame__header {
@@ -181,4 +181,74 @@ html {
     height: 120vh;
     margin-bottom: 200px;
   }
+}
+
+.work-container {
+  padding: 1rem;
+}
+
+@media only screen and (min-width: 1025px), screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+  .work-container {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+            flex-wrap: wrap;
+    margin-left: auto;
+    max-width: calc(100% - 300px);
+    padding-top: 2rem;
+  }
+}
+
+.work-container .album-card {
+  display: block;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+@media only screen and (min-width: 1025px), screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+  .work-container .album-card {
+    margin: 2%;
+    margin-bottom: 4%;
+    margin-top: 0;
+  }
+}
+
+.work-container .album-card__img {
+  border-radius: 3px;
+  height: 250px;
+  width: 100%;
+}
+
+@media only screen and (min-width: 1025px), screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+  .work-container .album-card__img {
+    width: 300px;
+  }
+}
+
+.work-container .album-card__img img {
+  background-color: #bcbcbc;
+  border-radius: 3px;
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.work-container .album-card__container:hover .album-card__name h3 {
+  background-color: #f3ff43;
+  text-decoration: underline;
+}
+
+.work-container .album-card__name {
+  bottom: 0;
+  display: block;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+.work-container .album-card__name h3 {
+  font-size: 16px;
+  padding: 3px;
 }
