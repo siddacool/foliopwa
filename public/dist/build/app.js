@@ -2043,8 +2043,8 @@ var _HomePageContainer2 = _interopRequireDefault(_HomePageContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var jsonApiAlbums = 'https://sid-mangela-folio-db.firebaseapp.com/albums.json';
-var jsonApiImages = 'https://sid-mangela-folio-db.firebaseapp.com/images.json';
+var jsonApiAlbums = 'https://sid-mangela-folio-db.firebaseapp.com/albums-c.json';
+var jsonApiImages = 'https://sid-mangela-folio-db.firebaseapp.com/images-c.json';
 
 /***/ }),
 /* 27 */
@@ -2986,8 +2986,8 @@ var _WorkContainer2 = _interopRequireDefault(_WorkContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var jsonApiAlbums = 'https://sid-mangela-folio-db.firebaseapp.com/albums.json';
-var jsonApiImages = 'https://sid-mangela-folio-db.firebaseapp.com/images.json';
+var jsonApiAlbums = 'https://sid-mangela-folio-db.firebaseapp.com/albums-c.json';
+var jsonApiImages = 'https://sid-mangela-folio-db.firebaseapp.com/images-c.json';
 
 /***/ }),
 /* 47 */
@@ -3156,8 +3156,8 @@ var _FolderPageContainer2 = _interopRequireDefault(_FolderPageContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var jsonApiAlbums = 'https://sid-mangela-folio-db.firebaseapp.com/albums.json';
-var jsonApiImages = 'https://sid-mangela-folio-db.firebaseapp.com/images.json';
+var jsonApiAlbums = 'https://sid-mangela-folio-db.firebaseapp.com/albums-c.json';
+var jsonApiImages = 'https://sid-mangela-folio-db.firebaseapp.com/images-c.json';
 
 /***/ }),
 /* 51 */
