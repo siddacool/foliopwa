@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "public/dist/build/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 14);
+/******/ 	return __webpack_require__(__webpack_require__.s = 15);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,7 +71,7 @@
 
 
 var bind = __webpack_require__(8);
-var isBuffer = __webpack_require__(28);
+var isBuffer = __webpack_require__(29);
 
 /*global toString:true*/
 
@@ -383,12 +383,47 @@ module.exports = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.utils = exports.Router = exports.DataComponent = exports.Component = undefined;
 
-var _hashLocationSet = __webpack_require__(21);
+var _Component = __webpack_require__(17);
+
+var _Component2 = _interopRequireDefault(_Component);
+
+var _DataComponent = __webpack_require__(18);
+
+var _DataComponent2 = _interopRequireDefault(_DataComponent);
+
+var _Router = __webpack_require__(19);
+
+var _Router2 = _interopRequireDefault(_Router);
+
+var _utils = __webpack_require__(24);
+
+var _utils2 = _interopRequireDefault(_utils);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.Component = _Component2.default;
+exports.DataComponent = _DataComponent2.default;
+exports.Router = _Router2.default;
+exports.utils = _utils2.default;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _hashLocationSet = __webpack_require__(22);
 
 var _hashLocationSet2 = _interopRequireDefault(_hashLocationSet);
 
-var _hashLocationGet = __webpack_require__(22);
+var _hashLocationGet = __webpack_require__(23);
 
 var _hashLocationGet2 = _interopRequireDefault(_hashLocationGet);
 
@@ -443,49 +478,20 @@ var hashLocation = loc;
 exports.default = hashLocation;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.utils = exports.Router = exports.DataComponent = exports.Component = undefined;
-
-var _Component = __webpack_require__(16);
-
-var _Component2 = _interopRequireDefault(_Component);
-
-var _DataComponent = __webpack_require__(17);
-
-var _DataComponent2 = _interopRequireDefault(_DataComponent);
-
-var _Router = __webpack_require__(18);
-
-var _Router2 = _interopRequireDefault(_Router);
-
-var _utils = __webpack_require__(23);
-
-var _utils2 = _interopRequireDefault(_utils);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.Component = _Component2.default;
-exports.DataComponent = _DataComponent2.default;
-exports.Router = _Router2.default;
-exports.utils = _utils2.default;
+module.exports = __webpack_require__(28);
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(30);
+var normalizeHeaderName = __webpack_require__(31);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -582,7 +588,7 @@ module.exports = defaults;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -609,7 +615,7 @@ function createElement(str, domrDataId) {
 exports.default = createElement;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -629,7 +635,7 @@ function Lookup(elmId) {
 exports.default = Lookup;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -645,91 +651,6 @@ function randomizer() {
 }
 
 exports.default = randomizer;
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _domrA = __webpack_require__(2);
-
-var _axios = __webpack_require__(26);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _HomePageAlbum = __webpack_require__(45);
-
-var _HomePageAlbum2 = _interopRequireDefault(_HomePageAlbum);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = class extends _domrA.Component {
-  constructor() {
-    var albumsApi = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-    var imagesApi = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-
-    super();
-    this.albums_api = albumsApi;
-    this.images_api = imagesApi;
-  }
-
-  dom() {
-    return '\n      <div class="home-container">\n      </div>\n    ';
-  }
-
-  delay() {
-    var _this = this;
-
-    (0, _axios2.default)({
-      method: 'get',
-      url: this.albums_api
-    }).then(function (responseAlbums) {
-      var albums = responseAlbums.data;
-
-      albums.forEach(function (album) {
-        if (album.name === 'top-images') {
-          var photosList = album.photos_list;
-          var homeContainer = _this.target();
-
-          (0, _axios2.default)({
-            method: 'get',
-            url: _this.images_api
-          }).then(function (responseImages) {
-            var images = responseImages.data;
-            var allImages = [];
-            images.forEach(function (image) {
-              if (album.photos_list.includes(image.image_id)) {
-                allImages.push(image);
-              }
-            });
-
-            var _loop = function _loop(i) {
-              var isData = allImages.find(function (x) {
-                return x.image_id === photosList[i];
-              });
-              if (isData) {
-                var homePageAlbum = new _HomePageAlbum2.default(isData);
-                if (homeContainer) {
-                  homePageAlbum.addTo(homeContainer);
-                }
-              }
-            };
-
-            for (var i = 0; i < photosList.length; i++) {
-              _loop(i);
-            }
-          });
-        }
-      });
-    });
-  }
-};
 
 /***/ }),
 /* 8 */
@@ -947,12 +868,12 @@ process.umask = function() { return 0; };
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var settle = __webpack_require__(31);
-var buildURL = __webpack_require__(33);
-var parseHeaders = __webpack_require__(34);
-var isURLSameOrigin = __webpack_require__(35);
+var settle = __webpack_require__(32);
+var buildURL = __webpack_require__(34);
+var parseHeaders = __webpack_require__(35);
+var isURLSameOrigin = __webpack_require__(36);
 var createError = __webpack_require__(11);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(36);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(37);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -1049,7 +970,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(37);
+      var cookies = __webpack_require__(38);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -1134,7 +1055,7 @@ module.exports = function xhrAdapter(config) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(32);
+var enhanceError = __webpack_require__(33);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -1197,9 +1118,51 @@ module.exports = Cancel;
 "use strict";
 
 
-__webpack_require__(15);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-__webpack_require__(47);
+var _domrA = __webpack_require__(1);
+
+exports.default = class extends _domrA.Component {
+  constructor() {
+    var photo = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    super();
+    this.photo = photo;
+  }
+
+  dom() {
+    console.log(this.photo.isMature);
+    return '\n      <img src="' + this.photo.img.thumb_small + '" data-image-src="' + this.photo.img.thumb_large + '" class="' + (this.photo.isMature ? 'is-mature' : '') + '"alt="" />\n    ';
+  }
+
+  events() {
+    this.addEvent('click', function (self, e) {
+      e.preventDefault();
+      if (self.classList.contains('is-mature')) {
+        var thisImg = self;
+        var dataSrc = thisImg.getAttribute('data-image-src');
+
+        thisImg.src = dataSrc;
+        thisImg.classList.remove('is-mature');
+        thisImg.removeAttribute('data-image-src');
+      }
+    });
+  }
+
+  delay() {
+    var self = this.target();
+    var dataSrc = self.getAttribute('data-image-src');
+
+    setTimeout(function () {
+      if (!self.classList.contains('is-mature')) {
+        self.src = dataSrc;
+        self.removeAttribute('data-image-src');
+      }
+    }, 1500);
+  }
+};
 
 /***/ }),
 /* 15 */
@@ -1208,9 +1171,20 @@ __webpack_require__(47);
 "use strict";
 
 
-var _domrA = __webpack_require__(2);
+__webpack_require__(16);
 
-var _routes = __webpack_require__(24);
+__webpack_require__(52);
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _domrA = __webpack_require__(1);
+
+var _routes = __webpack_require__(25);
 
 var _routes2 = _interopRequireDefault(_routes);
 
@@ -1225,7 +1199,7 @@ router.showRoutes();
 router.start();
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1237,15 +1211,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _createElement = __webpack_require__(4);
+var _createElement = __webpack_require__(5);
 
 var _createElement2 = _interopRequireDefault(_createElement);
 
-var _lookup = __webpack_require__(5);
+var _lookup = __webpack_require__(6);
 
 var _lookup2 = _interopRequireDefault(_lookup);
 
-var _randomizer = __webpack_require__(6);
+var _randomizer = __webpack_require__(7);
 
 var _randomizer2 = _interopRequireDefault(_randomizer);
 
@@ -1406,7 +1380,7 @@ var _class = function () {
 exports.default = _class;
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1418,15 +1392,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _randomizer = __webpack_require__(6);
+var _randomizer = __webpack_require__(7);
 
 var _randomizer2 = _interopRequireDefault(_randomizer);
 
-var _createElement = __webpack_require__(4);
+var _createElement = __webpack_require__(5);
 
 var _createElement2 = _interopRequireDefault(_createElement);
 
-var _lookup = __webpack_require__(5);
+var _lookup = __webpack_require__(6);
 
 var _lookup2 = _interopRequireDefault(_lookup);
 
@@ -1616,7 +1590,7 @@ var _class = function () {
 exports.default = _class;
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1628,11 +1602,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _addView = __webpack_require__(19);
+var _addView = __webpack_require__(20);
 
 var _addView2 = _interopRequireDefault(_addView);
 
-var _hashLocation = __webpack_require__(1);
+var _hashLocation = __webpack_require__(2);
 
 var _hashLocation2 = _interopRequireDefault(_hashLocation);
 
@@ -1765,7 +1739,7 @@ var _class = function () {
 exports.default = _class;
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1775,7 +1749,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _cloneObject = __webpack_require__(20);
+var _cloneObject = __webpack_require__(21);
 
 var _cloneObject2 = _interopRequireDefault(_cloneObject);
 
@@ -1798,7 +1772,7 @@ function addView(candidate) {
 exports.default = addView;
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1837,7 +1811,7 @@ function cloneObject(obj) {
 exports.default = cloneObject;
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1847,7 +1821,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _hashLocation = __webpack_require__(1);
+var _hashLocation = __webpack_require__(2);
 
 var _hashLocation2 = _interopRequireDefault(_hashLocation);
 
@@ -1951,7 +1925,7 @@ function hashLocationSet(field, opt) {
 exports.default = hashLocationSet;
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1961,7 +1935,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _hashLocation = __webpack_require__(1);
+var _hashLocation = __webpack_require__(2);
 
 var _hashLocation2 = _interopRequireDefault(_hashLocation);
 
@@ -1981,7 +1955,7 @@ function hashLocationGet(field) {
 exports.default = hashLocationGet;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1991,7 +1965,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _hashLocation = __webpack_require__(1);
+var _hashLocation = __webpack_require__(2);
 
 var _hashLocation2 = _interopRequireDefault(_hashLocation);
 
@@ -2004,7 +1978,7 @@ var utils = {
 exports.default = utils;
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2014,7 +1988,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _HomePageView = __webpack_require__(25);
+var _HomePageView = __webpack_require__(26);
 
 var _HomePageView2 = _interopRequireDefault(_HomePageView);
 
@@ -2022,7 +1996,7 @@ var _WorkView = __webpack_require__(46);
 
 var _WorkView2 = _interopRequireDefault(_WorkView);
 
-var _FolderView = __webpack_require__(55);
+var _FolderView = __webpack_require__(50);
 
 var _FolderView2 = _interopRequireDefault(_FolderView);
 
@@ -2046,7 +2020,7 @@ var routes = [{
 exports.default = routes;
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2063,7 +2037,7 @@ exports.default = function () {
   main.innerHTML = homePageContainer.render();
 };
 
-var _HomePageContainer = __webpack_require__(7);
+var _HomePageContainer = __webpack_require__(27);
 
 var _HomePageContainer2 = _interopRequireDefault(_HomePageContainer);
 
@@ -2073,13 +2047,35 @@ var jsonApiAlbums = 'https://sid-mangela-folio-db.firebaseapp.com/albums.json';
 var jsonApiImages = 'https://sid-mangela-folio-db.firebaseapp.com/images.json';
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(27);
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _ShowCase = __webpack_require__(57);
+
+var _ShowCase2 = _interopRequireDefault(_ShowCase);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = class extends _ShowCase2.default {
+  constructor() {
+    var albumsApi = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    var imagesApi = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
+    super(albumsApi, imagesApi, {
+      titleText: 'For__Me, I did it for me. I liked it. I was good at it. \nI__was__alive.'
+    });
+  }
+};
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2087,8 +2083,8 @@ module.exports = __webpack_require__(27);
 
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(8);
-var Axios = __webpack_require__(29);
-var defaults = __webpack_require__(3);
+var Axios = __webpack_require__(30);
+var defaults = __webpack_require__(4);
 
 /**
  * Create an instance of Axios
@@ -2122,14 +2118,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(13);
-axios.CancelToken = __webpack_require__(43);
+axios.CancelToken = __webpack_require__(44);
 axios.isCancel = __webpack_require__(12);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(44);
+axios.spread = __webpack_require__(45);
 
 module.exports = axios;
 
@@ -2138,7 +2134,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 /*!
@@ -2165,16 +2161,16 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var defaults = __webpack_require__(3);
+var defaults = __webpack_require__(4);
 var utils = __webpack_require__(0);
-var InterceptorManager = __webpack_require__(38);
-var dispatchRequest = __webpack_require__(39);
+var InterceptorManager = __webpack_require__(39);
+var dispatchRequest = __webpack_require__(40);
 
 /**
  * Create a new instance of Axios
@@ -2251,7 +2247,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2270,7 +2266,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2303,7 +2299,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2331,7 +2327,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2404,7 +2400,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2464,7 +2460,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2539,7 +2535,7 @@ module.exports = (
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2582,7 +2578,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2642,7 +2638,7 @@ module.exports = (
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2701,18 +2697,18 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var transformData = __webpack_require__(40);
+var transformData = __webpack_require__(41);
 var isCancel = __webpack_require__(12);
-var defaults = __webpack_require__(3);
-var isAbsoluteURL = __webpack_require__(41);
-var combineURLs = __webpack_require__(42);
+var defaults = __webpack_require__(4);
+var isAbsoluteURL = __webpack_require__(42);
+var combineURLs = __webpack_require__(43);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -2794,7 +2790,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2821,7 +2817,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2842,7 +2838,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2863,7 +2859,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2927,7 +2923,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2961,42 +2957,6 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _domrA = __webpack_require__(2);
-
-exports.default = class extends _domrA.Component {
-  constructor() {
-    var photo = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-    super();
-    this.photo = photo;
-  }
-
-  dom() {
-    return '\n      <img src="' + this.photo.img.thumb_small + '" data-image-src="' + this.photo.img.thumb_large + '" alt="" />\n    ';
-  }
-
-  delay() {
-    var self = this.target();
-    var dataSrc = self.getAttribute('data-image-src');
-
-    setTimeout(function () {
-      self.src = dataSrc;
-      self.removeAttribute('data-image-src');
-    }, 1500);
-  }
-};
-
-/***/ }),
 /* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3020,7 +2980,7 @@ exports.default = function (data) {
   }
 };
 
-var _WorkContainer = __webpack_require__(52);
+var _WorkContainer = __webpack_require__(47);
 
 var _WorkContainer2 = _interopRequireDefault(_WorkContainer);
 
@@ -3031,16 +2991,6 @@ var jsonApiImages = 'https://sid-mangela-folio-db.firebaseapp.com/images.json';
 
 /***/ }),
 /* 47 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3050,13 +3000,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _domrA = __webpack_require__(2);
+var _domrA = __webpack_require__(1);
 
-var _axios = __webpack_require__(26);
+var _axios = __webpack_require__(3);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _WorkAlbum = __webpack_require__(53);
+var _WorkAlbum = __webpack_require__(48);
 
 var _WorkAlbum2 = _interopRequireDefault(_WorkAlbum);
 
@@ -3074,7 +3024,7 @@ exports.default = class extends _domrA.Component {
   }
 
   dom() {
-    return '\n      <ul class="work-container">\n      </ul>\n    ';
+    return '\n      <ul class="container container--gapped work-container"></ul>\n    ';
   }
 
   delay() {
@@ -3099,7 +3049,7 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 53 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3109,13 +3059,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _domrA = __webpack_require__(2);
+var _domrA = __webpack_require__(1);
 
-var _axios = __webpack_require__(26);
+var _axios = __webpack_require__(3);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _WorkAlbumCover = __webpack_require__(54);
+var _WorkAlbumCover = __webpack_require__(49);
 
 var _WorkAlbumCover2 = _interopRequireDefault(_WorkAlbumCover);
 
@@ -3156,7 +3106,7 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 54 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3166,7 +3116,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _domrA = __webpack_require__(2);
+var _domrA = __webpack_require__(1);
 
 exports.default = class extends _domrA.Component {
   constructor(photo) {
@@ -3180,7 +3130,7 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 55 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3200,7 +3150,7 @@ exports.default = function (data) {
   }
 };
 
-var _FolderPageContainer = __webpack_require__(56);
+var _FolderPageContainer = __webpack_require__(51);
 
 var _FolderPageContainer2 = _interopRequireDefault(_FolderPageContainer);
 
@@ -3210,7 +3160,7 @@ var jsonApiAlbums = 'https://sid-mangela-folio-db.firebaseapp.com/albums.json';
 var jsonApiImages = 'https://sid-mangela-folio-db.firebaseapp.com/images.json';
 
 /***/ }),
-/* 56 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3220,32 +3170,129 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _domrA = __webpack_require__(2);
+var _ShowCase = __webpack_require__(57);
 
-var _axios = __webpack_require__(26);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _HomePageAlbum = __webpack_require__(45);
-
-var _HomePageAlbum2 = _interopRequireDefault(_HomePageAlbum);
+var _ShowCase2 = _interopRequireDefault(_ShowCase);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = class extends _domrA.Component {
+exports.default = class extends _ShowCase2.default {
   constructor() {
     var albumsApi = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
     var imagesApi = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
     var id = arguments[2];
 
+    super(albumsApi, imagesApi, {
+      containerName: 'folder-container',
+      albumid: id,
+      classNames: 'container--gapped container--showcase--mini'
+    });
+  }
+};
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrA = __webpack_require__(1);
+
+var _axios = __webpack_require__(3);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _HomePageAlbum = __webpack_require__(14);
+
+var _HomePageAlbum2 = _interopRequireDefault(_HomePageAlbum);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function namePrint(titleText) {
+  var name = 'The Photo';
+
+  if (titleText) {
+    name = titleText;
+  }
+
+  var ogName = name;
+  name = name.split(' ');
+  var name0 = name[0];
+  var lastName = name['' + (name.length - 1)].replace(/__/g, ' ');
+  var nameRest = ogName.replace(name0, '').trim().replace(/__/g, ' ');
+
+  return '\n    <div class="album-title">\n      <span class="name0 highlight">' + name0.replace(/__/g, ' ') + '</span>\n      <span class="name1 highlight">' + nameRest + '</span>\n      <span class="last-name">' + lastName + '</span>\n      <span class="last-name">' + lastName + '</span>\n      <span class="last-name">' + lastName + '</span>\n      <span class="last-name" style="opacity: .8">' + lastName + '</span>\n      <span class="last-name" style="opacity: .6">' + lastName + '</span>\n    </div>\n  ';
+}
+
+function loadImageApi(imagesApi, albumData, targetContainer, titleText) {
+  var photosList = albumData.photos_list;
+  var homeContainer = targetContainer;
+
+  (0, _axios2.default)({
+    method: 'get',
+    url: imagesApi
+  }).then(function (responseImages) {
+    var images = responseImages.data;
+    var allImages = [];
+    var albumName = namePrint('' + (titleText ? titleText : albumData.name));
+    images.forEach(function (image) {
+      if (albumData.photos_list.includes(image.image_id)) {
+        allImages.push(image);
+      }
+    });
+
+    var _loop = function _loop(i) {
+      var isData = allImages.find(function (x) {
+        return x.image_id === photosList[i];
+      });
+      if (isData) {
+        var homePageAlbum = new _HomePageAlbum2.default(isData);
+        if (homeContainer) {
+          homePageAlbum.addTo(homeContainer);
+        }
+      }
+    };
+
+    for (var i = 0; i < photosList.length; i++) {
+      _loop(i);
+    }
+
+    homeContainer.innerHTML += albumName;
+  });
+}
+
+exports.default = class extends _domrA.Component {
+  constructor() {
+    var albumsApi = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    var imagesApi = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+    var config = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
     super();
     this.albums_api = albumsApi;
     this.images_api = imagesApi;
-    this.album_id = id;
+    this.container_name = config.containerName || 'home-container';
+    this.album_id = config.albumid || '';
+    this.class_names = config.classNames || '';
+    this.title_text = config.titleText || '';
   }
 
   dom() {
-    return '\n      <div class="home-container">\n      </div>\n    ';
+    return '\n      <div class="container container--showcase ' + this.class_names + ' ' + this.container_name + '"></div>\n    ';
   }
 
   delay() {
@@ -3258,38 +3305,14 @@ exports.default = class extends _domrA.Component {
       var albums = responseAlbums.data;
 
       albums.forEach(function (album) {
-        if (album.album_id === _this.album_id) {
-          var photosList = album.photos_list;
-          var homeContainer = _this.target();
-
-          (0, _axios2.default)({
-            method: 'get',
-            url: _this.images_api
-          }).then(function (responseImages) {
-            var images = responseImages.data;
-            var allImages = [];
-            images.forEach(function (image) {
-              if (album.photos_list.includes(image.image_id)) {
-                allImages.push(image);
-              }
-            });
-
-            var _loop = function _loop(i) {
-              var isData = allImages.find(function (x) {
-                return x.image_id === photosList[i];
-              });
-              if (isData) {
-                var homePageAlbum = new _HomePageAlbum2.default(isData);
-                if (homeContainer) {
-                  homePageAlbum.addTo(homeContainer);
-                }
-              }
-            };
-
-            for (var i = 0; i < photosList.length; i++) {
-              _loop(i);
-            }
-          });
+        if (_this.album_id) {
+          if (album.album_id === _this.album_id) {
+            loadImageApi(_this.images_api, album, _this.target(), _this.title_text);
+          }
+        } else {
+          if (album.name === 'top-images') {
+            loadImageApi(_this.images_api, album, _this.target(), _this.title_text);
+          }
         }
       });
     });
