@@ -109,67 +109,138 @@ html {
 }
 
 @media only screen and (min-width: 1025px), screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
-  .container--gapped > img:first-child {
+  .container--gapped > .img:first-child {
     padding-top: 0;
   }
 }
 
-.container--showcase img {
+.container--gapped > .img[data-isMature] {
+  font-size: 26px;
+  position: relative;
+}
+
+@media only screen and (min-width: 1025px), screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+  .container--gapped > .img[data-isMature] {
+    font-size: calc(30px + .8vw);
+  }
+}
+
+.container--gapped > .img[data-isMature][data-isMature='clicked']:before {
+  display: none;
+}
+
+.container--gapped > .img[data-isMature][data-isMature='clicked']:after {
+  display: none;
+}
+
+.container--gapped > .img[data-isMature]:before {
+  color: #fff;
+  content: 'Mature Content';
+  display: -webkit-flex;
+  display: flex;
+  font-weight: 600;
+  -webkit-justify-content: center;
+          justify-content: center;
+  left: 10px;
+  overflow: hidden;
+  position: absolute;
+  text-transform: uppercase;
+  top: 40%;
+  width: 100%;
+  z-index: 50;
+}
+
+.container--gapped > .img[data-isMature]:after {
+  content: 'Tap to View';
+  display: -webkit-flex;
+  display: flex;
+  font-weight: 600;
+  -webkit-justify-content: center;
+          justify-content: center;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  text-transform: uppercase;
+  top: 60%;
+  width: 100%;
+  z-index: 55;
+}
+
+@media only screen and (min-width: 1025px), screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+  .container--gapped > .img[data-isMature]:after {
+    content: 'Click to View';
+  }
+}
+
+.container--showcase .img {
   border-radius: 3px;
   display: block;
   height: 70vh;
+  margin-bottom: 50px;
+  width: 100%;
+}
+
+.container--showcase .img img {
+  height: 100%;
   object-fit: contain;
   width: 100%;
 }
 
 @media only screen and (min-width: 1025px), screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
-  .container--showcase img {
+  .container--showcase .img {
     height: 100vh;
     margin: 1rem auto;
     width: calc(50% - 2rem);
   }
 }
 
-.container--showcase img:first-child {
+.container--showcase .img:first-child {
   background-color: #bcbcbc;
   border-radius: 3px;
   height: 110vh;
   margin-bottom: 40px;
-  object-fit: cover;
   width: 100%;
 }
 
+.container--showcase .img:first-child img {
+  object-fit: cover;
+}
+
 @media only screen and (min-width: 1025px), screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
-  .container--showcase img:first-child {
+  .container--showcase .img:first-child {
     height: 120vh;
     margin-bottom: 200px;
     width: calc(100% - 2rem);
   }
 }
 
-.container--showcase--mini img:first-child {
+.container--showcase--mini .img:first-child {
   margin-bottom: 100px;
 }
 
 @media only screen and (min-width: 1025px), screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
-  .container--showcase--mini img:first-child {
+  .container--showcase--mini .img:first-child {
     height: 100vh;
     margin-bottom: 200px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 2rem;
-    object-fit: cover;
   }
 }
 
 @media only screen and (min-width: 1600px) {
-  .container--showcase--mini img:first-child {
+  .container--showcase--mini .img:first-child {
     width: 90%;
   }
 }
 
+.container--showcase--mini .img:first-child img {
+  object-fit: cover;
+}
+
 .highlight {
   background-color: #fff;
+  color: black;
   font-weight: 600;
   line-height: 1;
   padding: 1px;
@@ -178,8 +249,9 @@ html {
 
 .album-title {
   display: block;
-  font-size: 45px;
+  font-size: 55px;
   max-width: 272px;
+  overflow: hidden;
   position: absolute;
   right: 6px;
   top: 79vh;
@@ -187,8 +259,8 @@ html {
 
 @media only screen and (min-width: 1025px), screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
   .album-title {
-    font-size: calc(58px + .8vmin);
-    max-width: 300px;
+    font-size: calc(80px + .8vmin);
+    max-width: 52vh;
     right: 3%;
     top: 69vmin;
   }
@@ -230,6 +302,7 @@ html {
 }
 
 .frame__header .logo {
+  box-shadow: 1px 1px 5px 0 #7a7a7a;
   display: -webkit-inline-flex;
   display: inline-flex;
   -webkit-flex-direction: column;
@@ -241,6 +314,7 @@ html {
 
 @media only screen and (min-width: 1025px), screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
   .frame__header .logo {
+    box-shadow: none;
     font-size: calc(31px + .82vmin);
   }
 }
@@ -252,6 +326,16 @@ html {
 .frame__nav li {
   display: block;
   margin-bottom: .7rem;
+}
+
+.frame__nav a {
+  box-shadow: 1px 1px 5px 0 #7a7a7a;
+}
+
+@media only screen and (min-width: 1025px), screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+  .frame__nav a {
+    box-shadow: none;
+  }
 }
 
 .frame__nav a:hover {
@@ -274,9 +358,16 @@ html {
   width: calc(100% - 2rem);
 }
 
+.home-container .album-title {
+  font-size: 48px;
+  top: 59vh;
+}
+
 @media only screen and (min-width: 1025px), screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
   .home-container .album-title {
+    font-size: calc(58px + .8vmin);
     max-width: 500px;
+    top: 66vh;
   }
 }
 
@@ -387,10 +478,48 @@ html {
 }
 
 .folder-container img.is-mature {
-  -webkit-filter: invert(100%);
-          filter: invert(100%);
+  -webkit-filter: blur(10px);
+          filter: blur(10px);
 }
 
-.folder-container img.is-mature:hover {
-  border: 2px solid #f3ff43;
+.about-container {
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+}
+
+.about-container header {
+  -webkit-filter: blur(5px);
+          filter: blur(5px);
+  font-size: 37px;
+  left: 11%;
+  padding: 1rem;
+}
+
+@media only screen and (min-width: 1025px), screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+  .about-container header {
+    position: absolute;
+  }
+}
+
+.about-container .content {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: .6px;
+  white-space: pre-line;
+}
+
+@media only screen and (min-width: 1025px), screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+  .about-container .content {
+    font-size: 40px;
+    margin-top: 40vh;
+  }
+}
+
+.about-container footer {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: .6px;
+  line-height: 2;
+  white-space: pre-line;
 }

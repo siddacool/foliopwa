@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "public/dist/build/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 15);
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70,8 +70,8 @@
 "use strict";
 
 
-var bind = __webpack_require__(8);
-var isBuffer = __webpack_require__(29);
+var bind = __webpack_require__(10);
+var isBuffer = __webpack_require__(30);
 
 /*global toString:true*/
 
@@ -385,19 +385,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.utils = exports.Router = exports.DataComponent = exports.Component = undefined;
 
-var _Component = __webpack_require__(17);
+var _Component = __webpack_require__(18);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _DataComponent = __webpack_require__(18);
+var _DataComponent = __webpack_require__(19);
 
 var _DataComponent2 = _interopRequireDefault(_DataComponent);
 
-var _Router = __webpack_require__(19);
+var _Router = __webpack_require__(20);
 
 var _Router2 = _interopRequireDefault(_Router);
 
-var _utils = __webpack_require__(24);
+var _utils = __webpack_require__(25);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -419,11 +419,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _hashLocationSet = __webpack_require__(22);
+var _hashLocationSet = __webpack_require__(23);
 
 var _hashLocationSet2 = _interopRequireDefault(_hashLocationSet);
 
-var _hashLocationGet = __webpack_require__(23);
+var _hashLocationGet = __webpack_require__(24);
 
 var _hashLocationGet2 = _interopRequireDefault(_hashLocationGet);
 
@@ -481,17 +481,36 @@ exports.default = hashLocation;
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(28);
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var api = {
+  images: 'https://sid-mangela-folio-db.firebaseapp.com/images.json',
+  images_cached: 'https://sid-mangela-folio-db.firebaseapp.com/images-c.json',
+  albums: 'https://sid-mangela-folio-db.firebaseapp.com/albums.json',
+  albums_cached: 'https://sid-mangela-folio-db.firebaseapp.com/albums-c.json'
+};
+
+exports.default = api;
 
 /***/ }),
 /* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(29);
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(31);
+var normalizeHeaderName = __webpack_require__(32);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -507,10 +526,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(10);
+    adapter = __webpack_require__(12);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(10);
+    adapter = __webpack_require__(12);
   }
   return adapter;
 }
@@ -585,10 +604,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -615,7 +634,7 @@ function createElement(str, domrDataId) {
 exports.default = createElement;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -635,7 +654,7 @@ function Lookup(elmId) {
 exports.default = Lookup;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -653,7 +672,126 @@ function randomizer() {
 exports.default = randomizer;
 
 /***/ }),
-/* 8 */
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrA = __webpack_require__(1);
+
+var _axios = __webpack_require__(4);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _HomePageAlbum = __webpack_require__(47);
+
+var _HomePageAlbum2 = _interopRequireDefault(_HomePageAlbum);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function namePrint(titleText) {
+  var name = 'The Photo';
+
+  if (titleText) {
+    name = titleText;
+  }
+
+  var ogName = name;
+  name = name.split(' ');
+  var name0 = name[0];
+  var lastName = name['' + (name.length - 1)].replace(/__/g, ' ');
+  var nameRest = ogName.replace(name0, '').trim().replace(/__/g, ' ');
+
+  return '\n    <div class="album-title">\n      <span class="name0 highlight">' + name0.replace(/__/g, ' ') + '</span>\n      <span class="name1 highlight">' + nameRest + '</span>\n      <span class="last-name">' + lastName + '</span>\n      <span class="last-name">' + lastName + '</span>\n      <span class="last-name">' + lastName + '</span>\n      <span class="last-name" style="opacity: .8">' + lastName + '</span>\n      <span class="last-name" style="opacity: .6">' + lastName + '</span>\n    </div>\n  ';
+}
+
+function loadImageApi(imagesApi, albumData, targetContainer, titleText) {
+  var photosList = albumData.photos_list;
+  var homeContainer = targetContainer;
+
+  (0, _axios2.default)({
+    method: 'get',
+    url: imagesApi
+  }).then(function (responseImages) {
+    var images = responseImages.data;
+    var allImages = [];
+    var albumName = namePrint('' + (titleText ? titleText : albumData.name));
+    images.forEach(function (image) {
+      if (albumData.photos_list.includes(image.image_id)) {
+        allImages.push(image);
+      }
+    });
+
+    var _loop = function _loop(i) {
+      var isData = allImages.find(function (x) {
+        return x.image_id === photosList[i];
+      });
+      if (isData) {
+        var homePageAlbum = new _HomePageAlbum2.default(isData);
+        if (homeContainer) {
+          homePageAlbum.addTo(homeContainer);
+        }
+      }
+    };
+
+    for (var i = 0; i < photosList.length; i++) {
+      _loop(i);
+    }
+
+    homeContainer.innerHTML += albumName;
+  });
+}
+
+exports.default = class extends _domrA.Component {
+  constructor() {
+    var albumsApi = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    var imagesApi = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+    var config = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+    super();
+    this.albums_api = albumsApi;
+    this.images_api = imagesApi;
+    this.container_name = config.containerName || 'home-container';
+    this.album_id = config.albumid || '';
+    this.class_names = config.classNames || '';
+    this.title_text = config.titleText || '';
+  }
+
+  dom() {
+    return '\n      <div class="container container--showcase ' + this.class_names + ' ' + this.container_name + '"></div>\n    ';
+  }
+
+  delay() {
+    var _this = this;
+
+    (0, _axios2.default)({
+      method: 'get',
+      url: this.albums_api
+    }).then(function (responseAlbums) {
+      var albums = responseAlbums.data;
+
+      albums.forEach(function (album) {
+        if (_this.album_id) {
+          if (album.album_id === _this.album_id) {
+            loadImageApi(_this.images_api, album, _this.target(), _this.title_text);
+          }
+        } else {
+          if (album.name === 'top-images') {
+            loadImageApi(_this.images_api, album, _this.target(), _this.title_text);
+          }
+        }
+      });
+    });
+  }
+};
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -671,7 +809,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -861,19 +999,19 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var settle = __webpack_require__(32);
-var buildURL = __webpack_require__(34);
-var parseHeaders = __webpack_require__(35);
-var isURLSameOrigin = __webpack_require__(36);
-var createError = __webpack_require__(11);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(37);
+var settle = __webpack_require__(33);
+var buildURL = __webpack_require__(35);
+var parseHeaders = __webpack_require__(36);
+var isURLSameOrigin = __webpack_require__(37);
+var createError = __webpack_require__(13);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(38);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -970,7 +1108,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(38);
+      var cookies = __webpack_require__(39);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -1046,16 +1184,16 @@ module.exports = function xhrAdapter(config) {
   });
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var enhanceError = __webpack_require__(33);
+var enhanceError = __webpack_require__(34);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -1074,7 +1212,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1086,7 +1224,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1112,79 +1250,26 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _domrA = __webpack_require__(1);
-
-exports.default = class extends _domrA.Component {
-  constructor() {
-    var photo = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-    super();
-    this.photo = photo;
-  }
-
-  dom() {
-    console.log(this.photo.isMature);
-    return '\n      <img src="' + this.photo.img.thumb_small + '" data-image-src="' + this.photo.img.thumb_large + '" class="' + (this.photo.isMature ? 'is-mature' : '') + '"alt="" />\n    ';
-  }
-
-  events() {
-    this.addEvent('click', function (self, e) {
-      e.preventDefault();
-      if (self.classList.contains('is-mature')) {
-        var thisImg = self;
-        var dataSrc = thisImg.getAttribute('data-image-src');
-
-        thisImg.src = dataSrc;
-        thisImg.classList.remove('is-mature');
-        thisImg.removeAttribute('data-image-src');
-      }
-    });
-  }
-
-  delay() {
-    var self = this.target();
-    var dataSrc = self.getAttribute('data-image-src');
-
-    setTimeout(function () {
-      if (!self.classList.contains('is-mature')) {
-        self.src = dataSrc;
-        self.removeAttribute('data-image-src');
-      }
-    }, 1500);
-  }
-};
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-__webpack_require__(16);
-
-__webpack_require__(52);
-
-/***/ }),
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+__webpack_require__(17);
+
+__webpack_require__(56);
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var _domrA = __webpack_require__(1);
 
-var _routes = __webpack_require__(25);
+var _routes = __webpack_require__(26);
 
 var _routes2 = _interopRequireDefault(_routes);
 
@@ -1199,7 +1284,7 @@ router.showRoutes();
 router.start();
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1211,15 +1296,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _createElement = __webpack_require__(5);
+var _createElement = __webpack_require__(6);
 
 var _createElement2 = _interopRequireDefault(_createElement);
 
-var _lookup = __webpack_require__(6);
+var _lookup = __webpack_require__(7);
 
 var _lookup2 = _interopRequireDefault(_lookup);
 
-var _randomizer = __webpack_require__(7);
+var _randomizer = __webpack_require__(8);
 
 var _randomizer2 = _interopRequireDefault(_randomizer);
 
@@ -1253,7 +1338,7 @@ var _class = function () {
   _createClass(_class, [{
     key: 'dom',
     value: function dom() {
-      return this.domContent;
+      return '';
     }
   }, {
     key: 'events',
@@ -1270,7 +1355,9 @@ var _class = function () {
   }, {
     key: 'addEvent',
     value: function addEvent(eventName, eventAction) {
-      this.addEventOn('[data-domr-id="' + this.domrid + '"]', eventName, eventAction);
+      if (this.target()) {
+        this.addEventOn('[data-domr-id="' + this.domrid + '"]', eventName, eventAction);
+      }
     }
   }, {
     key: 'addEventOn',
@@ -1296,7 +1383,9 @@ var _class = function () {
       var _this3 = this;
 
       setTimeout(function () {
-        _this3.delay();
+        if (_this3.target()) {
+          _this3.delay();
+        }
       }, 50);
     }
   }, {
@@ -1313,19 +1402,23 @@ var _class = function () {
     }
   }, {
     key: 'addTo',
-    value: function addTo() {
-      var parent = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.parentDefault;
-
-      parent.insertAdjacentHTML('beforeend', this.optimizedDom());
-      this.delayedContent();
+    value: function addTo(parent) {
+      if (parent) {
+        parent.insertAdjacentHTML('beforeend', this.optimizedDom());
+        this.delayedContent();
+      } else {
+        console.warn('parent not found');
+      }
     }
   }, {
     key: 'addFromStartTo',
-    value: function addFromStartTo() {
-      var parent = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.parentDefault;
-
-      parent.insertAdjacentHTML('afterbegin', this.optimizedDom());
-      this.delayedContent();
+    value: function addFromStartTo(parent) {
+      if (parent) {
+        parent.insertAdjacentHTML('afterbegin', this.optimizedDom());
+        this.delayedContent();
+      } else {
+        console.warn('parent not found');
+      }
     }
   }, {
     key: 'addBefore',
@@ -1361,16 +1454,19 @@ var _class = function () {
           console.warn('sibling has no parentElement');
         }
       } else {
-        console.error('sibling not found');
+        console.warn('sibling not found');
       }
     }
   }, {
     key: 'replaceContentOf',
-    value: function replaceContentOf() {
-      var parent = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.parentDefault;
-
-      parent.innerHTML = this.optimizedDom();
-      this.delayedContent();
+    value: function replaceContentOf(parent) {
+      if (parent) {
+        var thisParent = parent;
+        thisParent.innerHTML = this.optimizedDom();
+        this.delayedContent();
+      } else {
+        console.warn('parent not found');
+      }
     }
   }]);
 
@@ -1380,7 +1476,7 @@ var _class = function () {
 exports.default = _class;
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1392,15 +1488,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _randomizer = __webpack_require__(7);
+var _randomizer = __webpack_require__(8);
 
 var _randomizer2 = _interopRequireDefault(_randomizer);
 
-var _createElement = __webpack_require__(5);
+var _createElement = __webpack_require__(6);
 
 var _createElement2 = _interopRequireDefault(_createElement);
 
-var _lookup = __webpack_require__(6);
+var _lookup = __webpack_require__(7);
 
 var _lookup2 = _interopRequireDefault(_lookup);
 
@@ -1438,36 +1534,44 @@ var _class = function () {
         if (xmlhttp.readyState === 4) {
           if (xmlhttp.status === 200) {
             var responseText = xmlhttp.responseText.trim();
-            var obj = JSON.parse(responseText);
-            var makeElement = function makeElement(elm) {
-              return _this2.createElement(_this2.dom(elm), _this2.domrid);
-            };
-            var ajaxContent = '';
+            if (responseText.length) {
+              if (responseText.charAt(0) === '[' || responseText.charAt(0) === '{') {
+                var obj = JSON.parse(responseText);
+                var makeElement = function makeElement(elm) {
+                  return _this2.createElement(_this2.dom(elm), _this2.domrid);
+                };
+                var ajaxContent = '';
 
-            if (responseText.charAt(0) === '[') {
-              ajaxContent = '' + obj.map(function (elm) {
-                return '' + makeElement(elm);
-              }).join('');
-            } else if (responseText.charAt(0) === '{') {
-              ajaxContent = makeElement(obj);
-            }
+                if (responseText.charAt(0) === '[') {
+                  ajaxContent = '' + obj.map(function (elm) {
+                    return '' + makeElement(elm);
+                  }).join('');
+                } else if (responseText.charAt(0) === '{') {
+                  ajaxContent = makeElement(obj);
+                }
 
-            if (param === 'replaceContentOf') {
-              parent.innerHTML = ajaxContent;
-            } else if (param === 'addTo') {
-              parent.insertAdjacentHTML('beforeend', ajaxContent);
-            } else if (param === 'addFromStartTo') {
-              parent.insertAdjacentHTML('afterbegin', ajaxContent);
-            } else if (param === 'addBefore') {
-              parent.insertAdjacentHTML('beforebegin', ajaxContent);
-            } else if (param === 'addAfter') {
-              parent.insertAdjacentHTML('afterend', ajaxContent);
+                if (param === 'replaceContentOf') {
+                  parent.innerHTML = ajaxContent;
+                } else if (param === 'addTo') {
+                  parent.insertAdjacentHTML('beforeend', ajaxContent);
+                } else if (param === 'addFromStartTo') {
+                  parent.insertAdjacentHTML('afterbegin', ajaxContent);
+                } else if (param === 'addBefore') {
+                  parent.insertAdjacentHTML('beforebegin', ajaxContent);
+                } else if (param === 'addAfter') {
+                  parent.insertAdjacentHTML('afterend', ajaxContent);
+                } else {
+                  console.log(obj);
+                }
+
+                _this2.events();
+                _this2.delayedContent(obj);
+              } else {
+                console.warn('not a suitable API');
+              }
             } else {
-              console.log(obj);
+              console.warn('Empty API');
             }
-
-            _this2.events();
-            _this2.delayedContent(obj);
           }
         }
       };
@@ -1590,7 +1694,7 @@ var _class = function () {
 exports.default = _class;
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1602,7 +1706,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _addView = __webpack_require__(20);
+var _addView = __webpack_require__(21);
 
 var _addView2 = _interopRequireDefault(_addView);
 
@@ -1739,7 +1843,7 @@ var _class = function () {
 exports.default = _class;
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1749,7 +1853,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _cloneObject = __webpack_require__(21);
+var _cloneObject = __webpack_require__(22);
 
 var _cloneObject2 = _interopRequireDefault(_cloneObject);
 
@@ -1772,7 +1876,7 @@ function addView(candidate) {
 exports.default = addView;
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1811,7 +1915,7 @@ function cloneObject(obj) {
 exports.default = cloneObject;
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1925,7 +2029,7 @@ function hashLocationSet(field, opt) {
 exports.default = hashLocationSet;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1955,7 +2059,7 @@ function hashLocationGet(field) {
 exports.default = hashLocationGet;
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1978,7 +2082,7 @@ var utils = {
 exports.default = utils;
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1988,17 +2092,21 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _HomePageView = __webpack_require__(26);
+var _HomePageView = __webpack_require__(27);
 
 var _HomePageView2 = _interopRequireDefault(_HomePageView);
 
-var _WorkView = __webpack_require__(46);
+var _WorkView = __webpack_require__(48);
 
 var _WorkView2 = _interopRequireDefault(_WorkView);
 
-var _FolderView = __webpack_require__(50);
+var _FolderView = __webpack_require__(52);
 
 var _FolderView2 = _interopRequireDefault(_FolderView);
+
+var _AboutView = __webpack_require__(54);
+
+var _AboutView2 = _interopRequireDefault(_AboutView);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2015,36 +2123,13 @@ var routes = [{
   name: 'Folder',
   path: '/folder/:id',
   view: _FolderView2.default
+}, {
+  name: 'About',
+  path: '/about',
+  view: _AboutView2.default
 }];
 
 exports.default = routes;
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-exports.default = function () {
-  var main = document.getElementById('main');
-  var homePageContainer = new _HomePageContainer2.default(jsonApiAlbums, jsonApiImages);
-
-  main.innerHTML = homePageContainer.render();
-};
-
-var _HomePageContainer = __webpack_require__(27);
-
-var _HomePageContainer2 = _interopRequireDefault(_HomePageContainer);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var jsonApiAlbums = 'https://sid-mangela-folio-db.firebaseapp.com/albums-c.json';
-var jsonApiImages = 'https://sid-mangela-folio-db.firebaseapp.com/images-c.json';
 
 /***/ }),
 /* 27 */
@@ -2057,7 +2142,44 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ShowCase = __webpack_require__(57);
+exports.default = function (data) {
+  var main = document.getElementById('main');
+
+  var albums = _apiSet2.default.albums_cached;
+  var images = _apiSet2.default.images_cached;
+
+  if (data && data.query && data.query.cached && data.query.cached === 'false') {
+    albums = _apiSet2.default.albums;
+    images = _apiSet2.default.images;
+  }
+  var homePageContainer = new _HomePageContainer2.default(albums, images);
+
+  window.scrollTo(0, 0);
+  main.innerHTML = homePageContainer.render();
+};
+
+var _apiSet = __webpack_require__(3);
+
+var _apiSet2 = _interopRequireDefault(_apiSet);
+
+var _HomePageContainer = __webpack_require__(28);
+
+var _HomePageContainer2 = _interopRequireDefault(_HomePageContainer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _ShowCase = __webpack_require__(9);
 
 var _ShowCase2 = _interopRequireDefault(_ShowCase);
 
@@ -2075,16 +2197,16 @@ exports.default = class extends _ShowCase2.default {
 };
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var bind = __webpack_require__(8);
-var Axios = __webpack_require__(30);
-var defaults = __webpack_require__(4);
+var bind = __webpack_require__(10);
+var Axios = __webpack_require__(31);
+var defaults = __webpack_require__(5);
 
 /**
  * Create an instance of Axios
@@ -2117,15 +2239,15 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(13);
-axios.CancelToken = __webpack_require__(44);
-axios.isCancel = __webpack_require__(12);
+axios.Cancel = __webpack_require__(15);
+axios.CancelToken = __webpack_require__(45);
+axios.isCancel = __webpack_require__(14);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(45);
+axios.spread = __webpack_require__(46);
 
 module.exports = axios;
 
@@ -2134,7 +2256,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports) {
 
 /*!
@@ -2161,16 +2283,16 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var defaults = __webpack_require__(4);
+var defaults = __webpack_require__(5);
 var utils = __webpack_require__(0);
-var InterceptorManager = __webpack_require__(39);
-var dispatchRequest = __webpack_require__(40);
+var InterceptorManager = __webpack_require__(40);
+var dispatchRequest = __webpack_require__(41);
 
 /**
  * Create a new instance of Axios
@@ -2247,7 +2369,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2266,13 +2388,13 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createError = __webpack_require__(11);
+var createError = __webpack_require__(13);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -2299,7 +2421,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2327,7 +2449,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2400,7 +2522,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2460,7 +2582,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2535,7 +2657,7 @@ module.exports = (
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2578,7 +2700,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2638,7 +2760,7 @@ module.exports = (
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2697,18 +2819,18 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var transformData = __webpack_require__(41);
-var isCancel = __webpack_require__(12);
-var defaults = __webpack_require__(4);
-var isAbsoluteURL = __webpack_require__(42);
-var combineURLs = __webpack_require__(43);
+var transformData = __webpack_require__(42);
+var isCancel = __webpack_require__(14);
+var defaults = __webpack_require__(5);
+var isAbsoluteURL = __webpack_require__(43);
+var combineURLs = __webpack_require__(44);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -2790,7 +2912,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2817,7 +2939,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2838,7 +2960,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2859,13 +2981,13 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Cancel = __webpack_require__(13);
+var Cancel = __webpack_require__(15);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -2923,7 +3045,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2957,7 +3079,54 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 46 */
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrA = __webpack_require__(1);
+
+exports.default = class extends _domrA.Component {
+  constructor() {
+    var photo = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    super();
+    this.photo = photo;
+  }
+
+  dom() {
+    console.log(this.photo.isMature);
+    return '\n      <span class="img" data-image-src="' + this.photo.img.thumb_large + '" ' + (this.photo.isMature ? 'data-isMature' : '') + '>\n        <img src="' + this.photo.img.thumb_small + '"  class="' + (this.photo.isMature ? 'is-mature' : '') + '" alt="" />\n      </span>\n    ';
+  }
+
+  delay() {
+    var self = this.target();
+    var img = self.querySelector('img');
+    var dataSrc = self.getAttribute('data-image-src');
+    self.addEventListener('click', function () {
+      if (self.hasAttribute('data-isMature')) {
+        if (self.getAttribute('data-isMature') !== 'clicked') {
+          img.src = dataSrc;
+          img.classList.remove('is-mature');
+          self.setAttribute('data-isMature', 'clicked');
+        }
+      }
+    });
+    setTimeout(function () {
+      if (!img.classList.contains('is-mature')) {
+        img.src = dataSrc;
+      }
+    }, 1500);
+  }
+};
+
+/***/ }),
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2973,24 +3142,33 @@ exports.default = function (data) {
 
     if (work.is === 'photography' || work.is === 'restoration') {
       var main = document.getElementById('main');
-      var workContainer = new _WorkContainer2.default(work.is, jsonApiAlbums, jsonApiImages);
+      var albums = _apiSet2.default.albums_cached;
+      var images = _apiSet2.default.images_cached;
 
+      if (data.query && data.query.cached && data.query.cached === 'false') {
+        albums = _apiSet2.default.albums;
+        images = _apiSet2.default.images;
+      }
+      var workContainer = new _WorkContainer2.default(work.is, albums, images);
+
+      window.scrollTo(0, 0);
       main.innerHTML = workContainer.render();
     }
   }
 };
 
-var _WorkContainer = __webpack_require__(47);
+var _apiSet = __webpack_require__(3);
+
+var _apiSet2 = _interopRequireDefault(_apiSet);
+
+var _WorkContainer = __webpack_require__(49);
 
 var _WorkContainer2 = _interopRequireDefault(_WorkContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var jsonApiAlbums = 'https://sid-mangela-folio-db.firebaseapp.com/albums-c.json';
-var jsonApiImages = 'https://sid-mangela-folio-db.firebaseapp.com/images-c.json';
-
 /***/ }),
-/* 47 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3002,11 +3180,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrA = __webpack_require__(1);
 
-var _axios = __webpack_require__(3);
+var _axios = __webpack_require__(4);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _WorkAlbum = __webpack_require__(48);
+var _WorkAlbum = __webpack_require__(50);
 
 var _WorkAlbum2 = _interopRequireDefault(_WorkAlbum);
 
@@ -3049,7 +3227,7 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3061,11 +3239,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrA = __webpack_require__(1);
 
-var _axios = __webpack_require__(3);
+var _axios = __webpack_require__(4);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _WorkAlbumCover = __webpack_require__(49);
+var _WorkAlbumCover = __webpack_require__(51);
 
 var _WorkAlbumCover2 = _interopRequireDefault(_WorkAlbumCover);
 
@@ -3106,7 +3284,7 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3130,7 +3308,7 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 50 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3144,23 +3322,33 @@ exports.default = function (data) {
   if (data && data.metadata && data.metadata.id) {
     var main = document.getElementById('main');
     var id = data.metadata.id;
-    var homePageContainer = new _FolderPageContainer2.default(jsonApiAlbums, jsonApiImages, id);
+    var albums = _apiSet2.default.albums_cached;
+    var images = _apiSet2.default.images_cached;
 
+    if (data.query && data.query.cached && data.query.cached === 'false') {
+      albums = _apiSet2.default.albums;
+      images = _apiSet2.default.images;
+    }
+
+    var homePageContainer = new _FolderPageContainer2.default(albums, images, id);
+
+    window.scrollTo(0, 0);
     main.innerHTML = homePageContainer.render();
   }
 };
 
-var _FolderPageContainer = __webpack_require__(51);
+var _apiSet = __webpack_require__(3);
+
+var _apiSet2 = _interopRequireDefault(_apiSet);
+
+var _FolderPageContainer = __webpack_require__(53);
 
 var _FolderPageContainer2 = _interopRequireDefault(_FolderPageContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var jsonApiAlbums = 'https://sid-mangela-folio-db.firebaseapp.com/albums-c.json';
-var jsonApiImages = 'https://sid-mangela-folio-db.firebaseapp.com/images-c.json';
-
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3170,7 +3358,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ShowCase = __webpack_require__(57);
+var _ShowCase = __webpack_require__(9);
 
 var _ShowCase2 = _interopRequireDefault(_ShowCase);
 
@@ -3191,17 +3379,7 @@ exports.default = class extends _ShowCase2.default {
 };
 
 /***/ }),
-/* 52 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3211,113 +3389,40 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _domrA = __webpack_require__(1);
+exports.default = function () {
+  var main = document.getElementById('main');
+  var aboutContainer = (0, _AboutContainer2.default)('Title');
 
-var _axios = __webpack_require__(3);
+  window.scrollTo(0, 0);
+  main.innerHTML = aboutContainer;
+};
 
-var _axios2 = _interopRequireDefault(_axios);
+var _AboutContainer = __webpack_require__(55);
 
-var _HomePageAlbum = __webpack_require__(14);
-
-var _HomePageAlbum2 = _interopRequireDefault(_HomePageAlbum);
+var _AboutContainer2 = _interopRequireDefault(_AboutContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function namePrint(titleText) {
-  var name = 'The Photo';
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
 
-  if (titleText) {
-    name = titleText;
-  }
+"use strict";
 
-  var ogName = name;
-  name = name.split(' ');
-  var name0 = name[0];
-  var lastName = name['' + (name.length - 1)].replace(/__/g, ' ');
-  var nameRest = ogName.replace(name0, '').trim().replace(/__/g, ' ');
 
-  return '\n    <div class="album-title">\n      <span class="name0 highlight">' + name0.replace(/__/g, ' ') + '</span>\n      <span class="name1 highlight">' + nameRest + '</span>\n      <span class="last-name">' + lastName + '</span>\n      <span class="last-name">' + lastName + '</span>\n      <span class="last-name">' + lastName + '</span>\n      <span class="last-name" style="opacity: .8">' + lastName + '</span>\n      <span class="last-name" style="opacity: .6">' + lastName + '</span>\n    </div>\n  ';
-}
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-function loadImageApi(imagesApi, albumData, targetContainer, titleText) {
-  var photosList = albumData.photos_list;
-  var homeContainer = targetContainer;
-
-  (0, _axios2.default)({
-    method: 'get',
-    url: imagesApi
-  }).then(function (responseImages) {
-    var images = responseImages.data;
-    var allImages = [];
-    var albumName = namePrint('' + (titleText ? titleText : albumData.name));
-    images.forEach(function (image) {
-      if (albumData.photos_list.includes(image.image_id)) {
-        allImages.push(image);
-      }
-    });
-
-    var _loop = function _loop(i) {
-      var isData = allImages.find(function (x) {
-        return x.image_id === photosList[i];
-      });
-      if (isData) {
-        var homePageAlbum = new _HomePageAlbum2.default(isData);
-        if (homeContainer) {
-          homePageAlbum.addTo(homeContainer);
-        }
-      }
-    };
-
-    for (var i = 0; i < photosList.length; i++) {
-      _loop(i);
-    }
-
-    homeContainer.innerHTML += albumName;
-  });
-}
-
-exports.default = class extends _domrA.Component {
-  constructor() {
-    var albumsApi = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-    var imagesApi = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-    var config = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-
-    super();
-    this.albums_api = albumsApi;
-    this.images_api = imagesApi;
-    this.container_name = config.containerName || 'home-container';
-    this.album_id = config.albumid || '';
-    this.class_names = config.classNames || '';
-    this.title_text = config.titleText || '';
-  }
-
-  dom() {
-    return '\n      <div class="container container--showcase ' + this.class_names + ' ' + this.container_name + '"></div>\n    ';
-  }
-
-  delay() {
-    var _this = this;
-
-    (0, _axios2.default)({
-      method: 'get',
-      url: this.albums_api
-    }).then(function (responseAlbums) {
-      var albums = responseAlbums.data;
-
-      albums.forEach(function (album) {
-        if (_this.album_id) {
-          if (album.album_id === _this.album_id) {
-            loadImageApi(_this.images_api, album, _this.target(), _this.title_text);
-          }
-        } else {
-          if (album.name === 'top-images') {
-            loadImageApi(_this.images_api, album, _this.target(), _this.title_text);
-          }
-        }
-      });
-    });
-  }
+exports.default = function () {
+  return "\n    <div class=\"container container--gapped about-container\">\n      <header>\n        <h1 class=\"highlight\">Finally I Have a Portfolio Site</h1>\n        <h1>Which does not Suck!!</h1>\n      </header>\n      <div class=\"content\">Hello I am Siddhesh\nA Photography enthusiast from India.\nFront-end web development is my livelihood.\nWhen not working I can be found exploring weird and interesting places (like this Brain O'Mine). And \nSometimes I partake in <b><a href=\"#/work/restoration\">Restoration work</a></b>,\n        Life is Good,\n        Peace!!!!\n\n        Checkout my <b><a href=\"https://www.instagram.com/sidthecool007/\" target=\"_blank\">Instagram</a></b>\n</div>\n      <footer>\n        Feel Free to drop a mail \n        > sidthecool007@gmail.com || siddheshmangela@gmail.com\n      </footer>\n    </div>\n  ";
 };
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
