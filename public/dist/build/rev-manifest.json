@@ -1,6 +1,6 @@
 {
   "app": {
-    "js": "public/dist/build/app.js",
-    "css": "public/dist/build/app.css"
+    "js": "public/dist/build/app.56a5bd4f48090c2e2c73.js",
+    "css": "public/dist/build/app.cd4bbcf74127e575065e795ca95755e5.css"
   }
 }
