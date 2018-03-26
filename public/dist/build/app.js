@@ -713,6 +713,9 @@ function namePrint(titleText) {
 function loadImageApi(imagesApi, albumData, targetContainer, titleText) {
   var photosList = albumData.photos_list;
   var homeContainer = targetContainer;
+  var albumName = namePrint('' + (titleText ? titleText : albumData.name));
+
+  homeContainer.innerHTML += albumName;
 
   (0, _axios2.default)({
     method: 'get',
@@ -720,12 +723,13 @@ function loadImageApi(imagesApi, albumData, targetContainer, titleText) {
   }).then(function (responseImages) {
     var images = responseImages.data;
     var allImages = [];
-    var albumName = namePrint('' + (titleText ? titleText : albumData.name));
-    images.forEach(function (image) {
-      if (albumData.photos_list.includes(image.image_id)) {
-        allImages.push(image);
-      }
-    });
+    if (photosList) {
+      images.forEach(function (image) {
+        if (photosList.includes(image.image_id)) {
+          allImages.push(image);
+        }
+      });
+    }
 
     var _loop = function _loop(i) {
       var isData = allImages.find(function (x) {
@@ -742,8 +746,6 @@ function loadImageApi(imagesApi, albumData, targetContainer, titleText) {
     for (var i = 0; i < photosList.length; i++) {
       _loop(i);
     }
-
-    homeContainer.innerHTML += albumName;
   });
 }
 
@@ -3303,7 +3305,16 @@ exports.default = class extends _domrA.Component {
   }
 
   dom() {
-    return '\n      <img src="' + this.photo.img.thumb_small + '" alt="" />\n    ';
+    return '\n      <img src="' + this.photo.img.thumb_small + '" data-src="' + this.photo.img.thumb_medium + '" alt="" />\n    ';
+  }
+
+  delay() {
+    var img = this.target();
+    var dataSrc = img.getAttribute('data-src');
+
+    setTimeout(function () {
+      img.src = dataSrc;
+    }, 1500);
   }
 };
 
