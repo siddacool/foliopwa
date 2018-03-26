@@ -710,10 +710,10 @@ function namePrint(titleText) {
   return '\n    <div class="album-title">\n      <span class="name0 highlight">' + name0.replace(/__/g, ' ') + '</span>\n      <span class="name1 highlight">' + nameRest + '</span>\n      <span class="last-name">' + lastName + '</span>\n      <span class="last-name">' + lastName + '</span>\n      <span class="last-name">' + lastName + '</span>\n      <span class="last-name" style="opacity: .8">' + lastName + '</span>\n      <span class="last-name" style="opacity: .6">' + lastName + '</span>\n    </div>\n  ';
 }
 
-function loadImageApi(imagesApi, albumData, targetContainer, titleText) {
+function loadImageApi(imagesApi, albumData, targetContainer) {
   var photosList = albumData.photos_list;
   var homeContainer = targetContainer;
-  var albumName = namePrint('' + (titleText ? titleText : albumData.name));
+  var albumName = namePrint('' + (albumData.description ? albumData.description : albumData.name));
 
   homeContainer.innerHTML += albumName;
 
@@ -761,7 +761,6 @@ exports.default = class extends _domrA.Component {
     this.container_name = config.containerName || 'home-container';
     this.album_id = config.albumid || '';
     this.class_names = config.classNames || '';
-    this.title_text = config.titleText || '';
   }
 
   dom() {
@@ -780,11 +779,11 @@ exports.default = class extends _domrA.Component {
       albums.forEach(function (album) {
         if (_this.album_id) {
           if (album.album_id === _this.album_id) {
-            loadImageApi(_this.images_api, album, _this.target(), _this.title_text);
+            loadImageApi(_this.images_api, album, _this.target());
           }
         } else {
           if (album.name === 'top-images') {
-            loadImageApi(_this.images_api, album, _this.target(), _this.title_text);
+            loadImageApi(_this.images_api, album, _this.target());
           }
         }
       });
@@ -1280,8 +1279,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var router = new _domrA.Router(_routes2.default, {
   redirectDefault: true
 });
-
-router.showRoutes();
 
 router.start();
 
@@ -2154,7 +2151,7 @@ exports.default = function (data) {
     albums = _apiSet2.default.albums;
     images = _apiSet2.default.images;
   }
-  var homePageContainer = new _HomePageContainer2.default(albums, images);
+  var homePageContainer = new _ShowCase2.default(albums, images);
 
   window.scrollTo(0, 0);
   main.innerHTML = homePageContainer.render();
@@ -2164,41 +2161,14 @@ var _apiSet = __webpack_require__(3);
 
 var _apiSet2 = _interopRequireDefault(_apiSet);
 
-var _HomePageContainer = __webpack_require__(28);
-
-var _HomePageContainer2 = _interopRequireDefault(_HomePageContainer);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
 var _ShowCase = __webpack_require__(9);
 
 var _ShowCase2 = _interopRequireDefault(_ShowCase);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = class extends _ShowCase2.default {
-  constructor() {
-    var albumsApi = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-    var imagesApi = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-
-    super(albumsApi, imagesApi, {
-      titleText: 'I__did__it for me. I liked it. I was good at it. And I was really - \nI__was__alive.'
-    });
-  }
-};
-
 /***/ }),
+/* 28 */,
 /* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3341,7 +3311,11 @@ exports.default = function (data) {
       images = _apiSet2.default.images;
     }
 
-    var homePageContainer = new _FolderPageContainer2.default(albums, images, id);
+    var homePageContainer = new _ShowCase2.default(albums, images, {
+      containerName: 'folder-container',
+      albumid: id,
+      classNames: 'container--gapped container--showcase--mini'
+    });
 
     window.scrollTo(0, 0);
     main.innerHTML = homePageContainer.render();
@@ -3352,44 +3326,14 @@ var _apiSet = __webpack_require__(3);
 
 var _apiSet2 = _interopRequireDefault(_apiSet);
 
-var _FolderPageContainer = __webpack_require__(53);
-
-var _FolderPageContainer2 = _interopRequireDefault(_FolderPageContainer);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-/* 53 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
 var _ShowCase = __webpack_require__(9);
 
 var _ShowCase2 = _interopRequireDefault(_ShowCase);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = class extends _ShowCase2.default {
-  constructor() {
-    var albumsApi = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-    var imagesApi = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-    var id = arguments[2];
-
-    super(albumsApi, imagesApi, {
-      containerName: 'folder-container',
-      albumid: id,
-      classNames: 'container--gapped container--showcase--mini'
-    });
-  }
-};
-
 /***/ }),
+/* 53 */,
 /* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
