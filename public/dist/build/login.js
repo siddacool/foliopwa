@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "public/dist/build/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 30);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1031,60 +1031,10 @@ var utils = {
 exports.default = utils;
 
 /***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var api = {
-  images: 'https://sid-mangela-folio-db.firebaseapp.com/images.json',
-  images_cached: 'https://sid-mangela-folio-db.firebaseapp.com/images-c.json',
-  albums: 'https://sid-mangela-folio-db.firebaseapp.com/albums.json',
-  albums_cached: 'https://sid-mangela-folio-db.firebaseapp.com/albums-c.json'
-};
-
-exports.default = api;
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-function goodOlAjaxPromise(url) {
-  var promiseObj = new Promise(function (resolve, reject) {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open('GET', url, true);
-    xmlhttp.send();
-    xmlhttp.onreadystatechange = function () {
-      if (xmlhttp.readyState === 4) {
-        if (xmlhttp.status === 200) {
-          var responseText = xmlhttp.responseText.trim();
-          var obj = JSON.parse(responseText);
-          resolve(obj);
-          console.log('good Ol Ajax Promise');
-        } else {
-          reject(xmlhttp.status);
-          console.log('xmlhttp failed');
-        }
-      }
-    };
-  });
-  return promiseObj;
-}
-
-exports.default = goodOlAjaxPromise;
-
-/***/ }),
-/* 15 */
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1096,122 +1046,62 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrA = __webpack_require__(0);
 
-var _goodOlAjaxPromise = __webpack_require__(14);
-
-var _goodOlAjaxPromise2 = _interopRequireDefault(_goodOlAjaxPromise);
-
-var _HomePageAlbum = __webpack_require__(21);
-
-var _HomePageAlbum2 = _interopRequireDefault(_HomePageAlbum);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function namePrint(titleText) {
-  var name = 'The Photo';
-
-  if (titleText) {
-    name = titleText;
-  }
-
-  var ogName = name;
-  name = name.split(' ');
-  var name0 = name[0];
-  var lastName = name['' + (name.length - 1)].replace(/__/g, ' ');
-  var nameRest = ogName.replace(name0, '').trim().replace(/__/g, ' ');
-
-  return '\n    <div class="album-title">\n      <span class="name0 highlight">' + name0.replace(/__/g, ' ') + '</span>\n      <span class="name1 highlight">' + nameRest + '</span>\n      <span class="last-name">' + lastName + '</span>\n      <span class="last-name">' + lastName + '</span>\n      <span class="last-name">' + lastName + '</span>\n      <span class="last-name" style="opacity: .8">' + lastName + '</span>\n      <span class="last-name" style="opacity: .6">' + lastName + '</span>\n    </div>\n  ';
-}
-
-function loadImageApi(imagesApi, albumData, targetContainer) {
-  var photosList = albumData.photos_list;
-  var homeContainer = targetContainer;
-  var albumName = namePrint('' + (albumData.description ? albumData.description : albumData.name));
-
-  homeContainer.innerHTML += albumName;
-
-  (0, _goodOlAjaxPromise2.default)(imagesApi).then(function (response) {
-    var images = response;
-    var allImages = [];
-    if (photosList) {
-      images.forEach(function (image) {
-        if (photosList.includes(image.image_id)) {
-          allImages.push(image);
-        }
-      });
-    }
-
-    var _loop = function _loop(i) {
-      var isData = allImages.find(function (x) {
-        return x.image_id === photosList[i];
-      });
-      if (isData) {
-        var homePageAlbum = new _HomePageAlbum2.default(isData);
-        if (homeContainer) {
-          homePageAlbum.addTo(homeContainer);
-        }
-      }
-    };
-
-    for (var i = 0; i < photosList.length; i++) {
-      _loop(i);
-    }
-  });
-}
-
 exports.default = class extends _domrA.Component {
   constructor() {
-    var albumsApi = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-    var imagesApi = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+    var labelClass = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'no-input-unique-class';
+    var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'no-input-name';
     var config = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
     super();
-    this.albums_api = albumsApi;
-    this.images_api = imagesApi;
-    this.container_name = config.containerName || 'home-container';
-    this.album_id = config.albumid || '';
-    this.class_names = config.classNames || '';
+    this.label_class = labelClass;
+    this.name = name;
+    this.isFloat = config.isFloat || false;
+    this.placeholder = config.placeholder || '';
+    this.value = config.value || '';
+    this.password = false;
   }
 
   dom() {
-    return '\n      <div class="container container--showcase ' + this.class_names + ' ' + this.container_name + '"></div>\n    ';
+    return '\n      <div class="' + this.label_class + '">\n        <div class="no-input no-input--text ' + (this.isFloat ? 'no-input--text--float' : '') + '" data-name="' + this.name + '" data-placeholder="' + this.placeholder + '" contenteditable="true">' + this.value + '</div>\n        <input type="' + (this.password ? 'password' : 'text') + '" name="' + this.name + '" value="' + this.value + '" placeholder="' + this.placeholder + '"/>\n      </div>\n    ';
   }
 
-  delay() {
-    var _this = this;
+  events() {
+    this.addEventOn('.no-input--text', 'input', function (self, e) {
+      var parent = self.parentElement;
+      var value = self.textContent;
+      var inputText = parent.querySelector('input');
 
-    (0, _goodOlAjaxPromise2.default)(this.albums_api).then(function (response) {
-      var albums = response;
-      albums.forEach(function (album) {
-        if (_this.album_id) {
-          if (album.album_id === _this.album_id) {
-            if (album.album_id === _this.album_id) {
-              loadImageApi(_this.images_api, album, _this.target());
-            }
-          }
-        } else {
-          if (album.name === 'top-images') {
-            loadImageApi(_this.images_api, album, _this.target());
-          }
-        }
-      });
+      inputText.value = value;
     });
   }
 };
 
 /***/ }),
-/* 16 */,
-/* 17 */
+/* 17 */,
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */,
+/* 22 */,
+/* 23 */,
+/* 24 */,
+/* 25 */,
+/* 26 */,
+/* 27 */,
+/* 28 */,
+/* 29 */,
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(18);
+__webpack_require__(31);
 
-__webpack_require__(29);
+__webpack_require__(42);
 
 /***/ }),
-/* 18 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1219,7 +1109,7 @@ __webpack_require__(29);
 
 var _domrA = __webpack_require__(0);
 
-var _routes = __webpack_require__(19);
+var _routes = __webpack_require__(32);
 
 var _routes2 = _interopRequireDefault(_routes);
 
@@ -1232,7 +1122,7 @@ var router = new _domrA.Router(_routes2.default, {
 router.start();
 
 /***/ }),
-/* 19 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1242,47 +1132,40 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _HomePageView = __webpack_require__(20);
+var _AdminPanelHomeView = __webpack_require__(33);
 
-var _HomePageView2 = _interopRequireDefault(_HomePageView);
+var _AdminPanelHomeView2 = _interopRequireDefault(_AdminPanelHomeView);
 
-var _WorkView = __webpack_require__(22);
+var _firebaseConfig = __webpack_require__(41);
 
-var _WorkView2 = _interopRequireDefault(_WorkView);
-
-var _FolderView = __webpack_require__(26);
-
-var _FolderView2 = _interopRequireDefault(_FolderView);
-
-var _AboutView = __webpack_require__(27);
-
-var _AboutView2 = _interopRequireDefault(_AboutView);
+var _firebaseConfig2 = _interopRequireDefault(_firebaseConfig);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var routes = [{
   name: 'Home Page',
   path: '/',
-  view: _HomePageView2.default,
-  isDefault: true
+  view: _AdminPanelHomeView2.default,
+  isDefault: true,
+  firebaseConfig: _firebaseConfig2.default
 }, {
-  name: 'Work',
-  path: '/work/:is',
-  view: _WorkView2.default
+  name: 'Album',
+  path: '/album/:id',
+  view: console.log('called')
 }, {
-  name: 'Folder',
-  path: '/folder/:id',
-  view: _FolderView2.default
+  name: 'Image',
+  path: '/image/:id',
+  view: console.log('called')
 }, {
-  name: 'About',
-  path: '/about',
-  view: _AboutView2.default
+  name: 'Create',
+  path: '/create',
+  view: console.log('called')
 }];
 
 exports.default = routes;
 
 /***/ }),
-/* 20 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1293,33 +1176,240 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (data) {
-  var main = document.getElementById('main');
+  var wrapper = document.getElementById('wrapper');
+  var config = data.firebaseConfig;
+  var fire = firebase;
 
-  var albums = _apiSet2.default.albums_cached;
-  var images = _apiSet2.default.images_cached;
-
-  if (data && data.query && data.query.cached && data.query.cached === 'false') {
-    albums = _apiSet2.default.albums;
-    images = _apiSet2.default.images;
+  if (!fire.apps.length) {
+    fire.initializeApp(config);
   }
-  var homePageContainer = new _ShowCase2.default(albums, images);
+
+  wrapper.innerHTML = 'waiting';
+
+  fire.auth().onAuthStateChanged(function (fireUser) {
+    if (fireUser) {
+      var streamType = 'album';
+      if (data.query && data.query.stream) {
+        streamType = data.query.stream;
+      }
+      var stream = new _AdminPanelStreamContainer2.default(fire, streamType);
+      wrapper.innerHTML = stream.render();
+    } else {
+      var login = new _AdminPanelLoginContainer2.default(fire);
+      wrapper.innerHTML = login.render();
+    }
+  });
 
   window.scrollTo(0, 0);
-  main.innerHTML = homePageContainer.render();
 };
 
-var _apiSet = __webpack_require__(13);
+var _AdminPanelLoginContainer = __webpack_require__(34);
 
-var _apiSet2 = _interopRequireDefault(_apiSet);
+var _AdminPanelLoginContainer2 = _interopRequireDefault(_AdminPanelLoginContainer);
 
-var _ShowCase = __webpack_require__(15);
+var _AdminPanelStreamContainer = __webpack_require__(37);
 
-var _ShowCase2 = _interopRequireDefault(_ShowCase);
+var _AdminPanelStreamContainer2 = _interopRequireDefault(_AdminPanelStreamContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 21 */
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrA = __webpack_require__(0);
+
+var _NoInput = __webpack_require__(35);
+
+exports.default = class extends _domrA.Component {
+  constructor(fire) {
+    super();
+    this.firebase = fire;
+  }
+
+  dom() {
+    var email = new _NoInput.Text('login__email', 'email', {
+      placeholder: 'Enter Your Email',
+      isFloat: true
+    });
+
+    var password = new _NoInput.TextPassword('login__password', 'password', {
+      placeholder: 'Enter Your Password',
+      isFloat: true
+    });
+
+    return '\n      <div class="container login-main-container">\n        <div class="login">\n          ' + email.render() + '\n          ' + password.render() + '\n          <a href="#" class="btn btn--primary login__login">Login</a>\n        </div>\n      </div>\n    ';
+  }
+
+  events() {
+    var _this = this;
+
+    this.addEventOn('.login__login', 'click', function (self, e) {
+      e.preventDefault();
+      var parent = self.parentElement;
+      var email = parent.querySelector('input[name="email"]');
+      var password = parent.querySelector('input[name="password"]');
+
+      var dbRefObject = _this.firebase.database().ref();
+      var auth = _this.firebase.auth();
+
+      var promise = auth.signInWithEmailAndPassword(email.value, password.value);
+      promise.catch(function (msg) {
+        console.log(msg.message);
+      });
+    });
+  }
+};
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TextPassword = exports.Text = undefined;
+
+var _Text = __webpack_require__(16);
+
+var _Text2 = _interopRequireDefault(_Text);
+
+var _TextPassword = __webpack_require__(36);
+
+var _TextPassword2 = _interopRequireDefault(_TextPassword);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.Text = _Text2.default;
+exports.TextPassword = _TextPassword2.default;
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Text = __webpack_require__(16);
+
+var _Text2 = _interopRequireDefault(_Text);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = class extends _Text2.default {
+  constructor() {
+    var labelClass = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'no-input-unique-class';
+    var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'no-input-name';
+    var config = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+    super(labelClass, name, config);
+    this.password = true;
+  }
+};
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrA = __webpack_require__(0);
+
+var _AdminPanelHeader = __webpack_require__(48);
+
+var _AdminPanelHeader2 = _interopRequireDefault(_AdminPanelHeader);
+
+var _AdminPanelAlbumThumb = __webpack_require__(39);
+
+var _AdminPanelAlbumThumb2 = _interopRequireDefault(_AdminPanelAlbumThumb);
+
+var _AdminPanelImageThumb = __webpack_require__(40);
+
+var _AdminPanelImageThumb2 = _interopRequireDefault(_AdminPanelImageThumb);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var classes = { AdminPanelAlbumThumb: _AdminPanelAlbumThumb2.default, AdminPanelImageThumb: _AdminPanelImageThumb2.default };
+
+function dynamicClass(name) {
+  return classes[name];
+}
+
+exports.default = class extends _domrA.Component {
+  constructor(fire, streamType) {
+    super();
+    this.firebase = fire;
+    this.stream_type = streamType;
+    this.db_ref_object = this.firebase.database().ref();
+  }
+
+  dom() {
+    var header = new _AdminPanelHeader2.default(this.firebase);
+
+    return '\n      <div class="stream-main-container">\n        ' + header.render() + '\n        <div class="stream">\n          <div class="tab">\n            <div class="tab__head">\n              <div class="container tab__head__container">\n                <a href="#/?stream=album" class="tab__pick stream__pick" data-tab-pick="album">Albums</a>\n                <a href="#/?stream=image" class="tab__pick stream__pick" data-tab-pick="image">Images</a>\n              </div>\n            </div>\n            <div class="tab__body">\n              <div class="container tab__body__container">\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    ';
+  }
+
+  delay() {
+    var _this = this;
+
+    var thisSelf = this.target();
+    var tabBody = thisSelf.querySelector('.tab__body__container');
+    var tabPick = thisSelf.querySelector('[data-tab-pick="' + this.stream_type + '"]');
+    tabPick.classList.add('tab__pick--active');
+    this.db_ref_object.once('value', function (snap) {
+      var valueSnap = snap.val();
+      Object.keys(valueSnap).forEach(function (key) {
+        var content = valueSnap[key];
+        content.key = key;
+        if (content[_this.stream_type + '_id']) {
+          var className = 'AdminPanel' + (_this.stream_type[0].toUpperCase() + _this.stream_type.slice(1)) + 'Thumb';
+          var Thumb = dynamicClass(className);
+          var thumb = new Thumb(content, _this.db_ref_object);
+          thumb.addTo(tabBody);
+        }
+      });
+    });
+
+    addEventListener('scroll', function () {
+      var stream = thisSelf.querySelector('.stream');
+      var tabHead = stream.querySelector('.tab__head');
+      var offSet = tabHead.offsetTop + 30;
+
+      if (window.scrollY >= offSet) {
+        if (!stream.classList.contains('stream--fixed')) {
+          stream.classList.add('stream--fixed');
+        }
+      } else {
+        if (stream.classList.contains('stream--fixed')) {
+          stream.classList.remove('stream--fixed');
+        }
+      }
+    });
+  }
+};
+
+/***/ }),
+/* 38 */,
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1333,191 +1423,50 @@ var _domrA = __webpack_require__(0);
 
 exports.default = class extends _domrA.Component {
   constructor() {
-    var photo = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var content = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var dbRefObject = arguments[1];
 
     super();
-    this.photo = photo;
+    this.content = content;
+    this.db_ref_object = dbRefObject;
+    this.name = this.content.name || '';
+    this.description = this.content.description || '';
+    this.photos_list = this.content.photos_list || [];
   }
 
   dom() {
-    console.log(this.photo.isMature);
-    return '\n      <span class="img" data-image-src="' + this.photo.img.thumb_large + '" ' + (this.photo.isMature ? 'data-isMature' : '') + '>\n        <img src="' + this.photo.img.thumb_small + '"  class="' + (this.photo.isMature ? 'is-mature' : '') + '" alt="" />\n      </span>\n    ';
-  }
-
-  delay() {
-    var self = this.target();
-    var img = self.querySelector('img');
-    var dataSrc = self.getAttribute('data-image-src');
-    self.addEventListener('click', function () {
-      if (self.hasAttribute('data-isMature')) {
-        if (self.getAttribute('data-isMature') !== 'clicked') {
-          img.src = dataSrc;
-          img.classList.remove('is-mature');
-          self.setAttribute('data-isMature', 'clicked');
-        }
-      }
-    });
-    setTimeout(function () {
-      if (!img.classList.contains('is-mature')) {
-        img.src = dataSrc;
-      }
-    }, 1500);
-  }
-};
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-exports.default = function (data) {
-  if (data && data.metadata && data.metadata.is) {
-    var work = data.metadata;
-
-    if (work.is === 'photography' || work.is === 'restoration') {
-      var main = document.getElementById('main');
-      var albums = _apiSet2.default.albums_cached;
-      var images = _apiSet2.default.images_cached;
-
-      if (data.query && data.query.cached && data.query.cached === 'false') {
-        albums = _apiSet2.default.albums;
-        images = _apiSet2.default.images;
-      }
-      var workContainer = new _WorkContainer2.default(work.is, albums, images);
-
-      window.scrollTo(0, 0);
-      main.innerHTML = workContainer.render();
-    }
-  }
-};
-
-var _apiSet = __webpack_require__(13);
-
-var _apiSet2 = _interopRequireDefault(_apiSet);
-
-var _WorkContainer = __webpack_require__(23);
-
-var _WorkContainer2 = _interopRequireDefault(_WorkContainer);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _domrA = __webpack_require__(0);
-
-var _goodOlAjaxPromise = __webpack_require__(14);
-
-var _goodOlAjaxPromise2 = _interopRequireDefault(_goodOlAjaxPromise);
-
-var _WorkAlbum = __webpack_require__(24);
-
-var _WorkAlbum2 = _interopRequireDefault(_WorkAlbum);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = class extends _domrA.Component {
-  constructor(workIs) {
-    var albumsApi = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-    var imagesApi = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-
-    super();
-    this.albums_api = albumsApi;
-    this.images_api = imagesApi;
-    this.work_is = workIs;
-  }
-
-  dom() {
-    return '\n      <ul class="container container--gapped work-container"></ul>\n    ';
+    return '\n     <li data-key="' + this.content.key + '" class="thumb thumb--album">\n      <a href="#" data-id="' + this.content.album_id + '">\n        <div class="img"><img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="" alt="" /></div>\n        <div class="name"><span>' + this.name + '</span></div>\n      </a>\n     </li>\n    ';
   }
 
   delay() {
     var _this = this;
 
-    (0, _goodOlAjaxPromise2.default)(this.albums_api).then(function (response) {
-      var albums = response;
+    var thisSelf = this.target();
+    var img = thisSelf.querySelector('img');
 
-      albums.forEach(function (album) {
-        if (album.type === _this.work_is && album.name !== 'top-images') {
-          var workAlbum = new _WorkAlbum2.default(album, _this.images_api);
-          var self = _this.target();
-
-          workAlbum.addTo(self);
-        }
-      });
-    });
-  }
-};
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _domrA = __webpack_require__(0);
-
-var _goodOlAjaxPromise = __webpack_require__(14);
-
-var _goodOlAjaxPromise2 = _interopRequireDefault(_goodOlAjaxPromise);
-
-var _WorkAlbumCover = __webpack_require__(25);
-
-var _WorkAlbumCover2 = _interopRequireDefault(_WorkAlbumCover);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = class extends _domrA.Component {
-  constructor(album, imagesApi) {
-    super();
-    this.album = album;
-    this.imagesApi = imagesApi;
-  }
-
-  dom() {
-    return '\n      <li class="album-card" data-type="' + this.album.type + '" data-cover-id="' + this.album.cover_pic + '">\n        <a href="#/folder/' + this.album.album_id + '" class="album-card__container">\n          <div class="album-card__img"><img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs" alt="" /></div>\n          <div class="album-card__name">\n            <h3 class="highlight">' + this.album.name + '</h3>\n          </div>\n        </a>\n      </li>\n    ';
-  }
-
-  delay() {
-    var _this = this;
-
-    if (this.album.cover_pic) {
-      (0, _goodOlAjaxPromise2.default)(this.imagesApi).then(function (response) {
-        var images = response;
-        images.forEach(function (image) {
-          if (image.image_id === _this.album.cover_pic) {
-            var self = _this.target();
-            var cardImgContainer = self.querySelector('.album-card__img');
-            var workAlbumCover = new _WorkAlbumCover2.default(image);
-            workAlbumCover.replaceContentOf(cardImgContainer);
+    if (this.content.cover_pic) {
+      this.db_ref_object.once('value', function (snap) {
+        var valueSnap = snap.val();
+        Object.keys(valueSnap).forEach(function (key) {
+          var content = valueSnap[key];
+          content.key = key;
+          if (content.image_id && content.image_id === _this.content.cover_pic) {
+            img.src = content.img.thumb_small;
+            img.setAttribute('data-src', content.img.thumb_medium);
           }
         });
+      }).then(function () {
+        setTimeout(function () {
+          var dataSrc = img.getAttribute('data-src');
+          img.src = dataSrc;
+        }, 1500);
       });
     }
   }
 };
 
 /***/ }),
-/* 25 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1530,17 +1479,22 @@ Object.defineProperty(exports, "__esModule", {
 var _domrA = __webpack_require__(0);
 
 exports.default = class extends _domrA.Component {
-  constructor(photo) {
+  constructor() {
+    var content = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
     super();
-    this.photo = photo;
+    this.content = content;
+    this.name = this.content.name || '';
+    this.description = this.content.description || '';
   }
 
   dom() {
-    return '\n      <img src="' + this.photo.img.thumb_small + '" data-src="' + this.photo.img.thumb_medium + '" alt="" />\n    ';
+    return '\n     <li data-key="' + this.content.key + '" class="thumb thumb--image">\n      <a href="#" data-id="' + this.content.image_id + '">\n        <div class="img"><img src="' + this.content.img.thumb_small + '" data-src="' + this.content.img.thumb_medium + '" alt="" /></div>\n      </a>\n     </li>\n    ';
   }
 
   delay() {
-    var img = this.target();
+    var thisSelf = this.target();
+    var img = thisSelf.querySelector('img');
     var dataSrc = img.getAttribute('data-src');
 
     setTimeout(function () {
@@ -1550,7 +1504,7 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 26 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1559,85 +1513,77 @@ exports.default = class extends _domrA.Component {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-exports.default = function (data) {
-  if (data && data.metadata && data.metadata.id) {
-    var main = document.getElementById('main');
-    var id = data.metadata.id;
-    var albums = _apiSet2.default.albums_cached;
-    var images = _apiSet2.default.images_cached;
-
-    if (data.query && data.query.cached && data.query.cached === 'false') {
-      albums = _apiSet2.default.albums;
-      images = _apiSet2.default.images;
-    }
-
-    var homePageContainer = new _ShowCase2.default(albums, images, {
-      containerName: 'folder-container',
-      albumid: id,
-      classNames: 'container--gapped container--showcase--mini'
-    });
-
-    window.scrollTo(0, 0);
-    main.innerHTML = homePageContainer.render();
-  }
+var firebaseConfig = {
+  apiKey: 'AIzaSyByLhhClB2fpoApnZWz0RFhTz6NxVYMLes',
+  authDomain: 'sid-mangela-folio-db.firebaseapp.com',
+  databaseURL: 'https://sid-mangela-folio-db.firebaseio.com',
+  projectId: 'sid-mangela-folio-db',
+  storageBucket: 'sid-mangela-folio-db.appspot.com',
+  messagingSenderId: '803380125475'
 };
 
-var _apiSet = __webpack_require__(13);
-
-var _apiSet2 = _interopRequireDefault(_apiSet);
-
-var _ShowCase = __webpack_require__(15);
-
-var _ShowCase2 = _interopRequireDefault(_ShowCase);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+exports.default = firebaseConfig;
 
 /***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-exports.default = function () {
-  var main = document.getElementById('main');
-  var aboutContainer = (0, _AboutContainer2.default)('Title');
-
-  window.scrollTo(0, 0);
-  main.innerHTML = aboutContainer;
-};
-
-var _AboutContainer = __webpack_require__(28);
-
-var _AboutContainer2 = _interopRequireDefault(_AboutContainer);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-      value: true
-});
-
-exports.default = function () {
-      return "\n    <div class=\"container container--gapped about-container\">\n    <div class=\"holder\">\n      <h1 class=\"highlight\">Hola!!</h1>\n      <div class=\"block\">\n<span class=\"highlight\">I am <span class=\"special-text special-text--strike\">Groot</span>, Siddhesh\nA Photography Enthusiast from India.</span>\n      </div>\n      <div class=\"block\">\n<span class=\"highlight\">Say Hi At \n<b>sidthecool007@gmail.com</b></span>\n      </div>\n    <div class=\"block\">\n<span class=\"highlight\">And Find Me on <b><a class=\"special-text special-text--ugly-link\" href=\"https://www.instagram.com/sidthecool007/\" target=\"_blank\">Instagram</a></b>\n</span>\n      </div>\n      <div class=\"block\">\n<span class=\"highlight\">Need to cut short because \nI decided to use this \n      giant a<span class=\"special-text special-text--blur\">ss</span> font\nAnd ha...\nEnjoy this weird site!!</span>\n      </div>\n\n      <div class=\"waste-of-space\">\n<span class=\"highlight\">Now This is\nplain Waste Of Space</span>\n      </div>\n    </div>\n    </div>\n  ";
-};
-
-/***/ }),
-/* 29 */
+/* 42 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 43 */,
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrA = __webpack_require__(0);
+
+exports.default = class extends _domrA.Component {
+  constructor(fire) {
+    super();
+    this.firebase = fire;
+  }
+
+  dom() {
+    var firebaseAuth = this.firebase.auth();
+
+    return '\n     <header>\n        <div class="logo">\n          <img src="./public/dist/favicon/favicon.png" alt="Logo" />\n        </div>\n        <div class="account">\n          <a href="#" class="account__pop"><svg role="img" class="icon"><use xlink:href="#icon-Actions-05"></use></svg></a>\n          <div class="account__drop">\n            <div class="account__welcome">Hola ' + firebaseAuth.currentUser.email + '</div>\n            <a href="#" class="btn btn--primary account__logout">Logout</a>\n          </div>\n          <div class="account-cloak"></div>\n        </div>\n     </header>\n    ';
+  }
+
+  events() {
+    var _this = this;
+
+    this.addEventOn('.account__logout', 'click', function (self, e) {
+      e.preventDefault();
+      _this.firebase.auth().signOut();
+    });
+
+    this.addEventOn('.account__pop', 'click', function (self, e) {
+      e.preventDefault();
+      var parent = self.parentElement;
+      var accountDrop = parent.querySelector('.account__drop');
+
+      accountDrop.classList.add('account__drop--active');
+    });
+
+    this.addEventOn('.account-cloak', 'click', function (self, e) {
+      var parent = self.parentElement;
+      var accountDrop = parent.querySelector('.account__drop');
+
+      accountDrop.classList.remove('account__drop--active');
+    });
+  }
+};
 
 /***/ })
 /******/ ]);
