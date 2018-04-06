@@ -112,6 +112,62 @@ html {
   }
 }
 
+.btn {
+  background-color: #d0d0d0;
+  border-radius: 20px;
+  color: #2b2b2b;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  font-size: .85rem;
+  font-weight: 700;
+  letter-spacing: .3px;
+  padding: 10px 12px;
+}
+
+@media only screen and (min-width: 1025px) {
+  .btn {
+    font-size: 13px;
+  }
+}
+
+.btn--icon--shrink svg {
+  height: 1.05rem;
+  width: 1.05rem;
+}
+
+@media only screen and (min-width: 1025px), screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+  .btn--icon--shrink svg {
+    height: 1rem;
+    width: 1rem;
+  }
+}
+
+.btn--icon--shrink > span {
+  display: none;
+  top: 2px;
+}
+
+@media only screen and (min-width: 1025px), screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+  .btn--icon--shrink > span {
+    display: -webkit-inline-flex;
+    display: inline-flex;
+  }
+}
+
+@media only screen and (min-width: 1025px) {
+  .btn--no-button {
+    -webkit-align-items: center;
+            align-items: center;
+    background-color: transparent;
+    border-radius: 0;
+    font-size: 1rem;
+    padding: 0;
+  }
+  .btn--no-button > span {
+    margin: 0 2px;
+  }
+}
+
 .tab__head {
   background-color: #fff;
   border-bottom: 3px solid #f5f5f5;
@@ -383,6 +439,34 @@ header .logo > span {
   padding-top: 45px;
 }
 
+.stream .top-button {
+  -webkit-align-items: center;
+          align-items: center;
+  bottom: 12vh;
+  display: none;
+  height: 65px;
+  -webkit-justify-content: center;
+          justify-content: center;
+  position: fixed;
+  right: 0;
+  width: 100px;
+  z-index: 100;
+}
+
+.stream .top-button > span {
+  -webkit-align-items: center;
+          align-items: center;
+  background-color: #bcbcbc;
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.290196);
+  display: -webkit-flex;
+  display: flex;
+  height: 45px;
+  -webkit-justify-content: center;
+          justify-content: center;
+  width: 45px;
+}
+
 .stream--fixed .tab__head {
   display: block;
   left: 0;
@@ -390,4 +474,119 @@ header .logo > span {
   top: 0;
   width: 100%;
   z-index: 100;
+}
+
+.stream--fixed .top-button--active {
+  display: -webkit-flex;
+  display: flex;
+}
+
+@media only screen and (min-width: 1025px), screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+  .stream--fixed .top-button--active {
+    display: none;
+  }
+}
+
+.album-folder {
+  padding-top: 45px;
+}
+
+.album-folder__head {
+  background-color: #fff;
+  border-bottom: 3px solid #f5f5f5;
+}
+
+.album-folder__head__container {
+  -webkit-align-items: center;
+          align-items: center;
+  display: -webkit-flex;
+  display: flex;
+  padding-bottom: 4px;
+}
+
+.album-folder__head .add-remove-photos {
+  display: none;
+}
+
+.album-folder__head .edit-button {
+  margin-left: auto;
+}
+
+.album-folder__head .album-name {
+  display: inline-block;
+  -webkit-flex: 1;
+          flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 15px;
+  max-height: 21px;
+  overflow: hidden;
+}
+
+.album-folder__body {
+  padding-top: 20px;
+}
+
+.album-folder__body img {
+  height: 60vh;
+  margin-bottom: 10px;
+  object-fit: contain;
+  width: 100%;
+}
+
+@media only screen and (min-width: 1025px), screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+  .album-folder__body img {
+    height: 300px;
+    margin-bottom: 0;
+    width: auto;
+  }
+}
+
+.album-folder__base-info {
+  padding-bottom: 20px;
+}
+
+.album-folder__base-info .add-remove-photos {
+  margin-top: 20px;
+}
+
+.album-folder__base-info h1 {
+  font-weight: 700;
+}
+
+@media only screen and (min-width: 1025px) {
+  .album-folder__base-info h1 {
+    font-size: 38px;
+  }
+}
+
+.album-folder__base-info .description:not(:empty) {
+  margin-top: 10px;
+}
+
+.album-folder--fixed .album-folder__head {
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.album-folder--fixed .edit-button {
+  margin-left: 0;
+  margin-top: 4px;
+}
+
+.album-folder--fixed .add-remove-photos {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: 10px;
+  margin-top: 4px;
+}
+
+.album-folder--fixed .back-button {
+  margin-top: 4px;
+}
+
+.album-folder--fixed .album-name {
+  display: none;
 }

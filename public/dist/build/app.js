@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "public/dist/build/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 19);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1100,7 +1100,7 @@ var _goodOlAjaxPromise = __webpack_require__(14);
 
 var _goodOlAjaxPromise2 = _interopRequireDefault(_goodOlAjaxPromise);
 
-var _HomePageAlbum = __webpack_require__(21);
+var _HomePageAlbum = __webpack_require__(23);
 
 var _HomePageAlbum2 = _interopRequireDefault(_HomePageAlbum);
 
@@ -1200,18 +1200,20 @@ exports.default = class extends _domrA.Component {
 
 /***/ }),
 /* 16 */,
-/* 17 */
+/* 17 */,
+/* 18 */,
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(18);
+__webpack_require__(20);
 
-__webpack_require__(29);
+__webpack_require__(31);
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1219,7 +1221,7 @@ __webpack_require__(29);
 
 var _domrA = __webpack_require__(0);
 
-var _routes = __webpack_require__(19);
+var _routes = __webpack_require__(21);
 
 var _routes2 = _interopRequireDefault(_routes);
 
@@ -1232,7 +1234,7 @@ var router = new _domrA.Router(_routes2.default, {
 router.start();
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1242,19 +1244,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _HomePageView = __webpack_require__(20);
+var _HomePageView = __webpack_require__(22);
 
 var _HomePageView2 = _interopRequireDefault(_HomePageView);
 
-var _WorkView = __webpack_require__(22);
+var _WorkView = __webpack_require__(24);
 
 var _WorkView2 = _interopRequireDefault(_WorkView);
 
-var _FolderView = __webpack_require__(26);
+var _FolderView = __webpack_require__(28);
 
 var _FolderView2 = _interopRequireDefault(_FolderView);
 
-var _AboutView = __webpack_require__(27);
+var _AboutView = __webpack_require__(29);
 
 var _AboutView2 = _interopRequireDefault(_AboutView);
 
@@ -1282,7 +1284,7 @@ var routes = [{
 exports.default = routes;
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1319,7 +1321,7 @@ var _ShowCase2 = _interopRequireDefault(_ShowCase);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1366,7 +1368,7 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1401,14 +1403,14 @@ var _apiSet = __webpack_require__(13);
 
 var _apiSet2 = _interopRequireDefault(_apiSet);
 
-var _WorkContainer = __webpack_require__(23);
+var _WorkContainer = __webpack_require__(25);
 
 var _WorkContainer2 = _interopRequireDefault(_WorkContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1424,7 +1426,7 @@ var _goodOlAjaxPromise = __webpack_require__(14);
 
 var _goodOlAjaxPromise2 = _interopRequireDefault(_goodOlAjaxPromise);
 
-var _WorkAlbum = __webpack_require__(24);
+var _WorkAlbum = __webpack_require__(26);
 
 var _WorkAlbum2 = _interopRequireDefault(_WorkAlbum);
 
@@ -1464,7 +1466,7 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1480,7 +1482,7 @@ var _goodOlAjaxPromise = __webpack_require__(14);
 
 var _goodOlAjaxPromise2 = _interopRequireDefault(_goodOlAjaxPromise);
 
-var _WorkAlbumCover = __webpack_require__(25);
+var _WorkAlbumCover = __webpack_require__(27);
 
 var _WorkAlbumCover2 = _interopRequireDefault(_WorkAlbumCover);
 
@@ -1517,7 +1519,7 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1550,7 +1552,7 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1594,7 +1596,7 @@ var _ShowCase2 = _interopRequireDefault(_ShowCase);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1612,14 +1614,14 @@ exports.default = function () {
   main.innerHTML = aboutContainer;
 };
 
-var _AboutContainer = __webpack_require__(28);
+var _AboutContainer = __webpack_require__(30);
 
 var _AboutContainer2 = _interopRequireDefault(_AboutContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1634,7 +1636,7 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
