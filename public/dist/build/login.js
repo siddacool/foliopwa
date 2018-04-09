@@ -1083,17 +1083,7 @@ exports.default = class extends _domrA.Component {
   }
 
   dom() {
-    return '\n      <div class="' + this.label_class + '">\n        <div class="no-input no-input--text ' + (this.isFloat ? 'no-input--text--float' : '') + '" data-name="' + this.name + '" data-placeholder="' + this.placeholder + '" contenteditable="true">' + this.value + '</div>\n        <input type="' + (this.password ? 'password' : 'text') + '" name="' + this.name + '" value="' + this.value + '" placeholder="' + this.placeholder + '"/>\n      </div>\n    ';
-  }
-
-  events() {
-    this.addEventOn('.no-input--text', 'input', function (self, e) {
-      var parent = self.parentElement;
-      var value = self.textContent;
-      var inputText = parent.querySelector('input');
-
-      inputText.value = value;
-    });
+    return '\n      <div class="' + this.label_class + ' no-input--text ' + (this.isFloat ? 'no-input--float' : '') + '">\n        <div class="text ' + (this.password ? 'password' : '') + '" data-name="' + this.name + '" data-placeholder="' + this.placeholder + '" contenteditable="true">' + this.value + '</div>\n        <span class="placeholder">' + this.placeholder + '</span>\n        <span class="backdrop"></span>\n        <span class="border"></span>\n      </div>\n    ';
   }
 };
 
@@ -1169,7 +1159,7 @@ exports.default = class extends _domrA.Component {
 
 __webpack_require__(33);
 
-__webpack_require__(44);
+__webpack_require__(45);
 
 /***/ }),
 /* 33 */
@@ -1328,10 +1318,9 @@ exports.default = class extends _domrA.Component {
     this.addEventOn('.login__login', 'click', function (self, e) {
       e.preventDefault();
       var parent = self.parentElement;
-      var email = parent.querySelector('input[name="email"]');
-      var password = parent.querySelector('input[name="password"]');
+      var email = parent.querySelector('.login__email').textContent.trim();
+      var password = parent.querySelector('.login__password').textContent.trim();
 
-      var dbRefObject = _this.firebase.database().ref();
       var auth = _this.firebase.auth();
 
       var promise = auth.signInWithEmailAndPassword(email.value, password.value);
@@ -1352,7 +1341,7 @@ exports.default = class extends _domrA.Component {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.TextPassword = exports.Text = undefined;
+exports.TextArea = exports.TextPassword = exports.Text = undefined;
 
 var _Text = __webpack_require__(17);
 
@@ -1362,10 +1351,15 @@ var _TextPassword = __webpack_require__(38);
 
 var _TextPassword2 = _interopRequireDefault(_TextPassword);
 
+var _TextArea = __webpack_require__(53);
+
+var _TextArea2 = _interopRequireDefault(_TextArea);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.Text = _Text2.default;
 exports.TextPassword = _TextPassword2.default;
+exports.TextArea = _TextArea2.default;
 
 /***/ }),
 /* 38 */
@@ -1408,9 +1402,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrA = __webpack_require__(0);
 
+var _scrollAction = __webpack_require__(51);
+
+var _scrollAction2 = _interopRequireDefault(_scrollAction);
+
 var _AdminPanelHeader = __webpack_require__(18);
 
 var _AdminPanelHeader2 = _interopRequireDefault(_AdminPanelHeader);
+
+var _ScrollToTopButton = __webpack_require__(52);
+
+var _ScrollToTopButton2 = _interopRequireDefault(_ScrollToTopButton);
 
 var _AdminPanelAlbumThumb = __webpack_require__(40);
 
@@ -1428,30 +1430,6 @@ function dynamicClass(name) {
   return classes[name];
 }
 
-function scrollAction(self) {
-  var previous = window.scrollY;
-  addEventListener('scroll', function () {
-    var stream = self.querySelector('.stream');
-    var streamTopButton = stream.querySelector('.top-button');
-    var tabHead = stream.querySelector('.tab__head');
-    var offSet = tabHead.offsetTop + 30;
-
-    if (window.scrollY >= offSet) {
-      window.scrollY > previous ? streamTopButton.classList.remove('top-button--active') : streamTopButton.classList.add('top-button--active');
-      previous = window.scrollY;
-
-      if (!stream.classList.contains('stream--fixed')) {
-        stream.classList.add('stream--fixed');
-      }
-    } else {
-      if (stream.classList.contains('stream--fixed')) {
-        stream.classList.remove('stream--fixed');
-        streamTopButton.classList.remove('top-button--active');
-      }
-    }
-  });
-}
-
 exports.default = class extends _domrA.Component {
   constructor(fire, streamType) {
     super();
@@ -1462,22 +1440,9 @@ exports.default = class extends _domrA.Component {
 
   dom() {
     var header = new _AdminPanelHeader2.default(this.firebase);
+    var topButton = new _ScrollToTopButton2.default('top-button');
 
-    return '\n      <div class="stream-main-container">\n        ' + header.render() + '\n        <div class="stream">\n          <div class="tab">\n            <div class="tab__head">\n              <div class="container tab__head__container">\n                <a href="#/?stream=album" class="tab__pick stream__pick" data-tab-pick="album">Albums</a>\n                <a href="#/?stream=image" class="tab__pick stream__pick" data-tab-pick="image">Images</a>\n              </div>\n            </div>\n            <div class="tab__body">\n              <div class="container tab__body__container">\n              </div>\n            </div>\n          </div>\n          <a href="" class="top-button"><span class="top-button-span"><svg role="img" class="icon"><use xlink:href="#icon-Design-14"></use></svg></span></a>\n        </div>\n      </div>\n    ';
-  }
-
-  events() {
-    this.addEventOn('.top-button', 'click', function (self, e) {
-      e.preventDefault();
-
-      window.scrollTo(0, 0);
-    });
-
-    this.addEventOn('.top-button-span', 'click', function (self, e) {
-      e.preventDefault();
-
-      self.parentElement.click();
-    });
+    return '\n      <div class="stream-main-container">\n        ' + header.render() + '\n        <div class="stream scroll">\n          <div class="tab">\n            <div class="tab__head scroll__head">\n              <div class="container tab__head__container">\n                <a href="#/?stream=album" class="tab__pick stream__pick" data-tab-pick="album">Albums</a>\n                <a href="#/?stream=image" class="tab__pick stream__pick" data-tab-pick="image">Images</a>\n              </div>\n            </div>\n            <div class="tab__body">\n              <div class="container tab__body__container">\n              </div>\n            </div>\n          </div>\n          ' + topButton.render() + '\n        </div>\n      </div>\n    ';
   }
 
   delay() {
@@ -1501,7 +1466,7 @@ exports.default = class extends _domrA.Component {
       });
     });
 
-    scrollAction(thisSelf);
+    (0, _scrollAction2.default)(thisSelf);
   }
 };
 
@@ -1657,33 +1622,25 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrA = __webpack_require__(0);
 
+var _scrollAction = __webpack_require__(51);
+
+var _scrollAction2 = _interopRequireDefault(_scrollAction);
+
+var _NoInput = __webpack_require__(37);
+
 var _AdminPanelHeader = __webpack_require__(18);
 
 var _AdminPanelHeader2 = _interopRequireDefault(_AdminPanelHeader);
 
-var _AdminPanelAlbumFolderGroup = __webpack_require__(50);
+var _ScrollToTopButton = __webpack_require__(52);
+
+var _ScrollToTopButton2 = _interopRequireDefault(_ScrollToTopButton);
+
+var _AdminPanelAlbumFolderGroup = __webpack_require__(44);
 
 var _AdminPanelAlbumFolderGroup2 = _interopRequireDefault(_AdminPanelAlbumFolderGroup);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function scrollAction(self) {
-  addEventListener('scroll', function () {
-    var folder = self.querySelector('.album-folder');
-    var folderHead = folder.querySelector('.add-remove-photos-internal');
-    var offSet = folderHead.offsetTop + 30;
-
-    if (window.scrollY >= offSet) {
-      if (!folder.classList.contains('album-folder--fixed')) {
-        folder.classList.add('album-folder--fixed');
-      }
-    } else {
-      if (folder.classList.contains('album-folder--fixed')) {
-        folder.classList.remove('album-folder--fixed');
-      }
-    }
-  });
-}
 
 exports.default = class extends _domrA.Component {
   constructor(fire, albumId) {
@@ -1695,14 +1652,68 @@ exports.default = class extends _domrA.Component {
 
   dom() {
     var header = new _AdminPanelHeader2.default(this.firebase);
+    var topButton = new _ScrollToTopButton2.default('top-button');
 
-    return '\n      <div class="album-folder-main-container">\n        ' + header.render() + '\n        <div class="album-folder">\n          <div class="album-folder__head">\n            <div class="container album-folder__head__container">\n              <a href="#/?stream=album" class="btn btn--icon btn--icon--shrink btn--no-button back-button"><svg role="img" class="icon"><use xlink:href="#icon-Design-12"></use></svg><span>Back</span></a>\n              <a href="#" class="btn btn--safe add-remove-photos">Arrange Photos</a>\n              <span class="album-name"></span>\n              <a href="#" class="btn btn--primary edit-button">Edit Info</a>\n            </div>\n          </div>\n          <div class="album-folder__body">\n            <div class="container album-folder__body__container">...</div>\n          </div>\n        </div>\n      </div>\n    ';
+    return '\n      <div class="album-folder-main-container">\n        ' + header.render() + '\n        <div class="album-folder scroll">\n          <div class="album-folder__head scroll__head">\n            <div class="container album-folder__head__container">\n              <a href="#/?stream=album" class="back-button"><svg role="img" class="icon"><use xlink:href="#icon-Design-12"></use></svg><span>Back</span></a>\n              <span class="album-name"></span>\n              <a href="#" class="btn btn--primary edit-button">Edit Album</a>\n              <div class="decision">\n                <a href="#" class="btn btn--safe save-button">Save</a>\n                <a href="#" class="btn cancel-button">Cancel</a>\n              </div>\n            </div>\n          </div>\n          <div class="album-folder__body">\n            <div class="container album-folder__body__container">...</div>\n          </div>\n          ' + topButton.render() + '\n        </div>\n      </div>\n    ';
+  }
+
+  events() {
+    var _this = this;
+
+    this.addEventOn('.edit-button', 'click', function (self, e) {
+      e.preventDefault();
+      var head = self.parentElement.parentElement;
+      var folder = head.parentElement;
+
+      if (folder.hasAttribute('data-key')) {
+        folder.classList.add('edit');
+      }
+    });
+
+    this.addEventOn('.save-button', 'click', function (self, e) {
+      e.preventDefault();
+      var thisSelf = self;
+      var head = thisSelf.parentElement.parentElement.parentElement;
+      var folder = head.parentElement;
+      var cancel = folder.querySelector('.cancel-button');
+      var key = folder.getAttribute('data-key');
+      var name = folder.querySelector('[data-name="album-name-edit"]').textContent.trim();
+      var description = folder.querySelector('[data-name="album-description-edit"]').textContent.trim();
+      var displayName = folder.querySelector('h1');
+      var displayDescription = folder.querySelector('.description');
+
+      thisSelf.setAttribute('data-og-text', thisSelf.textContent);
+      thisSelf.textContent = '....';
+      cancel.style.display = 'none';
+      thisSelf.style.margin = '0';
+
+      _this.db_ref_object.child(key).update({
+        name: name,
+        description: description
+      }).then(function () {
+        displayName.textContent = name;
+        displayDescription.textContent = description;
+        folder.classList.remove('edit');
+        thisSelf.textContent = thisSelf.getAttribute('data-og-text');
+        cancel.style.display = '';
+        thisSelf.style.margin = '';
+      });
+    });
+
+    this.addEventOn('.cancel-button', 'click', function (self, e) {
+      e.preventDefault();
+      var head = self.parentElement.parentElement.parentElement;
+      var folder = head.parentElement;
+
+      folder.classList.remove('edit');
+    });
   }
 
   delay() {
-    var _this = this;
+    var _this2 = this;
 
     var thisSelf = this.target();
+    var album = thisSelf.querySelector('.album-folder');
     var folder = thisSelf.querySelector('.album-folder__body__container');
     var albumName = thisSelf.querySelector('.album-name');
 
@@ -1711,10 +1722,21 @@ exports.default = class extends _domrA.Component {
       Object.keys(valueSnap).forEach(function (key) {
         var content = valueSnap[key];
         content.key = key;
-        if (content.album_id === _this.album_id) {
-          var folderGroup = new _AdminPanelAlbumFolderGroup2.default(content, _this.db_ref_object);
+        if (content.album_id === _this2.album_id) {
+          var folderGroup = new _AdminPanelAlbumFolderGroup2.default(content, _this2.db_ref_object);
+          var albumNameEdit = new _NoInput.Text('name-edit', 'album-name-edit', {
+            placeholder: 'Enter Album Name',
+            isFloat: true,
+            value: content.name
+          });
+          var albumDescriptionEdit = new _NoInput.TextArea('description-edit', 'album-description-edit', {
+            placeholder: 'Enter Description',
+            isFloat: true,
+            value: content.description
+          });
           albumName.textContent = content.name;
-          folder.innerHTML = '\n            <div>\n              <div class="album-folder__base-info">\n                <h1>' + content.name + '</h1>\n                <div class="description">' + content.description.trim() + '</div>\n                <a href="#" class="btn btn--safe add-remove-photos add-remove-photos-internal">Arrange Photos</a>\n              </div>\n              ' + folderGroup.render() + '\n            </div>\n          ';
+          album.setAttribute('data-key', key);
+          folder.innerHTML = '\n            <div>\n              <div class="album-folder__base-info">\n                <h1>' + content.name + '</h1>\n                <div class="album-name-edit text-edit">\n                  ' + albumNameEdit.render() + '\n                </div>\n                <div class="description">' + content.description.trim() + '</div>\n                 <div class="album-description-edit text-edit">\n                  ' + albumDescriptionEdit.render() + '\n                </div>\n                <a href="#" class="btn btn--safe add-remove-photos add-remove-photos-internal">Add Photos</a>\n              </div>\n              ' + folderGroup.render() + '\n            </div>\n          ';
           folder.classList.add('found');
         }
       });
@@ -1722,7 +1744,7 @@ exports.default = class extends _domrA.Component {
       if (!folder.classList.contains('found')) {
         folder.innerHTML = '<div>No Album</div>';
       } else {
-        scrollAction(thisSelf);
+        (0, _scrollAction2.default)(thisSelf);
       }
     });
   }
@@ -1730,17 +1752,6 @@ exports.default = class extends _domrA.Component {
 
 /***/ }),
 /* 44 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1764,21 +1775,35 @@ exports.default = class extends _domrA.Component {
   }
 
   delay() {
-    var _this = this;
-
     var thisSelf = this.target();
 
     if (this.content.photos_list && this.content.photos_list.length) {
+      var photosList = this.content.photos_list;
+      var allImages = [];
+
       this.db_ref_object.once('value', function (snap) {
         var valueSnap = snap.val();
         Object.keys(valueSnap).forEach(function (key) {
           var content = valueSnap[key];
           content.key = key;
 
-          if (content.image_id && _this.content.photos_list.includes(content.image_id)) {
-            thisSelf.innerHTML += '\n              <img src="' + content.img.thumb_small + '" alt="" data-src="' + content.img.thumb_medium + '" data-id="' + content.image_id + '"/>\n            ';
+          if (content.image_id && photosList.includes(content.image_id)) {
+            allImages.push(content);
           }
         });
+
+        var _loop = function _loop(i) {
+          var isData = allImages.find(function (x) {
+            return x.image_id === photosList[i];
+          });
+          if (isData) {
+            thisSelf.innerHTML += '\n              <img src="' + isData.img.thumb_small + '" alt="" data-src="' + isData.img.thumb_medium + '" data-id="' + isData.image_id + '"/>\n            ';
+          }
+        };
+
+        for (var i = 0; i < photosList.length; i++) {
+          _loop(i);
+        }
       }).then(function () {
         setTimeout(function () {
           var img = thisSelf.querySelectorAll('img');
@@ -1789,6 +1814,119 @@ exports.default = class extends _domrA.Component {
         }, 1500);
       });
     }
+  }
+};
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function scrollAction(target) {
+  var previous = window.scrollY;
+  addEventListener('scroll', function () {
+    var main = target.querySelector('.scroll');
+    var head = main.querySelector('.scroll__head');
+    var topBtn = main.querySelector('.scroll__top-btn');
+    var offSet = head.offsetTop + 30;
+
+    if (window.scrollY >= offSet) {
+      window.scrollY > previous ? topBtn.classList.remove('active') : topBtn.classList.add('active');
+      previous = window.scrollY;
+
+      if (!main.classList.contains('scroll--fixed')) {
+        main.classList.add('scroll--fixed');
+      }
+    } else {
+      if (main.classList.contains('scroll--fixed')) {
+        main.classList.remove('scroll--fixed');
+        topBtn.classList.remove('active');
+      }
+    }
+  });
+}
+
+exports.default = scrollAction;
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrA = __webpack_require__(0);
+
+exports.default = class extends _domrA.Component {
+  constructor() {
+    var classNames = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'scroll-to-top';
+
+    super();
+    this.classNames = classNames;
+  }
+
+  dom() {
+    return '\n     <a href="" class="' + this.classNames + ' scroll__top-btn"><svg role="img" class="icon"><use xlink:href="#icon-Design-14"></use></svg></a>\n    ';
+  }
+
+  events() {
+    this.addEventOn('.scroll__top-btn', 'click', function (self, e) {
+      e.preventDefault();
+      window.scrollTo(0, 0);
+    });
+  }
+};
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrA = __webpack_require__(0);
+
+exports.default = class extends _domrA.Component {
+  constructor() {
+    var labelClass = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'no-input-unique-class';
+    var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'no-input-name';
+    var config = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+    super();
+    this.label_class = labelClass;
+    this.name = name;
+    this.isFloat = config.isFloat || false;
+    this.placeholder = config.placeholder || '';
+    this.value = config.value || '';
+    this.password = false;
+  }
+
+  dom() {
+    return '\n      <div class="' + this.label_class + ' no-input no-input--text-area ' + (this.isFloat ? 'no-input--float' : '') + '">\n        <div class="text ' + (this.password ? 'password' : '') + '" data-name="' + this.name + '" data-placeholder="' + this.placeholder + '" contenteditable="true">' + this.value + '</div>\n        <span class="placeholder">' + this.placeholder + '</span>\n        <span class="backdrop"></span>\n        <span class="border"></span>\n      </div>\n    ';
   }
 };
 
