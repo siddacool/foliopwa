@@ -133,9 +133,12 @@ body {
 .no-input--text .text {
   -webkit-align-items: flex-end;
           align-items: flex-end;
+  border: 0;
   display: -webkit-flex;
   display: flex;
+  font-size: 20px;
   height: 60%;
+  margin: 0;
   position: relative;
   width: 100%;
   z-index: 20;
@@ -143,10 +146,25 @@ body {
 
 .no-input--text .text:empty:not(:focus) ~ .placeholder {
   color: #929292;
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 400;
   letter-spacing: .2px;
   top: 45%;
+}
+
+.no-input--text .text:not(:empty) ~ .title {
+  opacity: 1;
+  top: 10%;
+}
+
+.no-input--text .text:not(:empty) ~ .placeholder {
+  opacity: 0;
+  top: 20%;
+}
+
+.no-input--text .text:focus:not(:empty) ~ .placeholder {
+  opacity: 1;
+  top: 10%;
 }
 
 .no-input--text .text:focus ~ .backdrop:before {
@@ -160,13 +178,28 @@ body {
   height: 4px;
 }
 
+.no-input--text .text:focus ~ .title {
+  opacity: 0;
+  top: -10%;
+}
+
 .no-input--text .placeholder {
   font-size: 13px;
   font-weight: 700;
   letter-spacing: .3px;
   position: absolute;
   top: 10%;
-  transition: top 200ms, font-size 200ms, color 200ms;
+  transition: top 200ms, font-size 200ms, color 200ms, opacity 200ms;
+}
+
+.no-input--text .title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  opacity: 0;
+  position: absolute;
+  top: -10%;
+  transition: top 200ms, opacity 200ms;
 }
 
 .no-input--text .backdrop {
@@ -203,6 +236,141 @@ body {
   z-index: 20;
 }
 
+.no-input--password {
+  -webkit-align-items: flex-end;
+          align-items: flex-end;
+  display: -webkit-flex;
+  display: flex;
+  font-size: 20px;
+  font-weight: 400;
+  height: 60px;
+  letter-spacing: .2px;
+  margin-bottom: 10px;
+  padding-bottom: 11px;
+  position: relative;
+}
+
+.no-input--password .text {
+  -webkit-align-items: flex-end;
+          align-items: flex-end;
+  border: 0;
+  display: -webkit-flex;
+  display: flex;
+  font-size: 20px;
+  height: 60%;
+  margin: 0;
+  position: relative;
+  width: 100%;
+  z-index: 20;
+}
+
+.no-input--password .text:empty:not(:focus) ~ .placeholder {
+  color: #929292;
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: .2px;
+  top: 45%;
+}
+
+.no-input--password .text:not(:empty) ~ .title {
+  opacity: 1;
+  top: 10%;
+}
+
+.no-input--password .text:not(:empty) ~ .placeholder {
+  opacity: 0;
+  top: 20%;
+}
+
+.no-input--password .text:focus:not(:empty) ~ .placeholder {
+  opacity: 1;
+  top: 10%;
+}
+
+.no-input--password .text:focus ~ .backdrop:before {
+  background-color: transparent;
+  width: 100%;
+}
+
+.no-input--password .text:focus ~ .border {
+  background-color: black;
+  border-radius: 4px;
+  height: 4px;
+}
+
+.no-input--password .text:focus ~ .title {
+  opacity: 0;
+  top: -10%;
+}
+
+.no-input--password .placeholder {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  position: absolute;
+  top: 10%;
+  transition: top 200ms, font-size 200ms, color 200ms, opacity 200ms;
+}
+
+.no-input--password .title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  opacity: 0;
+  position: absolute;
+  top: -10%;
+  transition: top 200ms, opacity 200ms;
+}
+
+.no-input--password .backdrop {
+  bottom: 0;
+  display: -webkit-flex;
+  display: flex;
+  height: 60%;
+  -webkit-justify-content: center;
+          justify-content: center;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+}
+
+.no-input--password .backdrop::before {
+  background-color: #bcbcbc;
+  content: '';
+  display: inline-block;
+  transition: width 200ms, background-color 400ms;
+  width: 0;
+}
+
+.no-input--password .border {
+  background-color: #bcbcbc;
+  bottom: 10%;
+  display: -webkit-flex;
+  display: flex;
+  height: 2px;
+  left: 0;
+  position: absolute;
+  transition: height 200ms, background-color 400ms;
+  width: 100%;
+  z-index: 20;
+}
+
+.no-input--password .text {
+  -webkit-filter: blur(3px);
+          filter: blur(3px);
+  font-weight: 600;
+  transition: -webkit-filter 200ms;
+  transition: filter 200ms;
+  transition: filter 200ms, -webkit-filter 200ms;
+}
+
+.no-input--password .text:focus {
+  -webkit-filter: blur(0);
+          filter: blur(0);
+  font-weight: 400;
+}
+
 .no-input--text-area {
   -webkit-align-items: flex-end;
           align-items: flex-end;
@@ -222,9 +390,12 @@ body {
 .no-input--text-area .text {
   -webkit-align-items: flex-end;
           align-items: flex-end;
+  border: 0;
   display: -webkit-flex;
   display: flex;
+  font-size: 20px;
   height: 60%;
+  margin: 0;
   position: relative;
   width: 100%;
   z-index: 20;
@@ -232,10 +403,25 @@ body {
 
 .no-input--text-area .text:empty:not(:focus) ~ .placeholder {
   color: #929292;
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 400;
   letter-spacing: .2px;
   top: 45%;
+}
+
+.no-input--text-area .text:not(:empty) ~ .title {
+  opacity: 1;
+  top: 10%;
+}
+
+.no-input--text-area .text:not(:empty) ~ .placeholder {
+  opacity: 0;
+  top: 20%;
+}
+
+.no-input--text-area .text:focus:not(:empty) ~ .placeholder {
+  opacity: 1;
+  top: 10%;
 }
 
 .no-input--text-area .text:focus ~ .backdrop:before {
@@ -249,13 +435,28 @@ body {
   height: 4px;
 }
 
+.no-input--text-area .text:focus ~ .title {
+  opacity: 0;
+  top: -10%;
+}
+
 .no-input--text-area .placeholder {
   font-size: 13px;
   font-weight: 700;
   letter-spacing: .3px;
   position: absolute;
   top: 10%;
-  transition: top 200ms, font-size 200ms, color 200ms;
+  transition: top 200ms, font-size 200ms, color 200ms, opacity 200ms;
+}
+
+.no-input--text-area .title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  opacity: 0;
+  position: absolute;
+  top: -10%;
+  transition: top 200ms, opacity 200ms;
 }
 
 .no-input--text-area .backdrop {
@@ -664,6 +865,40 @@ header .logo > span {
 
 .account__drop--active + .account-cloak {
   display: block;
+}
+
+.login {
+  -webkit-align-items: baseline;
+          align-items: baseline;
+  background-color: #ededed;
+  display: -webkit-flex;
+  display: flex;
+  height: 100vh;
+}
+
+.login__well {
+  background-color: #fff;
+  border-radius: 3px;
+  margin: 10vh auto 0 auto;
+  padding: 1rem;
+  text-align: right;
+  width: calc(100% - 2rem);
+}
+
+@media only screen and (min-width: 1025px) {
+  .login__well {
+    max-width: 500px;
+    width: 50%;
+  }
+}
+
+.login__email, .login__password {
+  text-align: left;
+  width: 100%;
+}
+
+.login__login {
+  margin-top: 2rem;
 }
 
 .stream {

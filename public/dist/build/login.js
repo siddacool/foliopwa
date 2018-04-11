@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "public/dist/build/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 32);
+/******/ 	return __webpack_require__(__webpack_require__.s = 36);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1033,8 +1033,51 @@ exports.default = utils;
 /***/ }),
 /* 13 */,
 /* 14 */,
-/* 15 */,
-/* 16 */
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrA = __webpack_require__(0);
+
+var _clearFormatting = __webpack_require__(19);
+
+var _clearFormatting2 = _interopRequireDefault(_clearFormatting);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = class extends _domrA.Component {
+  constructor(name) {
+    var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    super();
+    this.name = name;
+    this.type = config.type || 'text';
+    this.title = config.title || config.placeholder || '';
+    this.placeholder = config.placeholder || config.title || '';
+    this.value = config.value || '';
+    this.label_class = config.labelClass || '';
+  }
+
+  dom() {
+    return '\n      <div class="' + this.label_class + ' no-input no-input--' + this.type + '">\n        <div class="text" data-name="' + this.name + '" lang="clusterf*ck" spellcheck="false" contenteditable="true">' + this.value + '</div>\n        <span class="placeholder">' + this.placeholder + '</span>\n        <span class="title">' + this.title + '</span>\n        <span class="backdrop"></span>\n        <span class="border"></span>\n      </div>\n    ';
+  }
+
+  events() {
+    this.addEventOn('[data-name=\'' + this.name + '\']', 'paste', function (self, e) {
+      (0, _clearFormatting2.default)(self, e);
+    });
+  }
+};
+
+/***/ }),
+/* 16 */,
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1055,7 +1098,7 @@ var firebaseConfig = {
 exports.default = firebaseConfig;
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1064,31 +1107,85 @@ exports.default = firebaseConfig;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.TextArea = exports.Password = exports.Text = undefined;
 
-var _domrA = __webpack_require__(0);
+var _Text = __webpack_require__(15);
 
-exports.default = class extends _domrA.Component {
-  constructor() {
-    var labelClass = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'no-input-unique-class';
-    var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'no-input-name';
-    var config = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+var _Text2 = _interopRequireDefault(_Text);
 
-    super();
-    this.label_class = labelClass;
-    this.name = name;
-    this.isFloat = config.isFloat || false;
-    this.placeholder = config.placeholder || '';
-    this.value = config.value || '';
-    this.password = false;
-  }
+var _Password = __webpack_require__(41);
 
-  dom() {
-    return '\n      <div class="' + this.label_class + ' no-input--text ' + (this.isFloat ? 'no-input--float' : '') + '">\n        <div class="text ' + (this.password ? 'password' : '') + '" data-name="' + this.name + '" data-placeholder="' + this.placeholder + '" contenteditable="true">' + this.value + '</div>\n        <span class="placeholder">' + this.placeholder + '</span>\n        <span class="backdrop"></span>\n        <span class="border"></span>\n      </div>\n    ';
-  }
-};
+var _Password2 = _interopRequireDefault(_Password);
+
+var _TextArea = __webpack_require__(42);
+
+var _TextArea2 = _interopRequireDefault(_TextArea);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.Text = _Text2.default;
+exports.Password = _Password2.default;
+exports.TextArea = _TextArea2.default;
 
 /***/ }),
-/* 18 */
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function clearFormatting(self, e) {
+  e.preventDefault();
+  var thisSelf = self;
+  var clipboard = e.clipboardData || window.clipboardData;
+  var filteredText = clipboard.getData('Text');
+
+  thisSelf.textContent = filteredText;
+}
+
+exports.default = clearFormatting;
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function scrollAction(target) {
+  var previous = window.scrollY;
+  addEventListener('scroll', function () {
+    var main = target.querySelector('.scroll');
+    var head = main.querySelector('.scroll__head');
+    var topBtn = main.querySelector('.scroll__top-btn');
+    var offSet = head.offsetTop + 30;
+
+    if (window.scrollY >= offSet) {
+      window.scrollY > previous ? topBtn.classList.remove('active') : topBtn.classList.add('active');
+      previous = window.scrollY;
+
+      if (!main.classList.contains('scroll--fixed')) {
+        main.classList.add('scroll--fixed');
+      }
+    } else {
+      if (main.classList.contains('scroll--fixed')) {
+        main.classList.remove('scroll--fixed');
+        topBtn.classList.remove('active');
+      }
+    }
+  });
+}
+
+exports.default = scrollAction;
+
+/***/ }),
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1138,10 +1235,39 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */,
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrA = __webpack_require__(0);
+
+exports.default = class extends _domrA.Component {
+  constructor() {
+    var classNames = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'scroll-to-top';
+
+    super();
+    this.classNames = classNames;
+  }
+
+  dom() {
+    return '\n     <a href="" class="' + this.classNames + ' scroll__top-btn"><svg role="img" class="icon"><use xlink:href="#icon-Design-14"></use></svg></a>\n    ';
+  }
+
+  events() {
+    this.addEventOn('.scroll__top-btn', 'click', function (self, e) {
+      e.preventDefault();
+      window.scrollTo(0, 0);
+    });
+  }
+};
+
+/***/ }),
 /* 23 */,
 /* 24 */,
 /* 25 */,
@@ -1151,18 +1277,22 @@ exports.default = class extends _domrA.Component {
 /* 29 */,
 /* 30 */,
 /* 31 */,
-/* 32 */
+/* 32 */,
+/* 33 */,
+/* 34 */,
+/* 35 */,
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(33);
+__webpack_require__(37);
 
-__webpack_require__(45);
+__webpack_require__(49);
 
 /***/ }),
-/* 33 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1170,7 +1300,7 @@ __webpack_require__(45);
 
 var _domrA = __webpack_require__(0);
 
-var _routes = __webpack_require__(34);
+var _routes = __webpack_require__(38);
 
 var _routes2 = _interopRequireDefault(_routes);
 
@@ -1183,7 +1313,7 @@ var router = new _domrA.Router(_routes2.default, {
 router.start();
 
 /***/ }),
-/* 34 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1193,11 +1323,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _AdminPanelHomeView = __webpack_require__(35);
+var _AdminPanelHomeView = __webpack_require__(39);
 
 var _AdminPanelHomeView2 = _interopRequireDefault(_AdminPanelHomeView);
 
-var _AdminPanelAlbumFolderView = __webpack_require__(42);
+var _AdminPanelAlbumFolderView = __webpack_require__(46);
 
 var _AdminPanelAlbumFolderView2 = _interopRequireDefault(_AdminPanelAlbumFolderView);
 
@@ -1225,7 +1355,7 @@ var routes = [{
 exports.default = routes;
 
 /***/ }),
-/* 35 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1263,22 +1393,22 @@ exports.default = function (data) {
   window.scrollTo(0, 0);
 };
 
-var _firebaseConfig = __webpack_require__(16);
+var _firebaseConfig = __webpack_require__(17);
 
 var _firebaseConfig2 = _interopRequireDefault(_firebaseConfig);
 
-var _AdminPanelLoginContainer = __webpack_require__(36);
+var _AdminPanelLoginContainer = __webpack_require__(40);
 
 var _AdminPanelLoginContainer2 = _interopRequireDefault(_AdminPanelLoginContainer);
 
-var _AdminPanelStreamContainer = __webpack_require__(39);
+var _AdminPanelStreamContainer = __webpack_require__(43);
 
 var _AdminPanelStreamContainer2 = _interopRequireDefault(_AdminPanelStreamContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 36 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1290,7 +1420,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrA = __webpack_require__(0);
 
-var _NoInput = __webpack_require__(37);
+var _NoInput = __webpack_require__(18);
 
 exports.default = class extends _domrA.Component {
   constructor(fire) {
@@ -1299,17 +1429,19 @@ exports.default = class extends _domrA.Component {
   }
 
   dom() {
-    var email = new _NoInput.Text('login__email', 'email', {
+    var email = new _NoInput.Text('login-email', {
+      title: 'Email',
       placeholder: 'Enter Your Email',
-      isFloat: true
+      labelClass: 'login__email'
     });
 
-    var password = new _NoInput.TextPassword('login__password', 'password', {
+    var password = new _NoInput.Password('login-password', {
+      title: 'Password',
       placeholder: 'Enter Your Password',
-      isFloat: true
+      labelClass: 'login__password'
     });
 
-    return '\n      <div class="container login-main-container">\n        <div class="login">\n          ' + email.render() + '\n          ' + password.render() + '\n          <a href="#" class="btn btn--primary login__login">Login</a>\n        </div>\n      </div>\n    ';
+    return '\n      <div class="login">\n        <div class="login__well">\n          ' + email.render() + '\n          ' + password.render() + '\n          <a href="#" class="btn btn--primary login__login">Login</a>\n        </div>\n      </div>\n    ';
   }
 
   events() {
@@ -1318,12 +1450,12 @@ exports.default = class extends _domrA.Component {
     this.addEventOn('.login__login', 'click', function (self, e) {
       e.preventDefault();
       var parent = self.parentElement;
-      var email = parent.querySelector('.login__email').textContent.trim();
-      var password = parent.querySelector('.login__password').textContent.trim();
+      var email = parent.querySelector('[data-name="login-email"]').textContent.trim();
+      var password = parent.querySelector('[data-name="login-password"]').textContent.trim();
 
       var auth = _this.firebase.auth();
 
-      var promise = auth.signInWithEmailAndPassword(email.value, password.value);
+      var promise = auth.signInWithEmailAndPassword(email, password);
       promise.catch(function (msg) {
         console.log(msg.message);
       });
@@ -1332,7 +1464,7 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 37 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1341,28 +1473,34 @@ exports.default = class extends _domrA.Component {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.TextArea = exports.TextPassword = exports.Text = undefined;
 
-var _Text = __webpack_require__(17);
+var _Text = __webpack_require__(15);
 
 var _Text2 = _interopRequireDefault(_Text);
 
-var _TextPassword = __webpack_require__(38);
+var _clearFormatting = __webpack_require__(19);
 
-var _TextPassword2 = _interopRequireDefault(_TextPassword);
-
-var _TextArea = __webpack_require__(53);
-
-var _TextArea2 = _interopRequireDefault(_TextArea);
+var _clearFormatting2 = _interopRequireDefault(_clearFormatting);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.Text = _Text2.default;
-exports.TextPassword = _TextPassword2.default;
-exports.TextArea = _TextArea2.default;
+exports.default = class extends _Text2.default {
+  constructor(name) {
+    var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    super(name, config);
+    this.type = 'password';
+  }
+
+  events() {
+    this.addEventOn('[data-name=\'' + this.name + '\']', 'paste', function (self, e) {
+      (0, _clearFormatting2.default)(self, e);
+    });
+  }
+};
 
 /***/ }),
-/* 38 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1372,25 +1510,23 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Text = __webpack_require__(17);
+var _Text = __webpack_require__(15);
 
 var _Text2 = _interopRequireDefault(_Text);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = class extends _Text2.default {
-  constructor() {
-    var labelClass = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'no-input-unique-class';
-    var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'no-input-name';
-    var config = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  constructor(name) {
+    var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-    super(labelClass, name, config);
-    this.password = true;
+    super(name, config);
+    this.type = 'text-area';
   }
 };
 
 /***/ }),
-/* 39 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1402,23 +1538,23 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrA = __webpack_require__(0);
 
-var _scrollAction = __webpack_require__(51);
+var _scrollAction = __webpack_require__(20);
 
 var _scrollAction2 = _interopRequireDefault(_scrollAction);
 
-var _AdminPanelHeader = __webpack_require__(18);
+var _AdminPanelHeader = __webpack_require__(21);
 
 var _AdminPanelHeader2 = _interopRequireDefault(_AdminPanelHeader);
 
-var _ScrollToTopButton = __webpack_require__(52);
+var _ScrollToTopButton = __webpack_require__(22);
 
 var _ScrollToTopButton2 = _interopRequireDefault(_ScrollToTopButton);
 
-var _AdminPanelAlbumThumb = __webpack_require__(40);
+var _AdminPanelAlbumThumb = __webpack_require__(44);
 
 var _AdminPanelAlbumThumb2 = _interopRequireDefault(_AdminPanelAlbumThumb);
 
-var _AdminPanelImageThumb = __webpack_require__(41);
+var _AdminPanelImageThumb = __webpack_require__(45);
 
 var _AdminPanelImageThumb2 = _interopRequireDefault(_AdminPanelImageThumb);
 
@@ -1471,7 +1607,7 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 40 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1528,7 +1664,7 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 41 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1566,7 +1702,7 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 42 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1599,18 +1735,18 @@ exports.default = function (data) {
   window.scrollTo(0, 0);
 };
 
-var _firebaseConfig = __webpack_require__(16);
+var _firebaseConfig = __webpack_require__(17);
 
 var _firebaseConfig2 = _interopRequireDefault(_firebaseConfig);
 
-var _AdminPanelAlbumFolderContainer = __webpack_require__(43);
+var _AdminPanelAlbumFolderContainer = __webpack_require__(47);
 
 var _AdminPanelAlbumFolderContainer2 = _interopRequireDefault(_AdminPanelAlbumFolderContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 43 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1622,21 +1758,21 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrA = __webpack_require__(0);
 
-var _scrollAction = __webpack_require__(51);
+var _scrollAction = __webpack_require__(20);
 
 var _scrollAction2 = _interopRequireDefault(_scrollAction);
 
-var _NoInput = __webpack_require__(37);
+var _NoInput = __webpack_require__(18);
 
-var _AdminPanelHeader = __webpack_require__(18);
+var _AdminPanelHeader = __webpack_require__(21);
 
 var _AdminPanelHeader2 = _interopRequireDefault(_AdminPanelHeader);
 
-var _ScrollToTopButton = __webpack_require__(52);
+var _ScrollToTopButton = __webpack_require__(22);
 
 var _ScrollToTopButton2 = _interopRequireDefault(_ScrollToTopButton);
 
-var _AdminPanelAlbumFolderGroup = __webpack_require__(44);
+var _AdminPanelAlbumFolderGroup = __webpack_require__(48);
 
 var _AdminPanelAlbumFolderGroup2 = _interopRequireDefault(_AdminPanelAlbumFolderGroup);
 
@@ -1724,14 +1860,16 @@ exports.default = class extends _domrA.Component {
         content.key = key;
         if (content.album_id === _this2.album_id) {
           var folderGroup = new _AdminPanelAlbumFolderGroup2.default(content, _this2.db_ref_object);
-          var albumNameEdit = new _NoInput.Text('name-edit', 'album-name-edit', {
+          var albumNameEdit = new _NoInput.Text('album-name-edit', {
+            title: 'Album Name',
             placeholder: 'Enter Album Name',
-            isFloat: true,
+            labelClass: 'name-edit',
             value: content.name
           });
-          var albumDescriptionEdit = new _NoInput.TextArea('description-edit', 'album-description-edit', {
+          var albumDescriptionEdit = new _NoInput.TextArea('album-description-edit', {
+            title: 'Description',
             placeholder: 'Enter Description',
-            isFloat: true,
+            labelClass: 'description-edit',
             value: content.description
           });
           albumName.textContent = content.name;
@@ -1751,7 +1889,7 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 44 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1818,117 +1956,10 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 45 */
+/* 49 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-function scrollAction(target) {
-  var previous = window.scrollY;
-  addEventListener('scroll', function () {
-    var main = target.querySelector('.scroll');
-    var head = main.querySelector('.scroll__head');
-    var topBtn = main.querySelector('.scroll__top-btn');
-    var offSet = head.offsetTop + 30;
-
-    if (window.scrollY >= offSet) {
-      window.scrollY > previous ? topBtn.classList.remove('active') : topBtn.classList.add('active');
-      previous = window.scrollY;
-
-      if (!main.classList.contains('scroll--fixed')) {
-        main.classList.add('scroll--fixed');
-      }
-    } else {
-      if (main.classList.contains('scroll--fixed')) {
-        main.classList.remove('scroll--fixed');
-        topBtn.classList.remove('active');
-      }
-    }
-  });
-}
-
-exports.default = scrollAction;
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _domrA = __webpack_require__(0);
-
-exports.default = class extends _domrA.Component {
-  constructor() {
-    var classNames = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'scroll-to-top';
-
-    super();
-    this.classNames = classNames;
-  }
-
-  dom() {
-    return '\n     <a href="" class="' + this.classNames + ' scroll__top-btn"><svg role="img" class="icon"><use xlink:href="#icon-Design-14"></use></svg></a>\n    ';
-  }
-
-  events() {
-    this.addEventOn('.scroll__top-btn', 'click', function (self, e) {
-      e.preventDefault();
-      window.scrollTo(0, 0);
-    });
-  }
-};
-
-/***/ }),
-/* 53 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _domrA = __webpack_require__(0);
-
-exports.default = class extends _domrA.Component {
-  constructor() {
-    var labelClass = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'no-input-unique-class';
-    var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'no-input-name';
-    var config = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-
-    super();
-    this.label_class = labelClass;
-    this.name = name;
-    this.isFloat = config.isFloat || false;
-    this.placeholder = config.placeholder || '';
-    this.value = config.value || '';
-    this.password = false;
-  }
-
-  dom() {
-    return '\n      <div class="' + this.label_class + ' no-input no-input--text-area ' + (this.isFloat ? 'no-input--float' : '') + '">\n        <div class="text ' + (this.password ? 'password' : '') + '" data-name="' + this.name + '" data-placeholder="' + this.placeholder + '" contenteditable="true">' + this.value + '</div>\n        <span class="placeholder">' + this.placeholder + '</span>\n        <span class="backdrop"></span>\n        <span class="border"></span>\n      </div>\n    ';
-  }
-};
 
 /***/ })
 /******/ ]);

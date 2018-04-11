@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "public/dist/build/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 19);
+/******/ 	return __webpack_require__(__webpack_require__.s = 23);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1084,7 +1084,8 @@ function goodOlAjaxPromise(url) {
 exports.default = goodOlAjaxPromise;
 
 /***/ }),
-/* 15 */
+/* 15 */,
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1100,7 +1101,7 @@ var _goodOlAjaxPromise = __webpack_require__(14);
 
 var _goodOlAjaxPromise2 = _interopRequireDefault(_goodOlAjaxPromise);
 
-var _HomePageAlbum = __webpack_require__(23);
+var _HomePageAlbum = __webpack_require__(27);
 
 var _HomePageAlbum2 = _interopRequireDefault(_HomePageAlbum);
 
@@ -1199,21 +1200,24 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 16 */,
 /* 17 */,
 /* 18 */,
-/* 19 */
+/* 19 */,
+/* 20 */,
+/* 21 */,
+/* 22 */,
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(20);
+__webpack_require__(24);
 
-__webpack_require__(31);
+__webpack_require__(35);
 
 /***/ }),
-/* 20 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1221,7 +1225,7 @@ __webpack_require__(31);
 
 var _domrA = __webpack_require__(0);
 
-var _routes = __webpack_require__(21);
+var _routes = __webpack_require__(25);
 
 var _routes2 = _interopRequireDefault(_routes);
 
@@ -1234,7 +1238,7 @@ var router = new _domrA.Router(_routes2.default, {
 router.start();
 
 /***/ }),
-/* 21 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1244,19 +1248,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _HomePageView = __webpack_require__(22);
+var _HomePageView = __webpack_require__(26);
 
 var _HomePageView2 = _interopRequireDefault(_HomePageView);
 
-var _WorkView = __webpack_require__(24);
+var _WorkView = __webpack_require__(28);
 
 var _WorkView2 = _interopRequireDefault(_WorkView);
 
-var _FolderView = __webpack_require__(28);
+var _FolderView = __webpack_require__(32);
 
 var _FolderView2 = _interopRequireDefault(_FolderView);
 
-var _AboutView = __webpack_require__(29);
+var _AboutView = __webpack_require__(33);
 
 var _AboutView2 = _interopRequireDefault(_AboutView);
 
@@ -1284,7 +1288,7 @@ var routes = [{
 exports.default = routes;
 
 /***/ }),
-/* 22 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1314,14 +1318,14 @@ var _apiSet = __webpack_require__(13);
 
 var _apiSet2 = _interopRequireDefault(_apiSet);
 
-var _ShowCase = __webpack_require__(15);
+var _ShowCase = __webpack_require__(16);
 
 var _ShowCase2 = _interopRequireDefault(_ShowCase);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 23 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1368,7 +1372,7 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 24 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1403,14 +1407,14 @@ var _apiSet = __webpack_require__(13);
 
 var _apiSet2 = _interopRequireDefault(_apiSet);
 
-var _WorkContainer = __webpack_require__(25);
+var _WorkContainer = __webpack_require__(29);
 
 var _WorkContainer2 = _interopRequireDefault(_WorkContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 25 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1426,7 +1430,7 @@ var _goodOlAjaxPromise = __webpack_require__(14);
 
 var _goodOlAjaxPromise2 = _interopRequireDefault(_goodOlAjaxPromise);
 
-var _WorkAlbum = __webpack_require__(26);
+var _WorkAlbum = __webpack_require__(30);
 
 var _WorkAlbum2 = _interopRequireDefault(_WorkAlbum);
 
@@ -1466,7 +1470,7 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 26 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1482,7 +1486,7 @@ var _goodOlAjaxPromise = __webpack_require__(14);
 
 var _goodOlAjaxPromise2 = _interopRequireDefault(_goodOlAjaxPromise);
 
-var _WorkAlbumCover = __webpack_require__(27);
+var _WorkAlbumCover = __webpack_require__(31);
 
 var _WorkAlbumCover2 = _interopRequireDefault(_WorkAlbumCover);
 
@@ -1519,7 +1523,7 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 27 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1552,7 +1556,7 @@ exports.default = class extends _domrA.Component {
 };
 
 /***/ }),
-/* 28 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1589,14 +1593,14 @@ var _apiSet = __webpack_require__(13);
 
 var _apiSet2 = _interopRequireDefault(_apiSet);
 
-var _ShowCase = __webpack_require__(15);
+var _ShowCase = __webpack_require__(16);
 
 var _ShowCase2 = _interopRequireDefault(_ShowCase);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 29 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1614,14 +1618,14 @@ exports.default = function () {
   main.innerHTML = aboutContainer;
 };
 
-var _AboutContainer = __webpack_require__(30);
+var _AboutContainer = __webpack_require__(34);
 
 var _AboutContainer2 = _interopRequireDefault(_AboutContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 30 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1636,7 +1640,7 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 31 */
+/* 35 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
