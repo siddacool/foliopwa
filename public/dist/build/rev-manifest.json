@@ -1,10 +1,10 @@
 {
   "login": {
-    "js": "public/dist/build/login.js",
-    "css": "public/dist/build/login.css"
+    "js": "public/dist/build/login.5e5b61b9ea806acee92f.js",
+    "css": "public/dist/build/login.a099aa9970c44e50f572a8afb483770e.css"
   },
   "app": {
-    "js": "public/dist/build/app.js",
-    "css": "public/dist/build/app.css"
+    "js": "public/dist/build/app.5e5b61b9ea806acee92f.js",
+    "css": "public/dist/build/app.c32c683bdc5feae57f578d095a9f3478.css"
   }
 }
