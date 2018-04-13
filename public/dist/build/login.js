@@ -1060,12 +1060,13 @@ exports.default = class extends _domrA.Component {
     this.type = config.type || 'text';
     this.title = config.title || config.placeholder || '';
     this.placeholder = config.placeholder || config.title || '';
+    this.example = config.example || '';
     this.value = config.value || '';
     this.label_class = config.labelClass || '';
   }
 
   dom() {
-    return '\n      <div class="' + this.label_class + ' no-input no-input--' + this.type + '">\n        <div class="text" data-name="' + this.name + '" lang="clusterf*ck" spellcheck="false" contenteditable="true">' + this.value + '</div>\n        <span class="placeholder">' + this.placeholder + '</span>\n        <span class="title">' + this.title + '</span>\n        <span class="backdrop"></span>\n        <span class="border"></span>\n      </div>\n    ';
+    return '\n      <div class="' + this.label_class + ' no-input no-input--' + this.type + '">\n        <div class="text" data-name="' + this.name + '" lang="clusterf*ck" spellcheck="false" contenteditable="true">' + this.value + '</div>\n        <span class="placeholder">' + this.placeholder + '</span>\n        <span class="example">' + this.example + '</span>\n        <span class="title">' + this.title + '</span>\n        <span class="backdrop"></span>\n        <span class="border"></span>\n      </div>\n    ';
   }
 
   events() {
@@ -1432,6 +1433,7 @@ exports.default = class extends _domrA.Component {
     var email = new _NoInput.Text('login-email', {
       title: 'Email',
       placeholder: 'Enter Your Email',
+      example: 'yourid@somemail.com',
       labelClass: 'login__email'
     });
 
@@ -1460,6 +1462,13 @@ exports.default = class extends _domrA.Component {
         console.log(msg.message);
       });
     });
+  }
+
+  delay() {
+    var thisSelf = this.target();
+    var email = thisSelf.querySelector('[data-name="login-email"]');
+
+    email.focus();
   }
 };
 
@@ -1876,6 +1885,7 @@ exports.default = class extends _domrA.Component {
           var folderGroup = new _AdminPanelAlbumFolderGroup2.default(content, _this2.db_ref_object);
           var albumNameEdit = new _NoInput.Text('album-name-edit', {
             title: 'Album Name',
+            example: 'e.g. Vintage Glamour',
             placeholder: 'Enter Album Name',
             labelClass: 'name-edit',
             value: content.name
