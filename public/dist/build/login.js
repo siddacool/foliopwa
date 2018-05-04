@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "public/dist/build/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 38);
+/******/ 	return __webpack_require__(__webpack_require__.s = 40);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -75,15 +75,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.utils = exports.Router = exports.Component = undefined;
 
-var _Component = __webpack_require__(40);
+var _Component = __webpack_require__(42);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _Router = __webpack_require__(44);
+var _Router = __webpack_require__(46);
 
 var _Router2 = _interopRequireDefault(_Router);
 
-var _utils = __webpack_require__(49);
+var _utils = __webpack_require__(51);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -106,11 +106,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _hashLocationSet = __webpack_require__(47);
+var _hashLocationSet = __webpack_require__(49);
 
 var _hashLocationSet2 = _interopRequireDefault(_hashLocationSet);
 
-var _hashLocationGet = __webpack_require__(48);
+var _hashLocationGet = __webpack_require__(50);
 
 var _hashLocationGet2 = _interopRequireDefault(_hashLocationGet);
 
@@ -174,6 +174,166 @@ exports.default = hashLocation;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+var firebaseConfig = {
+  apiKey: 'AIzaSyByLhhClB2fpoApnZWz0RFhTz6NxVYMLes',
+  authDomain: 'sid-mangela-folio-db.firebaseapp.com',
+  databaseURL: 'https://sid-mangela-folio-db.firebaseio.com',
+  projectId: 'sid-mangela-folio-db',
+  storageBucket: 'sid-mangela-folio-db.appspot.com',
+  messagingSenderId: '803380125475'
+};
+
+exports.default = firebaseConfig;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Stripe = exports.TextArea = exports.Password = exports.Text = undefined;
+
+var _Text = __webpack_require__(12);
+
+var _Text2 = _interopRequireDefault(_Text);
+
+var _Password = __webpack_require__(57);
+
+var _Password2 = _interopRequireDefault(_Password);
+
+var _TextArea = __webpack_require__(58);
+
+var _TextArea2 = _interopRequireDefault(_TextArea);
+
+var _Stripe = __webpack_require__(59);
+
+var _Stripe2 = _interopRequireDefault(_Stripe);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.Text = _Text2.default;
+exports.Password = _Password2.default;
+exports.TextArea = _TextArea2.default;
+exports.Stripe = _Stripe2.default;
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function scrollAction(target) {
+  var previous = window.scrollY;
+  addEventListener('scroll', function () {
+    var main = target.querySelector('.scroll');
+    var head = main.querySelector('.scroll__head');
+    var topBtn = main.querySelector('.scroll__top-btn');
+    var offSet = head.offsetTop + 30;
+
+    if (window.scrollY >= offSet) {
+      window.scrollY > previous ? topBtn.classList.remove('active') : topBtn.classList.add('active');
+      previous = window.scrollY;
+
+      if (!main.classList.contains('scroll--fixed')) {
+        main.classList.add('scroll--fixed');
+      }
+    } else {
+      if (main.classList.contains('scroll--fixed')) {
+        main.classList.remove('scroll--fixed');
+        topBtn.classList.remove('active');
+      }
+    }
+  });
+}
+
+exports.default = scrollAction;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (fireBase) {
+  var fire = fireBase;
+  var firebaseAuth = fire.auth();
+  var AccountPop = new _AdminPanelAccountPop2.default();
+  var AccountCloak = new _AdminPanelAccountCloak2.default();
+  var AccountLogout = new _AdminPanelAccountLogout2.default(fire);
+
+  return '\n    <header>\n        <a href="#/" class="logo">\n          <img src="./public/dist/favicon/favicon.png" alt="Logo" />\n        </a>\n        <div class="account">\n          ' + AccountPop.Render() + '\n          <div class="account__drop">\n            <div class="account__welcome">Hola ' + firebaseAuth.currentUser.email + '</div>\n            ' + AccountLogout.Render() + '\n          </div>\n          ' + AccountCloak.Render() + '\n        </div>\n     </header>\n  ';
+};
+
+var _AdminPanelAccountPop = __webpack_require__(62);
+
+var _AdminPanelAccountPop2 = _interopRequireDefault(_AdminPanelAccountPop);
+
+var _AdminPanelAccountCloak = __webpack_require__(63);
+
+var _AdminPanelAccountCloak2 = _interopRequireDefault(_AdminPanelAccountCloak);
+
+var _AdminPanelAccountLogout = __webpack_require__(64);
+
+var _AdminPanelAccountLogout2 = _interopRequireDefault(_AdminPanelAccountLogout);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+exports.default = class extends _domrC.Component {
+  constructor() {
+    var classNames = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'scroll-to-top';
+
+    super();
+    this.classNames = classNames;
+  }
+
+  Markup() {
+    return '\n     <a href="#" class="' + this.classNames + ' scroll__top-btn"><svg role="img" class="icon"><use xlink:href="#icon-Design-14"></use></svg></a>\n    ';
+  }
+
+  Events() {
+    this.Click(function (self, e) {
+      e.preventDefault();
+      window.scrollTo(0, 0);
+    });
+  }
+};
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var _domrC = __webpack_require__(0);
 
@@ -219,9 +379,9 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 5 */,
-/* 6 */,
-/* 7 */
+/* 10 */,
+/* 11 */,
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -233,7 +393,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _PasteNameField = __webpack_require__(53);
+var _PasteNameField = __webpack_require__(55);
 
 var _PasteNameField2 = _interopRequireDefault(_PasteNameField);
 
@@ -260,11 +420,11 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */,
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -273,125 +433,44 @@ exports.default = class extends _domrC.Component {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var firebaseConfig = {
-  apiKey: 'AIzaSyByLhhClB2fpoApnZWz0RFhTz6NxVYMLes',
-  authDomain: 'sid-mangela-folio-db.firebaseapp.com',
-  databaseURL: 'https://sid-mangela-folio-db.firebaseio.com',
-  projectId: 'sid-mangela-folio-db',
-  storageBucket: 'sid-mangela-folio-db.appspot.com',
-  messagingSenderId: '803380125475'
-};
 
-exports.default = firebaseConfig;
+var _SuperModal = __webpack_require__(77);
 
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
+var _SuperModal2 = _interopRequireDefault(_SuperModal);
 
-"use strict";
+var _SuperModalBtn = __webpack_require__(80);
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Stripe = exports.TextArea = exports.Password = exports.Text = undefined;
-
-var _Text = __webpack_require__(7);
-
-var _Text2 = _interopRequireDefault(_Text);
-
-var _Password = __webpack_require__(55);
-
-var _Password2 = _interopRequireDefault(_Password);
-
-var _TextArea = __webpack_require__(56);
-
-var _TextArea2 = _interopRequireDefault(_TextArea);
-
-var _Stripe = __webpack_require__(57);
-
-var _Stripe2 = _interopRequireDefault(_Stripe);
+var _SuperModalBtn2 = _interopRequireDefault(_SuperModalBtn);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.Text = _Text2.default;
-exports.Password = _Password2.default;
-exports.TextArea = _TextArea2.default;
-exports.Stripe = _Stripe2.default;
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-function scrollAction(target) {
-  var previous = window.scrollY;
-  addEventListener('scroll', function () {
-    var main = target.querySelector('.scroll');
-    var head = main.querySelector('.scroll__head');
-    var topBtn = main.querySelector('.scroll__top-btn');
-    var offSet = head.offsetTop + 30;
-
-    if (window.scrollY >= offSet) {
-      window.scrollY > previous ? topBtn.classList.remove('active') : topBtn.classList.add('active');
-      previous = window.scrollY;
-
-      if (!main.classList.contains('scroll--fixed')) {
-        main.classList.add('scroll--fixed');
-      }
-    } else {
-      if (main.classList.contains('scroll--fixed')) {
-        main.classList.remove('scroll--fixed');
-        topBtn.classList.remove('active');
-      }
-    }
-  });
+function bla() {
+  console.log('called');
 }
 
-exports.default = scrollAction;
+exports.default = class extends _SuperModal2.default {
+  constructor() {
+    super();
+    this.headerText = '';
+  }
 
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
+  Header() {
+    var DoneBtn = new _SuperModalBtn2.default('Done', this.Done, this.RemoveModal, 'btn--primary super-modal__btn--done');
+    var CancelBtn = new _SuperModalBtn2.default('Cancel', this.Cancel, this.RemoveModal, 'super-modal__btn--cancel');
+    return '\n      <div class="super-modal__header">\n        <div class="super-modal__info">\n          <span class="super-modal__text super-modal__text--main">' + this.headerText + '</span>\n        </div>\n        ' + DoneBtn.Render() + '\n        ' + CancelBtn.Render() + '\n      </div>\n    ';
+  }
 
-"use strict";
+  Done() {
+    console.log('called');
+  }
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-exports.default = function (fireBase) {
-  var fire = fireBase;
-  var firebaseAuth = fire.auth();
-  var AccountPop = new _AdminPanelAccountPop2.default();
-  var AccountCloak = new _AdminPanelAccountCloak2.default();
-  var AccountLogout = new _AdminPanelAccountLogout2.default(fire);
-
-  return '\n    <header>\n        <div class="logo">\n          <img src="./public/dist/favicon/favicon.png" alt="Logo" />\n        </div>\n        <div class="account">\n          ' + AccountPop.Render() + '\n          <div class="account__drop">\n            <div class="account__welcome">Hola ' + firebaseAuth.currentUser.email + '</div>\n            ' + AccountLogout.Render() + '\n          </div>\n          ' + AccountCloak.Render() + '\n        </div>\n     </header>\n  ';
+  Cancel() {
+    console.log('called');
+  }
 };
 
-var _AdminPanelAccountPop = __webpack_require__(60);
-
-var _AdminPanelAccountPop2 = _interopRequireDefault(_AdminPanelAccountPop);
-
-var _AdminPanelAccountCloak = __webpack_require__(61);
-
-var _AdminPanelAccountCloak2 = _interopRequireDefault(_AdminPanelAccountCloak);
-
-var _AdminPanelAccountLogout = __webpack_require__(62);
-
-var _AdminPanelAccountLogout2 = _interopRequireDefault(_AdminPanelAccountLogout);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -404,28 +483,33 @@ Object.defineProperty(exports, "__esModule", {
 var _domrC = __webpack_require__(0);
 
 exports.default = class extends _domrC.Component {
-  constructor() {
-    var classNames = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'scroll-to-top';
+  constructor(content) {
+    var multiSelect = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+    var isSelected = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
 
-    super();
-    this.classNames = classNames;
+    super('cover-modal-img');
+    this.content = content;
+    this.isSelected = isSelected;
+    this.multi_select = multiSelect;
   }
 
   Markup() {
-    return '\n     <a href="#" class="' + this.classNames + ' scroll__top-btn"><svg role="img" class="icon"><use xlink:href="#icon-Design-14"></use></svg></a>\n    ';
+    return '\n      <div class="selectable-img">\n        <label>\n          <input type="' + (this.multi_select ? 'checkbox' : 'radio') + '" name="cover-selectable-img" ' + (this.isSelected ? 'checked' : '') + ' value="' + this.content.image_id + '"/>\n          <span>\n            <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-small-src="' + this.content.img.thumb_small + '" data-src="' + this.content.img.thumb_medium + '" alt="" />\n          </span>\n        </label>\n      </div>\n    ';
   }
 
-  Events() {
-    this.Click(function (self, e) {
-      e.preventDefault();
-      window.scrollTo(0, 0);
-    });
+  AfterRenderDone() {
+    var thisSelf = this.GetThisComponent();
+    var img = thisSelf.querySelector('img');
+
+    img.src = this.content.img.thumb_small;
+
+    setTimeout(function () {
+      img.src = img.getAttribute('data-src');
+    }, 1000);
   }
 };
 
 /***/ }),
-/* 17 */,
-/* 18 */,
 /* 19 */,
 /* 20 */,
 /* 21 */,
@@ -445,18 +529,20 @@ exports.default = class extends _domrC.Component {
 /* 35 */,
 /* 36 */,
 /* 37 */,
-/* 38 */
+/* 38 */,
+/* 39 */,
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(39);
+__webpack_require__(41);
 
-__webpack_require__(87);
+__webpack_require__(97);
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -464,7 +550,7 @@ __webpack_require__(87);
 
 var _domrC = __webpack_require__(0);
 
-var _routes = __webpack_require__(50);
+var _routes = __webpack_require__(52);
 
 var _routes2 = _interopRequireDefault(_routes);
 
@@ -475,7 +561,7 @@ var router = new _domrC.Router(_routes2.default);
 router.Start();
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -487,15 +573,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _createElement = __webpack_require__(41);
+var _createElement = __webpack_require__(43);
 
 var _createElement2 = _interopRequireDefault(_createElement);
 
-var _lookup = __webpack_require__(42);
+var _lookup = __webpack_require__(44);
 
 var _lookup2 = _interopRequireDefault(_lookup);
 
-var _randomizer = __webpack_require__(43);
+var _randomizer = __webpack_require__(45);
 
 var _randomizer2 = _interopRequireDefault(_randomizer);
 
@@ -704,7 +790,7 @@ var _class = function () {
 exports.default = _class;
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -731,7 +817,7 @@ function createElement(str, domrDataId) {
 exports.default = createElement;
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -751,7 +837,7 @@ function Lookup(elmId) {
 exports.default = Lookup;
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -769,7 +855,7 @@ function randomizer() {
 exports.default = randomizer;
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -781,7 +867,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _addView = __webpack_require__(45);
+var _addView = __webpack_require__(47);
 
 var _addView2 = _interopRequireDefault(_addView);
 
@@ -901,7 +987,7 @@ var _class = function () {
 exports.default = _class;
 
 /***/ }),
-/* 45 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -911,7 +997,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _cloneObject = __webpack_require__(46);
+var _cloneObject = __webpack_require__(48);
 
 var _cloneObject2 = _interopRequireDefault(_cloneObject);
 
@@ -934,7 +1020,7 @@ function addView(candidate) {
 exports.default = addView;
 
 /***/ }),
-/* 46 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -973,7 +1059,7 @@ function cloneObject(obj) {
 exports.default = cloneObject;
 
 /***/ }),
-/* 47 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1087,7 +1173,7 @@ function hashLocationSet(field, opt) {
 exports.default = hashLocationSet;
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1117,7 +1203,7 @@ function hashLocationGet(field) {
 exports.default = hashLocationGet;
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1140,7 +1226,7 @@ var utils = {
 exports.default = utils;
 
 /***/ }),
-/* 50 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1150,13 +1236,21 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _AdminPanelHomeView = __webpack_require__(51);
+var _AdminPanelHomeView = __webpack_require__(53);
 
 var _AdminPanelHomeView2 = _interopRequireDefault(_AdminPanelHomeView);
 
-var _AdminPanelAlbumFolderView = __webpack_require__(65);
+var _AdminPanelAlbumFolderView = __webpack_require__(67);
 
 var _AdminPanelAlbumFolderView2 = _interopRequireDefault(_AdminPanelAlbumFolderView);
+
+var _AdminPanelImageFolderView = __webpack_require__(83);
+
+var _AdminPanelImageFolderView2 = _interopRequireDefault(_AdminPanelImageFolderView);
+
+var _AdminPanelUploaderView = __webpack_require__(89);
+
+var _AdminPanelUploaderView2 = _interopRequireDefault(_AdminPanelUploaderView);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1172,17 +1266,17 @@ var routes = [{
 }, {
   name: 'Image',
   path: '/image/:id',
-  view: console.log('called')
+  view: _AdminPanelImageFolderView2.default
 }, {
   name: 'Create',
   path: '/create',
-  view: console.log('called')
+  view: _AdminPanelUploaderView2.default
 }];
 
 exports.default = routes;
 
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1220,22 +1314,22 @@ exports.default = function (data) {
   window.scrollTo(0, 0);
 };
 
-var _firebaseConfig = __webpack_require__(12);
+var _firebaseConfig = __webpack_require__(4);
 
 var _firebaseConfig2 = _interopRequireDefault(_firebaseConfig);
 
-var _AdminPanelLoginContainer = __webpack_require__(52);
+var _AdminPanelLoginContainer = __webpack_require__(54);
 
 var _AdminPanelLoginContainer2 = _interopRequireDefault(_AdminPanelLoginContainer);
 
-var _AdminPanelStreamContainer = __webpack_require__(59);
+var _AdminPanelStreamContainer = __webpack_require__(61);
 
 var _AdminPanelStreamContainer2 = _interopRequireDefault(_AdminPanelStreamContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1247,9 +1341,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _NoInput = __webpack_require__(13);
+var _NoInput = __webpack_require__(5);
 
-var _AdminPanelLoginBtn = __webpack_require__(58);
+var _AdminPanelLoginBtn = __webpack_require__(60);
 
 var _AdminPanelLoginBtn2 = _interopRequireDefault(_AdminPanelLoginBtn);
 
@@ -1289,7 +1383,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 53 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1301,7 +1395,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _clearFormatting = __webpack_require__(54);
+var _clearFormatting = __webpack_require__(56);
 
 var _clearFormatting2 = _interopRequireDefault(_clearFormatting);
 
@@ -1328,7 +1422,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 54 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1349,7 +1443,7 @@ function clearFormatting(self, e) {
 exports.default = clearFormatting;
 
 /***/ }),
-/* 55 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1359,7 +1453,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Text = __webpack_require__(7);
+var _Text = __webpack_require__(12);
 
 var _Text2 = _interopRequireDefault(_Text);
 
@@ -1375,7 +1469,7 @@ exports.default = class extends _Text2.default {
 };
 
 /***/ }),
-/* 56 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1385,7 +1479,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Text = __webpack_require__(7);
+var _Text = __webpack_require__(12);
 
 var _Text2 = _interopRequireDefault(_Text);
 
@@ -1401,7 +1495,7 @@ exports.default = class extends _Text2.default {
 };
 
 /***/ }),
-/* 57 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1486,7 +1580,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 58 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1528,7 +1622,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 59 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1540,23 +1634,23 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _scrollAction = __webpack_require__(14);
+var _scrollAction = __webpack_require__(6);
 
 var _scrollAction2 = _interopRequireDefault(_scrollAction);
 
-var _AdminPanelHeader = __webpack_require__(15);
+var _AdminPanelHeader = __webpack_require__(7);
 
 var _AdminPanelHeader2 = _interopRequireDefault(_AdminPanelHeader);
 
-var _ScrollToTopButton = __webpack_require__(16);
+var _ScrollToTopButton = __webpack_require__(8);
 
 var _ScrollToTopButton2 = _interopRequireDefault(_ScrollToTopButton);
 
-var _AdminPanelAlbumThumb = __webpack_require__(63);
+var _AdminPanelAlbumThumb = __webpack_require__(65);
 
 var _AdminPanelAlbumThumb2 = _interopRequireDefault(_AdminPanelAlbumThumb);
 
-var _AdminPanelImageThumb = __webpack_require__(64);
+var _AdminPanelImageThumb = __webpack_require__(66);
 
 var _AdminPanelImageThumb2 = _interopRequireDefault(_AdminPanelImageThumb);
 
@@ -1609,7 +1703,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 60 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1642,7 +1736,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 61 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1674,7 +1768,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 62 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1707,7 +1801,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 63 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1764,7 +1858,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 64 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1802,7 +1896,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 65 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1835,18 +1929,18 @@ exports.default = function (data) {
   window.scrollTo(0, 0);
 };
 
-var _firebaseConfig = __webpack_require__(12);
+var _firebaseConfig = __webpack_require__(4);
 
 var _firebaseConfig2 = _interopRequireDefault(_firebaseConfig);
 
-var _AdminPanelAlbumFolderContainer = __webpack_require__(66);
+var _AdminPanelAlbumFolderContainer = __webpack_require__(68);
 
 var _AdminPanelAlbumFolderContainer2 = _interopRequireDefault(_AdminPanelAlbumFolderContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 66 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1858,53 +1952,53 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _sortablejs = __webpack_require__(67);
+var _sortablejs = __webpack_require__(69);
 
 var _sortablejs2 = _interopRequireDefault(_sortablejs);
 
-var _scrollAction = __webpack_require__(14);
+var _scrollAction = __webpack_require__(6);
 
 var _scrollAction2 = _interopRequireDefault(_scrollAction);
 
-var _NoInput = __webpack_require__(13);
+var _NoInput = __webpack_require__(5);
 
-var _AdminPanelHeader = __webpack_require__(15);
+var _AdminPanelHeader = __webpack_require__(7);
 
 var _AdminPanelHeader2 = _interopRequireDefault(_AdminPanelHeader);
 
-var _ScrollToTopButton = __webpack_require__(16);
+var _ScrollToTopButton = __webpack_require__(8);
 
 var _ScrollToTopButton2 = _interopRequireDefault(_ScrollToTopButton);
 
-var _AdminPanelAlbumFolderGroup = __webpack_require__(68);
+var _AdminPanelAlbumFolderGroup = __webpack_require__(70);
 
 var _AdminPanelAlbumFolderGroup2 = _interopRequireDefault(_AdminPanelAlbumFolderGroup);
 
-var _AdminPanelAlbumEditBtn = __webpack_require__(69);
+var _AdminPanelAlbumEditBtn = __webpack_require__(71);
 
 var _AdminPanelAlbumEditBtn2 = _interopRequireDefault(_AdminPanelAlbumEditBtn);
 
-var _AdminPanelAlbumSaveBtn = __webpack_require__(70);
+var _AdminPanelAlbumSaveBtn = __webpack_require__(72);
 
 var _AdminPanelAlbumSaveBtn2 = _interopRequireDefault(_AdminPanelAlbumSaveBtn);
 
-var _AdminPanelAlbumCancelBtn = __webpack_require__(71);
+var _AdminPanelAlbumCancelBtn = __webpack_require__(73);
 
 var _AdminPanelAlbumCancelBtn2 = _interopRequireDefault(_AdminPanelAlbumCancelBtn);
 
-var _AdminPanelLayoutBtn = __webpack_require__(72);
+var _AdminPanelLayoutBtn = __webpack_require__(74);
 
 var _AdminPanelLayoutBtn2 = _interopRequireDefault(_AdminPanelLayoutBtn);
 
-var _AdminPanelCoverPic = __webpack_require__(4);
+var _AdminPanelCoverPic = __webpack_require__(9);
 
 var _AdminPanelCoverPic2 = _interopRequireDefault(_AdminPanelCoverPic);
 
-var _AdminPanelAlbumChangeCoverBtn = __webpack_require__(73);
+var _AdminPanelAlbumChangeCoverBtn = __webpack_require__(75);
 
 var _AdminPanelAlbumChangeCoverBtn2 = _interopRequireDefault(_AdminPanelAlbumChangeCoverBtn);
 
-var _AdminPanelAlbumAddPhotosBtn = __webpack_require__(79);
+var _AdminPanelAlbumAddPhotosBtn = __webpack_require__(81);
 
 var _AdminPanelAlbumAddPhotosBtn2 = _interopRequireDefault(_AdminPanelAlbumAddPhotosBtn);
 
@@ -1929,7 +2023,7 @@ exports.default = class extends _domrC.Component {
     var SaveBtn = new _AdminPanelAlbumSaveBtn2.default(this.db_ref_object);
     var CancelBtn = new _AdminPanelAlbumCancelBtn2.default();
 
-    return '\n      <div class="album-folder-main-container">\n        ' + header + '\n        <div class="album-folder scroll">\n          <div class="album-folder__head scroll__head">\n            <div class="container album-folder__head__container">\n              <a href="#/?stream=album" class="back-button"><svg role="img" class="icon"><use xlink:href="#icon-Design-12"></use></svg><span>Back</span></a>\n              <span class="album-name"></span>\n              ' + EditBtn.Render() + '\n              <div class="decision">\n                ' + SaveBtn.Render() + '\n                ' + CancelBtn.Render() + '\n              </div>\n            </div>\n          </div>\n          <div class="album-folder__body">\n            <div class="container album-folder__body__container">...</div>\n          </div>\n          ' + topButton.Render() + '\n        </div>\n      </div>\n    ';
+    return '\n      <div class="album-folder-main-container">\n        ' + header + '\n        <div class="folder album-folder scroll">\n          <div class="folder__head album-folder__head scroll__head">\n            <div class="folder__head__container container album-folder__head__container">\n              <a href="#/?stream=album" class="back-button"><svg role="img" class="icon"><use xlink:href="#icon-Design-12"></use></svg><span>Back</span></a>\n              <span class="album-name"></span>\n              ' + EditBtn.Render() + '\n              <div class="decision">\n                ' + SaveBtn.Render() + '\n                ' + CancelBtn.Render() + '\n              </div>\n            </div>\n          </div>\n          <div class="album-folder__body">\n            <div class="container album-folder__body__container">...</div>\n          </div>\n          ' + topButton.Render() + '\n        </div>\n      </div>\n    ';
   }
 
   AfterRenderDone() {
@@ -2009,7 +2103,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 67 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
@@ -3559,7 +3653,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
 
 
 /***/ }),
-/* 68 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3636,7 +3730,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 69 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3648,7 +3742,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _AdminPanelCoverPic = __webpack_require__(4);
+var _AdminPanelCoverPic = __webpack_require__(9);
 
 var _AdminPanelCoverPic2 = _interopRequireDefault(_AdminPanelCoverPic);
 
@@ -3747,7 +3841,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 70 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3759,7 +3853,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _AdminPanelCoverPic = __webpack_require__(4);
+var _AdminPanelCoverPic = __webpack_require__(9);
 
 var _AdminPanelCoverPic2 = _interopRequireDefault(_AdminPanelCoverPic);
 
@@ -3837,7 +3931,8 @@ exports.default = class extends _domrC.Component {
           box: preview.classList.contains('preview--box'),
           gapr: preview.classList.contains('preview--gap-right'),
           parts: preview.getAttribute('data-parts') ? preview.getAttribute('data-parts') : 2
-        }
+        },
+        mod_date: Date.now()
       }).then(function () {
         var coverPic = coverPicHolderDisplay.querySelector('.cover-pic');
         var adminPanelCoverPic = new _AdminPanelCoverPic2.default(coverId, _this.db_ref_object);
@@ -3865,7 +3960,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 71 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3899,7 +3994,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 72 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3943,7 +4038,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 73 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3955,7 +4050,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _AdminPanelChangeCoverModal = __webpack_require__(74);
+var _AdminPanelChangeCoverModal = __webpack_require__(76);
 
 var _AdminPanelChangeCoverModal2 = _interopRequireDefault(_AdminPanelChangeCoverModal);
 
@@ -3985,7 +4080,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 74 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3995,15 +4090,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _SuperModalWithHeader = __webpack_require__(81);
+var _SuperModalWithHeader = __webpack_require__(17);
 
 var _SuperModalWithHeader2 = _interopRequireDefault(_SuperModalWithHeader);
 
-var _AdminPanelSelectableImg = __webpack_require__(86);
+var _AdminPanelSelectableImg = __webpack_require__(18);
 
 var _AdminPanelSelectableImg2 = _interopRequireDefault(_AdminPanelSelectableImg);
 
-var _AdminPanelCoverPic = __webpack_require__(4);
+var _AdminPanelCoverPic = __webpack_require__(9);
 
 var _AdminPanelCoverPic2 = _interopRequireDefault(_AdminPanelCoverPic);
 
@@ -4079,10 +4174,103 @@ exports.default = class extends _SuperModalWithHeader2.default {
 };
 
 /***/ }),
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+var _removeSuperModal = __webpack_require__(78);
+
+var _removeSuperModal2 = _interopRequireDefault(_removeSuperModal);
+
+var _SuperModalCloke = __webpack_require__(79);
+
+var _SuperModalCloke2 = _interopRequireDefault(_SuperModalCloke);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = class extends _domrC.Component {
+  constructor() {
+    super('modal-content');
+    this.RemoveModal = _removeSuperModal2.default;
+    this.GetSuperModal = function () {
+      if (document.querySelector('.super-modal')) {
+        return document.querySelector('.super-modal');
+      }
+    };
+  }
+
+  Markup() {
+    return '\n      <div>Super Modal</div>\n    ';
+  }
+
+  afterActivateProcess() {
+    var _this = this;
+
+    setTimeout(function (e) {
+      _this.AfterActivate();
+    }, 100);
+  }
+
+  AfterActivate() {}
+
+  Activate() {
+    var wrapper = document.getElementById('wrapper');
+    var htmlParent = document.querySelector('html');
+    var superModal = document.createElement('DIV');
+    var cloke = new _SuperModalCloke2.default(this.RemoveModal);
+
+    this.RemoveModal();
+
+    superModal.classList.add('super-modal');
+
+    if (this.Header) {
+      superModal.innerHTML = '\n        <div class="super-modal__content">\n          ' + this.Header() + '\n          <div class="super-modal__body">\n            ' + this.Render() + '\n          </div>\n        </div>\n        <div class="super-modal__control">\n          ' + cloke.Render() + '\n        </div>\n      ';
+    } else {
+      superModal.innerHTML = '\n        <div class="super-modal__content">\n          ' + this.Render() + '\n        </div>\n        <div class="super-modal__control">\n          ' + cloke.Render() + '\n        </div>\n      ';
+    }
+
+    wrapper.insertBefore(superModal, wrapper.firstChild);
+    htmlParent.style.overflow = 'hidden';
+    this.afterActivateProcess();
+  }
+};
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function removeSuperModal() {
+  var superModal = document.querySelectorAll('.super-modal');
+  var htmlParent = document.querySelector('html');
+
+  if (superModal.length) {
+    superModal.forEach(function (modal) {
+      var parent = modal.parentElement;
+
+      parent.removeChild(modal);
+    });
+  }
+
+  htmlParent.style.overflow = '';
+}
+
+exports.default = removeSuperModal;
+
+/***/ }),
 /* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4095,7 +4283,83 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _AdminPanelAddPhotosModal = __webpack_require__(80);
+exports.default = class extends _domrC.Component {
+  constructor(removeSuperModal) {
+    super();
+    this.RemoveSuperModal = removeSuperModal;
+  }
+
+  Markup() {
+    return '\n      <div class="super-modal__cloke"></div>\n    ';
+  }
+
+  Events() {
+    var _this = this;
+
+    this.Click(function () {
+      _this.RemoveSuperModal();
+    });
+  }
+};
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+exports.default = class extends _domrC.Component {
+  constructor(text, toRun, removeModal) {
+    var classList = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
+
+    super();
+    this.text = text || 'Done';
+    this.toRun = toRun || '';
+    this.RemoveModal = removeModal || '';
+    this.classList = classList;
+  }
+
+  Markup() {
+    return '\n      <a href="#" class="btn super-modal__btn ' + this.classList + '">' + this.text + '</a>\n    ';
+  }
+
+  Events() {
+    var _this = this;
+
+    this.Click(function (self, e) {
+      e.preventDefault();
+      if (_this.toRun) {
+        _this.toRun();
+      }
+
+      if (_this.RemoveModal) {
+        _this.RemoveModal();
+      }
+    });
+  }
+};
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+var _AdminPanelAddPhotosModal = __webpack_require__(82);
 
 var _AdminPanelAddPhotosModal2 = _interopRequireDefault(_AdminPanelAddPhotosModal);
 
@@ -4124,7 +4388,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 80 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4134,11 +4398,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _SuperModalWithHeader = __webpack_require__(81);
+var _SuperModalWithHeader = __webpack_require__(17);
 
 var _SuperModalWithHeader2 = _interopRequireDefault(_SuperModalWithHeader);
 
-var _AdminPanelSelectableImg = __webpack_require__(86);
+var _AdminPanelSelectableImg = __webpack_require__(18);
 
 var _AdminPanelSelectableImg2 = _interopRequireDefault(_AdminPanelSelectableImg);
 
@@ -4230,122 +4494,6 @@ exports.default = class extends _SuperModalWithHeader2.default {
 };
 
 /***/ }),
-/* 81 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _SuperModal = __webpack_require__(82);
-
-var _SuperModal2 = _interopRequireDefault(_SuperModal);
-
-var _SuperModalBtn = __webpack_require__(85);
-
-var _SuperModalBtn2 = _interopRequireDefault(_SuperModalBtn);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function bla() {
-  console.log('called');
-}
-
-exports.default = class extends _SuperModal2.default {
-  constructor() {
-    super();
-    this.headerText = '';
-  }
-
-  Header() {
-    var DoneBtn = new _SuperModalBtn2.default('Done', this.Done, this.RemoveModal, 'btn--primary super-modal__btn--done');
-    var CancelBtn = new _SuperModalBtn2.default('Cancel', this.Cancel, this.RemoveModal, 'super-modal__btn--cancel');
-    return '\n      <div class="super-modal__header">\n        <div class="super-modal__info">\n          <span class="super-modal__text super-modal__text--main">' + this.headerText + '</span>\n        </div>\n        ' + DoneBtn.Render() + '\n        ' + CancelBtn.Render() + '\n      </div>\n    ';
-  }
-
-  Done() {
-    console.log('called');
-  }
-
-  Cancel() {
-    console.log('called');
-  }
-};
-
-/***/ }),
-/* 82 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _domrC = __webpack_require__(0);
-
-var _removeSuperModal = __webpack_require__(83);
-
-var _removeSuperModal2 = _interopRequireDefault(_removeSuperModal);
-
-var _SuperModalCloke = __webpack_require__(84);
-
-var _SuperModalCloke2 = _interopRequireDefault(_SuperModalCloke);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = class extends _domrC.Component {
-  constructor() {
-    super('modal-content');
-    this.RemoveModal = _removeSuperModal2.default;
-    this.GetSuperModal = function () {
-      if (document.querySelector('.super-modal')) {
-        return document.querySelector('.super-modal');
-      }
-    };
-  }
-
-  Markup() {
-    return '\n      <div>Super Modal</div>\n    ';
-  }
-
-  afterActivateProcess() {
-    var _this = this;
-
-    setTimeout(function (e) {
-      _this.AfterActivate();
-    }, 100);
-  }
-
-  AfterActivate() {}
-
-  Activate() {
-    var wrapper = document.getElementById('wrapper');
-    var htmlParent = document.querySelector('html');
-    var superModal = document.createElement('DIV');
-    var cloke = new _SuperModalCloke2.default(this.RemoveModal);
-
-    this.RemoveModal();
-
-    superModal.classList.add('super-modal');
-
-    if (this.Header) {
-      superModal.innerHTML = '\n        <div class="super-modal__content">\n          ' + this.Header() + '\n          <div class="super-modal__body">\n            ' + this.Render() + '\n          </div>\n        </div>\n        <div class="super-modal__control">\n          ' + cloke.Render() + '\n        </div>\n      ';
-    } else {
-      superModal.innerHTML = '\n        <div class="super-modal__content">\n          ' + this.Render() + '\n        </div>\n        <div class="super-modal__control">\n          ' + cloke.Render() + '\n        </div>\n      ';
-    }
-
-    wrapper.insertBefore(superModal, wrapper.firstChild);
-    htmlParent.style.overflow = 'hidden';
-    this.afterActivateProcess();
-  }
-};
-
-/***/ }),
 /* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4355,22 +4503,39 @@ exports.default = class extends _domrC.Component {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-function removeSuperModal() {
-  var superModal = document.querySelectorAll('.super-modal');
-  var htmlParent = document.querySelector('html');
 
-  if (superModal.length) {
-    superModal.forEach(function (modal) {
-      var parent = modal.parentElement;
+exports.default = function (data) {
+  var wrapper = document.getElementById('wrapper');
+  var config = _firebaseConfig2.default;
+  var fire = firebase;
 
-      parent.removeChild(modal);
-    });
+  if (!fire.apps.length) {
+    fire.initializeApp(config);
   }
 
-  htmlParent.style.overflow = '';
-}
+  wrapper.innerHTML = 'waiting';
 
-exports.default = removeSuperModal;
+  fire.auth().onAuthStateChanged(function (fireUser) {
+    if (fireUser) {
+      var imageFolder = new _AdminPanelImageFolderContainer2.default(fire, data.metadata.id);
+      wrapper.innerHTML = imageFolder.Render();
+    } else {
+      location.hash = '#/';
+    }
+  });
+
+  window.scrollTo(0, 0);
+};
+
+var _firebaseConfig = __webpack_require__(4);
+
+var _firebaseConfig2 = _interopRequireDefault(_firebaseConfig);
+
+var _AdminPanelImageFolderContainer = __webpack_require__(84);
+
+var _AdminPanelImageFolderContainer2 = _interopRequireDefault(_AdminPanelImageFolderContainer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
 /* 84 */
@@ -4385,21 +4550,94 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
+var _scrollAction = __webpack_require__(6);
+
+var _scrollAction2 = _interopRequireDefault(_scrollAction);
+
+var _NoInput = __webpack_require__(5);
+
+var _AdminPanelHeader = __webpack_require__(7);
+
+var _AdminPanelHeader2 = _interopRequireDefault(_AdminPanelHeader);
+
+var _ScrollToTopButton = __webpack_require__(8);
+
+var _ScrollToTopButton2 = _interopRequireDefault(_ScrollToTopButton);
+
+var _AdminPanelImageShowCase = __webpack_require__(85);
+
+var _AdminPanelImageShowCase2 = _interopRequireDefault(_AdminPanelImageShowCase);
+
+var _AdminPanelImageEditBtn = __webpack_require__(86);
+
+var _AdminPanelImageEditBtn2 = _interopRequireDefault(_AdminPanelImageEditBtn);
+
+var _AdminPanelImageSaveBtn = __webpack_require__(87);
+
+var _AdminPanelImageSaveBtn2 = _interopRequireDefault(_AdminPanelImageSaveBtn);
+
+var _AdminPanelImageCancelBtn = __webpack_require__(88);
+
+var _AdminPanelImageCancelBtn2 = _interopRequireDefault(_AdminPanelImageCancelBtn);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = class extends _domrC.Component {
-  constructor(removeSuperModal) {
+  constructor(fire, imageId) {
     super();
-    this.RemoveSuperModal = removeSuperModal;
+    this.firebase = fire;
+    this.image_id = imageId;
+    this.db_ref_object = this.firebase.database().ref();
   }
 
   Markup() {
-    return '\n      <div class="super-modal__cloke"></div>\n    ';
+    var header = (0, _AdminPanelHeader2.default)(this.firebase);
+    var topButton = new _ScrollToTopButton2.default('top-button');
+    var EditBtn = new _AdminPanelImageEditBtn2.default(this.db_ref_object);
+    var SaveBtn = new _AdminPanelImageSaveBtn2.default(this.db_ref_object);
+    var CancelBtn = new _AdminPanelImageCancelBtn2.default();
+
+    return '\n      <div class="image-folder-main-container">\n        ' + header + '\n        <div class="folder image-folder scroll">\n          <div class="folder__head image-folder__head scroll__head">\n            <div class="folder__head__container container image-folder__head__container">\n              <a href="#/?stream=image" class="back-button"><svg role="img" class="icon"><use xlink:href="#icon-Design-12"></use></svg><span>Back</span></a>\n              ' + EditBtn.Render() + '\n              <div class="decision">\n                ' + SaveBtn.Render() + '\n                ' + CancelBtn.Render() + '\n              </div>\n            </div>\n          </div>\n          <div class="image-folder__body">\n            <div class="image-folder__body__container">...</div>\n          </div>\n          ' + topButton.Render() + '\n        </div>\n      </div>\n    ';
   }
 
-  Events() {
+  AfterRenderDone() {
     var _this = this;
 
-    this.Click(function () {
-      _this.RemoveSuperModal();
+    var thisSelf = this.GetThisComponent();
+    var album = thisSelf.querySelector('.image-folder');
+    var folder = thisSelf.querySelector('.image-folder__body__container');
+
+    this.db_ref_object.once('value', function (snap) {
+      var valueSnap = snap.val();
+      Object.keys(valueSnap).forEach(function (key) {
+        var content = valueSnap[key];
+        content.key = key;
+        if (content.image_id === _this.image_id) {
+          var imageShowCase = new _AdminPanelImageShowCase2.default(content);
+          var albumNameEdit = new _NoInput.Text('image-name-edit', {
+            title: 'Title',
+            example: 'e.g. Golden Hour at Pondicherry',
+            placeholder: 'Enter Title',
+            labelClass: 'name-edit',
+            value: content.name
+          });
+          var albumDescriptionEdit = new _NoInput.TextArea('image-description-edit', {
+            title: 'Description',
+            placeholder: 'Enter Description',
+            labelClass: 'description-edit',
+            value: content.description
+          });
+          album.setAttribute('data-key', key);
+          folder.innerHTML = '\n            ' + imageShowCase.Render() + '\n            <div class="container">\n              <div class="info info--display">\n                <div class="info--display__isMature" data-value="' + (content.isMature ? 'true' : 'false') + '">\n                  <span>Mature Content</span>\n                </div>\n                <h1 class="info--display__name">' + content.name + '</h1>\n                <div class="info--display__description">' + content.description.trim() + '</div>\n              </div>\n              <div class="info info--edit">\n                <div class="devide">\n                  <div class="info--edit__name">\n                    ' + albumNameEdit.Render() + '\n                  </div>\n                  <div class="info--edit__description">\n                    ' + albumDescriptionEdit.Render() + '\n                  </div>\n                  <div class="info--edit__isMature info--edit__choice">\n                    <h3>Mature Content?</h3>\n                    <div class="btn-group">\n                      ' + (content.isMature ? '\n                        <label>\n                          <input type="radio" name="isMature" value="true" checked/>\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="isMature" value="false"/>\n                          <span class="btn">No</span>\n                        </label>\n                        ' : '\n                        <label>\n                          <input type="radio" name="isMature" value="true" />\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="isMature" value="false" checked/>\n                          <span class="btn">No</span>\n                        </label>\n                        ') + '\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n          ';
+          folder.classList.add('found');
+        }
+      });
+    }).then(function () {
+      if (!folder.classList.contains('found')) {
+        folder.innerHTML = '<div>No Album</div>';
+      } else {
+        (0, _scrollAction2.default)(thisSelf);
+      }
     });
   }
 };
@@ -4418,33 +4656,26 @@ Object.defineProperty(exports, "__esModule", {
 var _domrC = __webpack_require__(0);
 
 exports.default = class extends _domrC.Component {
-  constructor(text, toRun, removeModal) {
-    var classList = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
-
+  constructor(content) {
     super();
-    this.text = text || 'Done';
-    this.toRun = toRun || '';
-    this.RemoveModal = removeModal || '';
-    this.classList = classList;
+    this.content = content;
   }
 
   Markup() {
-    return '\n      <a href="#" class="btn super-modal__btn ' + this.classList + '">' + this.text + '</a>\n    ';
+    return '\n    <div class="image-showcase" data-id="' + this.content.image_id + '">\n      <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="" alt="" />\n    </div>\n    ';
   }
 
-  Events() {
-    var _this = this;
+  AfterRenderDone() {
+    var thisSelf = this.GetThisComponent();
+    var img = thisSelf.querySelector('img');
 
-    this.Click(function (self, e) {
-      e.preventDefault();
-      if (_this.toRun) {
-        _this.toRun();
-      }
+    img.src = this.content.img.thumb_small;
+    img.setAttribute('data-src', this.content.img.thumb_large);
 
-      if (_this.RemoveModal) {
-        _this.RemoveModal();
-      }
-    });
+    setTimeout(function () {
+      var dataSrc = img.getAttribute('data-src');
+      img.src = dataSrc;
+    }, 1500);
   }
 };
 
@@ -4462,37 +4693,1089 @@ Object.defineProperty(exports, "__esModule", {
 var _domrC = __webpack_require__(0);
 
 exports.default = class extends _domrC.Component {
-  constructor(content) {
-    var multiSelect = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-    var isSelected = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-
-    super('cover-modal-img');
-    this.content = content;
-    this.isSelected = isSelected;
-    this.multi_select = multiSelect;
+  constructor(dbRefObject) {
+    super();
+    this.db_ref_object = dbRefObject;
   }
 
   Markup() {
-    return '\n      <div class="selectable-img">\n        <label>\n          <input type="' + (this.multi_select ? 'checkbox' : 'radio') + '" name="cover-selectable-img" ' + (this.isSelected ? 'checked' : '') + ' value="' + this.content.image_id + '"/>\n          <span>\n            <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-small-src="' + this.content.img.thumb_small + '" data-src="' + this.content.img.thumb_medium + '" alt="" />\n          </span>\n        </label>\n      </div>\n    ';
+    return '\n      <a href="#" class="btn btn--primary edit-button">Edit Image</a>\n    ';
   }
 
-  AfterRenderDone() {
-    var thisSelf = this.GetThisComponent();
-    var img = thisSelf.querySelector('img');
+  Events() {
+    this.Click(function (self, e) {
+      e.preventDefault();
+      var head = self.parentElement.parentElement;
+      var folder = head.parentElement;
 
-    img.src = this.content.img.thumb_small;
+      if (folder.hasAttribute('data-key')) {
+        var name = folder.querySelector('[data-name="image-name-edit"]');
+        var displayName = folder.querySelector('.info--display__name').textContent.trim();
+        var description = folder.querySelector('[data-name="image-description-edit"]');
+        var displayDescription = folder.querySelector('.info--display__description').textContent.trim();
+        var displayIsMature = folder.querySelector('.info--display__isMature').getAttribute('data-value');
+        var isMature = folder.querySelector('.info--edit__isMature').querySelector('input[value="' + displayIsMature + '"]');
 
-    setTimeout(function () {
-      img.src = img.getAttribute('data-src');
-    }, 1000);
+        folder.classList.add('edit');
+
+        name.textContent = displayName;
+        description.textContent = displayDescription;
+        isMature.checked = true;
+
+        window.scrollTo(0, 0);
+      }
+    });
   }
 };
 
 /***/ }),
 /* 87 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+exports.default = class extends _domrC.Component {
+  constructor(dbRefObject) {
+    super();
+    this.db_ref_object = dbRefObject;
+  }
+
+  Markup() {
+    return '\n      <a href="#" class="btn btn--primary save-button">Save</a>\n    ';
+  }
+
+  Events() {
+    var _this = this;
+
+    this.Click(function (self, e) {
+      e.preventDefault();
+      var thisSelf = self;
+      var head = thisSelf.parentElement.parentElement.parentElement;
+      var folder = head.parentElement;
+      var cancel = folder.querySelector('.cancel-button');
+      var key = folder.getAttribute('data-key');
+      var name = folder.querySelector('[data-name="image-name-edit"]').textContent.trim();
+      var description = folder.querySelector('[data-name="image-description-edit"]').textContent.trim();
+      var displayName = folder.querySelector('.info--display__name');
+      var displayDescription = folder.querySelector('.info--display__description');
+      var isMature = folder.querySelector('.info--edit__isMature').querySelector('input[type="radio"]:checked');
+      var displayIsMature = folder.querySelector('.info--display__isMature');
+
+      thisSelf.setAttribute('data-og-text', thisSelf.textContent);
+      thisSelf.textContent = '....';
+      cancel.style.display = 'none';
+      thisSelf.style.margin = '0';
+
+      _this.db_ref_object.child(key).update({
+        name: name,
+        description: description,
+        isMature: JSON.parse(isMature.value),
+        mod_date: Date.now()
+      }).then(function () {
+        displayName.textContent = name;
+        displayDescription.textContent = description;
+        folder.classList.remove('edit');
+        thisSelf.textContent = thisSelf.getAttribute('data-og-text');
+        cancel.style.display = '';
+        thisSelf.style.margin = '';
+
+        displayIsMature.setAttribute('data-value', isMature.value);
+
+        window.scrollTo(0, 0);
+      });
+    });
+  }
+};
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+exports.default = class extends _domrC.Component {
+  constructor() {
+    super();
+  }
+
+  Markup() {
+    return '\n      <a href="#" class="btn cancel-button">Cancel</a>\n    ';
+  }
+
+  Events() {
+    this.Click(function (self, e) {
+      e.preventDefault();
+      var head = self.parentElement.parentElement.parentElement;
+      var folder = head.parentElement;
+
+      folder.classList.remove('edit');
+      window.scrollTo(0, 0);
+    });
+  }
+};
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (data) {
+  var wrapper = document.getElementById('wrapper');
+  var config = _firebaseConfig2.default;
+  var fire = firebase;
+
+  if (!fire.apps.length) {
+    fire.initializeApp(config);
+  }
+
+  wrapper.innerHTML = 'waiting';
+
+  fire.auth().onAuthStateChanged(function (fireUser) {
+    if (fireUser) {
+      var thisData = data;
+      var query = thisData.query;
+      var uploderType = query.type || 'image';
+      console.log(uploderType);
+      var uploader = new _AdminPanelUploaderContainer2.default(fire, uploderType, {
+        storageFolder: 'clustertry'
+      });
+      wrapper.innerHTML = uploader.Render();
+    } else {
+      location.hash = '#/';
+    }
+  });
+
+  window.scrollTo(0, 0);
+};
+
+var _firebaseConfig = __webpack_require__(4);
+
+var _firebaseConfig2 = _interopRequireDefault(_firebaseConfig);
+
+var _AdminPanelUploaderContainer = __webpack_require__(90);
+
+var _AdminPanelUploaderContainer2 = _interopRequireDefault(_AdminPanelUploaderContainer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+var _scrollAction = __webpack_require__(6);
+
+var _scrollAction2 = _interopRequireDefault(_scrollAction);
+
+var _AdminPanelHeader = __webpack_require__(7);
+
+var _AdminPanelHeader2 = _interopRequireDefault(_AdminPanelHeader);
+
+var _ScrollToTopButton = __webpack_require__(8);
+
+var _ScrollToTopButton2 = _interopRequireDefault(_ScrollToTopButton);
+
+var _AdminPanelImageUploader = __webpack_require__(91);
+
+var _AdminPanelImageUploader2 = _interopRequireDefault(_AdminPanelImageUploader);
+
+var _AdminPanelAlbumUploader = __webpack_require__(109);
+
+var _AdminPanelAlbumUploader2 = _interopRequireDefault(_AdminPanelAlbumUploader);
+
+var _AdminPanelUploaderCancelBtn = __webpack_require__(106);
+
+var _AdminPanelUploaderCancelBtn2 = _interopRequireDefault(_AdminPanelUploaderCancelBtn);
+
+var _AdminPanelUploaderSaveBtn = __webpack_require__(107);
+
+var _AdminPanelUploaderSaveBtn2 = _interopRequireDefault(_AdminPanelUploaderSaveBtn);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = class extends _domrC.Component {
+  constructor(fire, uploderType) {
+    var config = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+    super();
+    this.firebase = fire;
+    this.uploader_type = uploderType || 'image';
+    this.upload_to_album = config.uploadToAlbum || '';
+    this.storage_folder = config.storageFolder || 'clustertry';
+    this.db_ref_object = this.firebase.database().ref();
+  }
+
+  Markup() {
+    var header = (0, _AdminPanelHeader2.default)(this.firebase);
+    var topButton = new _ScrollToTopButton2.default('top-button');
+    var cancelBtn = new _AdminPanelUploaderCancelBtn2.default(this.firebase, this.storage_folder);
+    var saveBtn = new _AdminPanelUploaderSaveBtn2.default(this.db_ref_object);
+    var Uploader = void 0;
+
+    if (this.uploader_type === 'album') {
+      Uploader = new _AdminPanelAlbumUploader2.default(this.firebase, this.db_ref_object, this.storage_folder);
+    } else {
+      Uploader = new _AdminPanelImageUploader2.default(this.firebase, this.db_ref_object, this.storage_folder);
+    }
+
+    return '\n      <div class="uploader-main-container">\n        ' + header + '\n        <div class="uploader scroll">\n          <div class="uploader__head scroll__head">\n            <div class="uploader__head__container container">\n              <a href="#/?stream=image" class="back-button"><svg role="img" class="icon"><use xlink:href="#icon-Design-12"></use></svg><span>Back</span></a>\n              ' + saveBtn.Render() + '\n              ' + cancelBtn.Render() + '\n            </div>\n          </div>\n          ' + Uploader.Render() + '\n          ' + topButton.Render() + '\n        </div>\n      </div>\n    ';
+  }
+
+  AfterRenderDone() {
+    var thisSelf = this.GetThisComponent();
+    (0, _scrollAction2.default)(thisSelf);
+  }
+};
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+var _AdminPanelImageUploaderSidebar = __webpack_require__(92);
+
+var _AdminPanelImageUploaderSidebar2 = _interopRequireDefault(_AdminPanelImageUploaderSidebar);
+
+var _AdminPanelUploadArea = __webpack_require__(94);
+
+var _AdminPanelUploadArea2 = _interopRequireDefault(_AdminPanelUploadArea);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = class extends _domrC.Component {
+  constructor(fire, dbRefObject, storageFolder) {
+    super();
+    this.firebase = fire;
+    this.db_ref_object = dbRefObject;
+    this.storage_folder = storageFolder;
+  }
+
+  Markup() {
+    var sidebar = new _AdminPanelImageUploaderSidebar2.default(this.db_ref_object);
+    var uploadArea = new _AdminPanelUploadArea2.default(this.firebase, this.storage_folder);
+
+    return '\n      <div class="uploader__body" data-uploader-type="image">\n        ' + sidebar.Render() + '\n        ' + uploadArea.Render() + '\n      </div>\n    ';
+  }
+};
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+var _AdminPanelImageUploaderPickAlbumThumb = __webpack_require__(93);
+
+var _AdminPanelImageUploaderPickAlbumThumb2 = _interopRequireDefault(_AdminPanelImageUploaderPickAlbumThumb);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function loadCoverPic(album, dbRefObject) {
+  var promiseObj = new Promise(function (resolve, reject) {
+    dbRefObject.once('value').then(function (snap) {
+      var valueSnap = snap.val();
+      Object.keys(valueSnap).forEach(function (key) {
+        var content = valueSnap[key];
+        content.key = key;
+
+        if (content.image_id && content.image_id === album.cover_pic) {
+          resolve(content);
+        }
+      });
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+
+  return promiseObj;
+}
+
+exports.default = class extends _domrC.Component {
+  constructor(dbRefObject) {
+    super();
+    this.db_ref_object = dbRefObject;
+  }
+
+  Markup() {
+    return '\n      <aside class="uploader__sidebar container">\n        <h1>Upload Images</h1>\n        <div class="uploader__sidebar__albums">\n          <h3>Albums</h3>\n          <ul></ul>\n        </div>\n      </aside>\n    ';
+  }
+
+  AfterRenderDone() {
+    var _this = this;
+
+    var thisSelf = this.GetThisComponent();
+    var albumsSelector = thisSelf.querySelector('ul');
+
+    albumsSelector.innerHTML = '';
+
+    this.db_ref_object.once('value', function (snap) {
+      var valueSnap = snap.val();
+      Object.keys(valueSnap).forEach(function (key) {
+        var content = valueSnap[key];
+        content.key = key;
+
+        if (content.album_id) {
+          if (content.cover_pic) {
+            loadCoverPic(content, _this.db_ref_object).then(function (image) {
+              var pickAlbumThumb = new _AdminPanelImageUploaderPickAlbumThumb2.default(content, image);
+              pickAlbumThumb.AddTo(albumsSelector);
+            });
+          } else {
+            var pickAlbumThumb = new _AdminPanelImageUploaderPickAlbumThumb2.default(content);
+            pickAlbumThumb.AddTo(albumsSelector);
+          }
+        }
+      });
+    });
+  }
+};
+
+/***/ }),
+/* 93 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+exports.default = class extends _domrC.Component {
+  constructor(album) {
+    var image = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    super();
+    this.album = album;
+    this.image = image;
+    this.placeholder = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
+  }
+
+  Markup() {
+    return '\n      <li>\n        <label>\n          <input type="checkbox" name="pick-host-album" data-key="' + this.album.key + '" value="' + this.album.album_id + '"/>\n          <span>\n            <img src="' + this.placeholder + '" data-src="' + (this.image ? this.image.img.thumb_small : this.placeholder) + '" alt="" />\n          </span>\n          <p>' + this.album.name + '</p>\n        </label>\n      </li>\n    ';
+  }
+
+  AfterRenderDone() {
+    var thisSelf = this.GetThisComponent();
+    var img = thisSelf.querySelector('img');
+    img.src = img.getAttribute('data-src');
+  }
+};
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+var _AdminPanelImageUploaderThumb = __webpack_require__(95);
+
+var _AdminPanelImageUploaderThumb2 = _interopRequireDefault(_AdminPanelImageUploaderThumb);
+
+var _resizeImage = __webpack_require__(96);
+
+var _resizeImage2 = _interopRequireDefault(_resizeImage);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = class extends _domrC.Component {
+  constructor(fire, storageFolder) {
+    super();
+    this.fire = fire;
+    this.storage_folder = storageFolder;
+  }
+
+  Markup() {
+    return '\n      <div class="uploader__area container">\n        <h3>Upload Area</h3>\n        <ul class="uploader__area__preview"></ul>\n        <label>\n          <input class="uploader__area__file" name="my-file" type="file" multiple />\n        </label>\n      </div>\n    ';
+  }
+
+  AfterRenderDone() {
+    var _this = this;
+
+    var thisSelf = this.GetThisComponent();
+    var myFile = thisSelf.querySelector('.uploader__area__file');
+    var preview = thisSelf.querySelector('.uploader__area__preview');
+
+    myFile.addEventListener('change', function (e) {
+      if (e.target.files[0]) {
+        var files = e.target.files;
+
+        preview.innerHTML = '';
+
+        for (var i = 0; i < files.length; i++) {
+          var file = files[i];
+          var fileType = file.type.toString();
+          if (fileType.includes('image')) {
+            (function () {
+              var thumb = new _AdminPanelImageUploaderThumb2.default(i, _this.fire, _this.storage_folder);
+              thumb.AddTo(preview);
+
+              var reader = new FileReader();
+              reader.onloadend = function () {
+                var result = reader.result;
+                var img = new Image();
+                img.src = result;
+
+                img.onload = function (imgResult) {
+                  var compress = (0, _resizeImage2.default)(imgResult.target, {
+                    height: 200,
+                    quality: 6
+                  });
+                  var thumbSmall = (0, _resizeImage2.default)(imgResult.target, {
+                    height: 200,
+                    quality: 8,
+                    strip_url: true
+                  });
+                  var thumbMedium = (0, _resizeImage2.default)(imgResult.target, {
+                    height: 600,
+                    quality: 8,
+                    strip_url: true
+                  });
+                  var thumbLarge = (0, _resizeImage2.default)(imgResult.target, {
+                    height: 1280,
+                    quality: 8,
+                    strip_url: true
+                  });
+                  thumb.Image(compress);
+
+                  thumb.Small(thumbSmall);
+                  thumb.Medium(thumbMedium);
+                  thumb.Large(thumbLarge);
+                };
+              };
+              reader.readAsDataURL(file);
+            })();
+          }
+        }
+      }
+    });
+  }
+};
+
+/***/ }),
+/* 95 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+var _uploadToFirebasePromise = __webpack_require__(105);
+
+var _uploadToFirebasePromise2 = _interopRequireDefault(_uploadToFirebasePromise);
+
+var _NoInput = __webpack_require__(5);
+
+var _AdminPanelImageUploaderThumbDeleteBtn = __webpack_require__(103);
+
+var _AdminPanelImageUploaderThumbDeleteBtn2 = _interopRequireDefault(_AdminPanelImageUploaderThumbDeleteBtn);
+
+var _AdminPanelImageUploaderThumbIsMatureBtn = __webpack_require__(108);
+
+var _AdminPanelImageUploaderThumbIsMatureBtn2 = _interopRequireDefault(_AdminPanelImageUploaderThumbIsMatureBtn);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = class extends _domrC.Component {
+  constructor(uploadSeqId, fire, storageFolder) {
+    super();
+    this.upload_seq = uploadSeqId;
+    this.fire = fire;
+    this.random = Math.random().toString(36).substring(2);
+    this.name = 'pic-' + this.random;
+    this.storage_folder = storageFolder;
+  }
+
+  Markup() {
+    var deleteBtn = new _AdminPanelImageUploaderThumbDeleteBtn2.default(this.fire, this.storage_folder);
+    var isMatureBtn = new _AdminPanelImageUploaderThumbIsMatureBtn2.default();
+
+    var Title = new _NoInput.Text('image-name-edit', {
+      title: 'Title',
+      example: 'e.g. Sunset at Pondi',
+      placeholder: 'Enter Title',
+      labelClass: 'name-edit'
+    });
+
+    var Description = new _NoInput.TextArea('image-description-edit', {
+      title: 'Description',
+      placeholder: 'Enter Description',
+      labelClass: 'description-edit'
+    });
+
+    return '\n      <li class="image-uploader__thumb" data-id="' + this.name + '" data-upload-seq="' + this.upload_seq + '">\n        ' + deleteBtn.Render() + '\n        <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" />\n        <div class="image-uploader__slab-holder">\n          <span class="image-uploader__slab" data-slab="small"></span>\n          <span class="image-uploader__slab" data-slab="medium"></span>\n          <span class="image-uploader__slab" data-slab="large"></span>\n        </div>\n        <div class="info">\n          ' + Title.Render() + '\n          ' + Description.Render() + '\n          ' + isMatureBtn.Render() + '\n        </div>\n      </li>\n    ';
+  }
+
+  Image(file) {
+    var thisSelf = this.GetThisComponent();
+    var preview = thisSelf.querySelector('img');
+
+    preview.src = file;
+  }
+
+  slabMake(slabType, data) {
+    var _this = this;
+
+    var thisSelf = this.GetThisComponent();
+    var slab = thisSelf.querySelector('[data-slab="' + slabType + '"]');
+    var path = this.storage_folder + '/' + this.name + '-' + slabType + '.jpg';
+
+    if (slab) {
+      slab.setAttribute('data-value', data);
+      (0, _uploadToFirebasePromise2.default)(this.fire, data, path).then(function (url) {
+        slab.removeAttribute('data-value');
+        slab.setAttribute('data-id', _this.name + '-' + slabType);
+        slab.setAttribute('data-url', url);
+
+        if (slabType === 'small') {
+          var preview = thisSelf.querySelector('img');
+          preview.src = url;
+        }
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }
+
+  Small(data) {
+    this.slabMake('small', data);
+  }
+
+  Medium(data) {
+    this.slabMake('medium', data);
+  }
+
+  Large(data) {
+    this.slabMake('large', data);
+  }
+};
+
+/***/ }),
+/* 96 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function resizeImage(target) {
+  var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  var thisTarget = target;
+  var height = config.height || 200;
+  var quality = config.quality || 8;
+  var stripUrl = config.strip_url || false;
+  var canvas = document.createElement('canvas');
+  var ctx = canvas.getContext('2d');
+  var maxHeight = height;
+
+  thisTarget.width *= maxHeight / thisTarget.height;
+  thisTarget.height = maxHeight;
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  canvas.width = thisTarget.width;
+  canvas.height = thisTarget.height;
+  ctx.drawImage(thisTarget, 0, 0, thisTarget.width, thisTarget.height);
+
+  var result = canvas.toDataURL('image/jpeg', quality);
+
+  if (stripUrl) {
+    var split = result.split(',');
+    result = split[1];
+  }
+
+  return result;
+}
+
+exports.default = resizeImage;
+
+/***/ }),
+/* 97 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 98 */,
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+var _removeFromFirebasePromise = __webpack_require__(104);
+
+var _removeFromFirebasePromise2 = _interopRequireDefault(_removeFromFirebasePromise);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = class extends _domrC.Component {
+  constructor(fire, storageFolder) {
+    super();
+    this.fire = fire;
+    this.storage_folder = storageFolder;
+  }
+
+  Markup() {
+    return '\n      <a href="#" class="delete-btn"><svg role="img" class="icon"><use xlink:href="#icon-general-02"></use></svg></a>\n    ';
+  }
+
+  Events() {
+    var _this = this;
+
+    this.Click(function (self, e) {
+      e.preventDefault();
+      var thisSelf = self;
+      var parent = thisSelf.parentElement;
+      var grandParent = parent.parentElement;
+      var slab = parent.querySelectorAll('.image-uploader__slab');
+
+      slab.forEach(function (slb) {
+        var thisSlab = slb;
+        var dataId = thisSlab.getAttribute('data-id');
+
+        if (dataId) {
+          (0, _removeFromFirebasePromise2.default)(_this.fire, _this.storage_folder + '/' + dataId + '.jpg').then(function () {
+            thisSlab.parentElement.removeChild(thisSlab);
+          });
+        }
+      });
+
+      grandParent.removeChild(parent);
+    });
+  }
+};
+
+/***/ }),
+/* 104 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function removeFromFirebase(fire, path) {
+  var promiseObj = new Promise(function (resolve, reject) {
+    var desertRef = fire.storage().ref(path);
+
+    desertRef.delete().then(function () {
+      console.log(path);
+      resolve();
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+
+  return promiseObj;
+}
+
+exports.default = removeFromFirebase;
+
+/***/ }),
+/* 105 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function uploadToFirebase(fire, image, path) {
+  var promiseObj = new Promise(function (resolve, reject) {
+    var storageRef = fire.storage().ref(path);
+    var uploadTask = storageRef.putString(image, 'base64');
+
+    uploadTask.on('state_changed', function progress() {}, function error(err) {
+      reject(err);
+    }, function complete() {
+      storageRef.getDownloadURL().then(function (url) {
+        resolve(url);
+      });
+    });
+  });
+
+  return promiseObj;
+}
+
+exports.default = uploadToFirebase;
+
+/***/ }),
+/* 106 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+var _removeFromFirebasePromise = __webpack_require__(104);
+
+var _removeFromFirebasePromise2 = _interopRequireDefault(_removeFromFirebasePromise);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = class extends _domrC.Component {
+  constructor(fire, storageFolder) {
+    var config = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+    super();
+    this.fire = fire;
+    this.storage_folder = storageFolder;
+    this.back_to = config.backTo || '';
+  }
+
+  Markup() {
+    return '\n     <a href="#" class="btn cancel-button">Cancel</a>\n    ';
+  }
+
+  Events() {
+    var _this = this;
+
+    this.Click(function (self, e) {
+      e.preventDefault();
+      var thisSelf = self;
+      var parent = thisSelf.parentElement.parentElement.parentElement.parentElement;
+      var back = parent.querySelector('.back-button');
+      var slabs = parent.querySelectorAll('.image-uploader__slab');
+
+      if (slabs[0]) {
+        slabs.forEach(function (slab) {
+          var thisSlab = slab;
+          var dataId = thisSlab.getAttribute('data-id');
+
+          if (dataId) {
+            (0, _removeFromFirebasePromise2.default)(_this.fire, _this.storage_folder + '/' + dataId + '.jpg');
+          }
+        });
+      }
+
+      if (_this.back_to) {} else {
+        back.click();
+      }
+    });
+  }
+};
+
+/***/ }),
+/* 107 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+function findAlbumByKey(targetkey, dbRefObject) {
+  var promiseObj = new Promise(function (resolve, reject) {
+    dbRefObject.once('value').then(function (snap) {
+      var valueSnap = snap.val();
+      Object.keys(valueSnap).forEach(function (key) {
+        var content = valueSnap[key];
+        content.key = key;
+
+        if (targetkey === key) {
+          resolve(content);
+        }
+      });
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+
+  return promiseObj;
+}
+
+exports.default = class extends _domrC.Component {
+  constructor(dbRefObject) {
+    var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    super();
+    this.db_ref_object = dbRefObject;
+    this.back_to = config.backTo || '';
+  }
+
+  Markup() {
+    return '\n     <a href="#" class="btn btn--primary save-button">Save</a>\n    ';
+  }
+
+  Events() {
+    var _this = this;
+
+    this.Click(function (self, e) {
+      e.preventDefault();
+      var thisSelf = self;
+      var parent = thisSelf.parentElement.parentElement.parentElement.parentElement;
+      var back = parent.querySelector('.back-button');
+      var slabs = parent.querySelectorAll('.image-uploader__slab');
+      var uploaderType = parent.querySelector('.uploader__body').getAttribute('data-uploader-type');
+
+      if (slabs[0]) {
+        var length = slabs.length;
+        var uploaded = 0;
+
+        slabs.forEach(function (slab) {
+          if (slab.hasAttribute('data-url')) {
+            uploaded += 1;
+          }
+        });
+
+        if (uploaded === length) {
+          var images = parent.querySelectorAll('.image-uploader__thumb');
+          var albumsPic = parent.querySelector('.uploader__sidebar__albums');
+
+          images.forEach(function (image) {
+            var thisImage = image;
+            var imageId = thisImage.getAttribute('data-id');
+            var name = thisImage.querySelector('[data-name="image-name-edit"]').textContent.trim();
+            var description = thisImage.querySelector('[data-name="image-description-edit"]').textContent.trim();
+            var date = Date.now();
+            var isMature = thisImage.querySelector('.isMature-btn').classList.contains('active');
+            var thumbSmall = thisImage.querySelector('[data-slab="small"]').getAttribute('data-url');
+            var thumbMedium = thisImage.querySelector('[data-slab="medium"]').getAttribute('data-url');
+            var thumbLarge = thisImage.querySelector('[data-slab="large"]').getAttribute('data-url');
+
+            _this.db_ref_object.push({
+              image_id: imageId,
+              name: name,
+              date: date,
+              description: description,
+              isMature: isMature,
+              img: {
+                thumb_small: thumbSmall,
+                thumb_medium: thumbMedium,
+                thumb_large: thumbLarge
+              }
+            });
+          });
+
+          if (uploaderType === 'album') {} else {
+            var selectedAlbums = albumsPic.querySelectorAll('input[type="checkbox"]:checked');
+            if (selectedAlbums[0]) {
+              selectedAlbums.forEach(function (album) {
+                var key = album.getAttribute('data-key');
+
+                findAlbumByKey(key, _this.db_ref_object).then(function (content) {
+                  var thisContent = content;
+                  var photosList = thisContent.photos_list || [];
+                  images.forEach(function (image) {
+                    var imageId = image.getAttribute('data-id');
+                    photosList.push(imageId);
+                  });
+
+                  _this.db_ref_object.child(key).update({
+                    photos_list: photosList
+                  });
+                });
+              });
+            }
+          }
+
+          if (_this.back_to) {} else {
+            setTimeout(function () {
+              back.click();
+            }, 1000);
+          }
+        }
+      }
+    });
+  }
+};
+
+/***/ }),
+/* 108 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+var _removeFromFirebasePromise = __webpack_require__(104);
+
+var _removeFromFirebasePromise2 = _interopRequireDefault(_removeFromFirebasePromise);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = class extends _domrC.Component {
+  constructor() {
+    super();
+  }
+
+  Markup() {
+    return '\n      <a href="#" class="btn isMature-btn"></a>\n    ';
+  }
+
+  Events() {
+    this.Click(function (self, e) {
+      e.preventDefault();
+      var thisSelf = self;
+
+      thisSelf.classList.toggle('active');
+    });
+  }
+};
+
+/***/ }),
+/* 109 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+var _AdminPanelAlbumUploaderSidebar = __webpack_require__(110);
+
+var _AdminPanelAlbumUploaderSidebar2 = _interopRequireDefault(_AdminPanelAlbumUploaderSidebar);
+
+var _AdminPanelUploadArea = __webpack_require__(94);
+
+var _AdminPanelUploadArea2 = _interopRequireDefault(_AdminPanelUploadArea);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = class extends _domrC.Component {
+  constructor(fire, dbRefObject, storageFolder) {
+    super();
+    this.firebase = fire;
+    this.db_ref_object = dbRefObject;
+    this.storage_folder = storageFolder;
+  }
+
+  Markup() {
+    var sidebar = new _AdminPanelAlbumUploaderSidebar2.default(this.db_ref_object);
+    var uploadArea = new _AdminPanelUploadArea2.default(this.firebase, this.storage_folder);
+
+    return '\n      <div class="uploader__body" data-uploader-type="album">\n        ' + sidebar.Render() + '\n        ' + uploadArea.Render() + '\n      </div>\n    ';
+  }
+};
+
+/***/ }),
+/* 110 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+var _NoInput = __webpack_require__(5);
+
+exports.default = class extends _domrC.Component {
+  constructor(dbRefObject) {
+    super();
+    this.db_ref_object = dbRefObject;
+  }
+
+  Markup() {
+    var Title = new _NoInput.Text('image-name-edit', {
+      title: 'Title',
+      example: 'e.g. Sunset at Pondi',
+      placeholder: 'Enter Title',
+      labelClass: 'name-edit'
+    });
+
+    var Description = new _NoInput.TextArea('image-description-edit', {
+      title: 'Description',
+      placeholder: 'Enter Description',
+      labelClass: 'description-edit'
+    });
+
+    return '\n      <aside class="uploader__sidebar container">\n        <h1>Create Album</h1>\n        ' + Title.Render() + '\n        ' + Description.Render() + '\n      </aside>\n    ';
+  }
+};
 
 /***/ })
 /******/ ]);
