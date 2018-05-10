@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "public/dist/build/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 40);
+/******/ 	return __webpack_require__(__webpack_require__.s = 44);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -75,15 +75,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.utils = exports.Router = exports.Component = undefined;
 
-var _Component = __webpack_require__(42);
+var _Component = __webpack_require__(46);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _Router = __webpack_require__(46);
+var _Router = __webpack_require__(50);
 
 var _Router2 = _interopRequireDefault(_Router);
 
-var _utils = __webpack_require__(51);
+var _utils = __webpack_require__(55);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -95,8 +95,43 @@ exports.utils = _utils2.default;
 
 /***/ }),
 /* 1 */,
-/* 2 */,
-/* 3 */
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Stripe = exports.TextArea = exports.Password = exports.Text = undefined;
+
+var _Text = __webpack_require__(12);
+
+var _Text2 = _interopRequireDefault(_Text);
+
+var _Password = __webpack_require__(61);
+
+var _Password2 = _interopRequireDefault(_Password);
+
+var _TextArea = __webpack_require__(62);
+
+var _TextArea2 = _interopRequireDefault(_TextArea);
+
+var _Stripe = __webpack_require__(63);
+
+var _Stripe2 = _interopRequireDefault(_Stripe);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.Text = _Text2.default;
+exports.Password = _Password2.default;
+exports.TextArea = _TextArea2.default;
+exports.Stripe = _Stripe2.default;
+
+/***/ }),
+/* 3 */,
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -106,11 +141,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _hashLocationSet = __webpack_require__(49);
+var _hashLocationSet = __webpack_require__(53);
 
 var _hashLocationSet2 = _interopRequireDefault(_hashLocationSet);
 
-var _hashLocationGet = __webpack_require__(50);
+var _hashLocationGet = __webpack_require__(54);
 
 var _hashLocationGet2 = _interopRequireDefault(_hashLocationGet);
 
@@ -165,7 +200,7 @@ var hashLocation = loc;
 exports.default = hashLocation;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -184,41 +219,6 @@ var firebaseConfig = {
 };
 
 exports.default = firebaseConfig;
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Stripe = exports.TextArea = exports.Password = exports.Text = undefined;
-
-var _Text = __webpack_require__(12);
-
-var _Text2 = _interopRequireDefault(_Text);
-
-var _Password = __webpack_require__(57);
-
-var _Password2 = _interopRequireDefault(_Password);
-
-var _TextArea = __webpack_require__(58);
-
-var _TextArea2 = _interopRequireDefault(_TextArea);
-
-var _Stripe = __webpack_require__(59);
-
-var _Stripe2 = _interopRequireDefault(_Stripe);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.Text = _Text2.default;
-exports.Password = _Password2.default;
-exports.TextArea = _TextArea2.default;
-exports.Stripe = _Stripe2.default;
 
 /***/ }),
 /* 6 */
@@ -277,15 +277,15 @@ exports.default = function (fireBase) {
   return '\n    <header>\n        <a href="#/" class="logo">\n          <img src="./public/dist/favicon/favicon.png" alt="Logo" />\n        </a>\n        <div class="account">\n          ' + AccountPop.Render() + '\n          <div class="account__drop">\n            <div class="account__welcome">Hola ' + firebaseAuth.currentUser.email + '</div>\n            ' + AccountLogout.Render() + '\n          </div>\n          ' + AccountCloak.Render() + '\n        </div>\n     </header>\n  ';
 };
 
-var _AdminPanelAccountPop = __webpack_require__(62);
+var _AdminPanelAccountPop = __webpack_require__(66);
 
 var _AdminPanelAccountPop2 = _interopRequireDefault(_AdminPanelAccountPop);
 
-var _AdminPanelAccountCloak = __webpack_require__(63);
+var _AdminPanelAccountCloak = __webpack_require__(67);
 
 var _AdminPanelAccountCloak2 = _interopRequireDefault(_AdminPanelAccountCloak);
 
-var _AdminPanelAccountLogout = __webpack_require__(64);
+var _AdminPanelAccountLogout = __webpack_require__(68);
 
 var _AdminPanelAccountLogout2 = _interopRequireDefault(_AdminPanelAccountLogout);
 
@@ -393,7 +393,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _PasteNameField = __webpack_require__(55);
+var _PasteNameField = __webpack_require__(59);
 
 var _PasteNameField2 = _interopRequireDefault(_PasteNameField);
 
@@ -420,11 +420,38 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 13 */,
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function removeFromFirebase(fire, path) {
+  var promiseObj = new Promise(function (resolve, reject) {
+    var desertRef = fire.storage().ref(path);
+
+    desertRef.delete().then(function () {
+      console.log(path);
+      resolve();
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+
+  return promiseObj;
+}
+
+exports.default = removeFromFirebase;
+
+/***/ }),
 /* 14 */,
 /* 15 */,
 /* 16 */,
-/* 17 */
+/* 17 */,
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -434,11 +461,117 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _SuperModal = __webpack_require__(77);
+var _domrC = __webpack_require__(0);
+
+var _removeFromFirebasePromise = __webpack_require__(13);
+
+var _removeFromFirebasePromise2 = _interopRequireDefault(_removeFromFirebasePromise);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = class extends _domrC.Component {
+  constructor(content, fire) {
+    var contentType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'image';
+    var storagFolder = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'clustertry';
+
+    super();
+    this.content = content;
+    this.firebase = fire;
+    this.db_ref_object = this.firebase.database().ref();
+    this.content_type = contentType;
+    this.redirect = '#/?stream=' + contentType;
+    this.storage_folder = storagFolder;
+  }
+
+  Markup() {
+    return '\n      <a href="#" class="btn btn--danger delete-button">Delete ' + this.content_type + '</a>\n    ';
+  }
+
+  Events() {
+    var _this = this;
+
+    this.Click(function (self, e) {
+      e.preventDefault();
+      var r = confirm('Sure You Want Delete This ' + _this.content_type); // eslint-disable-line no-alert
+
+      if (r === true) {
+        if (_this.content_type === 'image') {
+          var imageList = ['small', 'medium', 'large'];
+
+          imageList.forEach(function (thumb) {
+            var path = _this.storage_folder + '/' + _this.content.image_id + '-' + thumb + '.jpg';
+            (0, _removeFromFirebasePromise2.default)(_this.firebase, path);
+          });
+        }
+
+        _this.db_ref_object.child(_this.content.key).remove().then(function () {
+          location.href = _this.redirect;
+        });
+      }
+    });
+  }
+};
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+exports.default = class extends _domrC.Component {
+  constructor(text, className, classToInject, clicked) {
+    super('layout-btn');
+    this.text = text;
+    this.className = className || '';
+    this.classToInject = classToInject;
+    this.isClicked = clicked || false;
+  }
+
+  Markup() {
+    return '\n      <a href="#" class="btn ' + (this.isClicked ? 'btn--pressed' : '') + ' ' + this.className + '">' + this.text + '</a>\n    ';
+  }
+
+  Events() {
+    var _this = this;
+
+    this.Click(function (self, e) {
+      e.preventDefault();
+      var preview = document.getElementById('layout-edit').querySelector('.preview');
+
+      if (self.classList.contains('btn--pressed')) {
+        preview.classList.remove(_this.classToInject);
+        self.classList.remove('btn--pressed');
+      } else {
+        preview.classList.add(_this.classToInject);
+        self.classList.add('btn--pressed');
+      }
+    });
+  }
+};
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _SuperModal = __webpack_require__(81);
 
 var _SuperModal2 = _interopRequireDefault(_SuperModal);
 
-var _SuperModalBtn = __webpack_require__(80);
+var _SuperModalBtn = __webpack_require__(84);
 
 var _SuperModalBtn2 = _interopRequireDefault(_SuperModalBtn);
 
@@ -470,7 +603,7 @@ exports.default = class extends _SuperModal2.default {
 };
 
 /***/ }),
-/* 18 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -510,10 +643,103 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */,
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+var _AdminPanelImageUploaderThumb = __webpack_require__(98);
+
+var _AdminPanelImageUploaderThumb2 = _interopRequireDefault(_AdminPanelImageUploaderThumb);
+
+var _resizeImage = __webpack_require__(102);
+
+var _resizeImage2 = _interopRequireDefault(_resizeImage);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = class extends _domrC.Component {
+  constructor(fire, storageFolder) {
+    super();
+    this.fire = fire;
+    this.storage_folder = storageFolder;
+  }
+
+  Markup() {
+    return '\n      <div class="uploader__area container">\n        <h3>Upload Area</h3>\n        <ul class="uploader__area__preview"></ul>\n        <label>\n          <input class="uploader__area__file" name="my-file" type="file" multiple />\n        </label>\n      </div>\n    ';
+  }
+
+  AfterRenderDone() {
+    var _this = this;
+
+    var thisSelf = this.GetThisComponent();
+    var myFile = thisSelf.querySelector('.uploader__area__file');
+    var preview = thisSelf.querySelector('.uploader__area__preview');
+
+    myFile.addEventListener('change', function (e) {
+      if (e.target.files[0]) {
+        var files = e.target.files;
+
+        preview.innerHTML = '';
+
+        for (var i = 0; i < files.length; i++) {
+          var file = files[i];
+          var fileType = file.type.toString();
+          if (fileType.includes('image')) {
+            (function () {
+              var thumb = new _AdminPanelImageUploaderThumb2.default(i, _this.fire, _this.storage_folder);
+              thumb.AddTo(preview);
+
+              var reader = new FileReader();
+              reader.onloadend = function () {
+                var result = reader.result;
+                var img = new Image();
+                img.src = result;
+
+                img.onload = function (imgResult) {
+                  var compress = (0, _resizeImage2.default)(imgResult.target, {
+                    height: 200,
+                    quality: 6
+                  });
+                  var thumbSmall = (0, _resizeImage2.default)(imgResult.target, {
+                    height: 200,
+                    quality: 8,
+                    strip_url: true
+                  });
+                  var thumbMedium = (0, _resizeImage2.default)(imgResult.target, {
+                    height: 600,
+                    quality: 8,
+                    strip_url: true
+                  });
+                  var thumbLarge = (0, _resizeImage2.default)(imgResult.target, {
+                    height: 1280,
+                    quality: 8,
+                    strip_url: true
+                  });
+                  thumb.Image(compress);
+
+                  thumb.Small(thumbSmall);
+                  thumb.Medium(thumbMedium);
+                  thumb.Large(thumbLarge);
+                };
+              };
+              reader.readAsDataURL(file);
+            })();
+          }
+        }
+      }
+    });
+  }
+};
+
+/***/ }),
 /* 23 */,
 /* 24 */,
 /* 25 */,
@@ -531,18 +757,22 @@ exports.default = class extends _domrC.Component {
 /* 37 */,
 /* 38 */,
 /* 39 */,
-/* 40 */
+/* 40 */,
+/* 41 */,
+/* 42 */,
+/* 43 */,
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(41);
+__webpack_require__(45);
 
-__webpack_require__(97);
+__webpack_require__(108);
 
 /***/ }),
-/* 41 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -550,7 +780,7 @@ __webpack_require__(97);
 
 var _domrC = __webpack_require__(0);
 
-var _routes = __webpack_require__(52);
+var _routes = __webpack_require__(56);
 
 var _routes2 = _interopRequireDefault(_routes);
 
@@ -561,7 +791,7 @@ var router = new _domrC.Router(_routes2.default);
 router.Start();
 
 /***/ }),
-/* 42 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -573,15 +803,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _createElement = __webpack_require__(43);
+var _createElement = __webpack_require__(47);
 
 var _createElement2 = _interopRequireDefault(_createElement);
 
-var _lookup = __webpack_require__(44);
+var _lookup = __webpack_require__(48);
 
 var _lookup2 = _interopRequireDefault(_lookup);
 
-var _randomizer = __webpack_require__(45);
+var _randomizer = __webpack_require__(49);
 
 var _randomizer2 = _interopRequireDefault(_randomizer);
 
@@ -790,7 +1020,7 @@ var _class = function () {
 exports.default = _class;
 
 /***/ }),
-/* 43 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -817,7 +1047,7 @@ function createElement(str, domrDataId) {
 exports.default = createElement;
 
 /***/ }),
-/* 44 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -837,7 +1067,7 @@ function Lookup(elmId) {
 exports.default = Lookup;
 
 /***/ }),
-/* 45 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -855,7 +1085,7 @@ function randomizer() {
 exports.default = randomizer;
 
 /***/ }),
-/* 46 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -867,11 +1097,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _addView = __webpack_require__(47);
+var _addView = __webpack_require__(51);
 
 var _addView2 = _interopRequireDefault(_addView);
 
-var _hashLocation = __webpack_require__(3);
+var _hashLocation = __webpack_require__(4);
 
 var _hashLocation2 = _interopRequireDefault(_hashLocation);
 
@@ -987,7 +1217,7 @@ var _class = function () {
 exports.default = _class;
 
 /***/ }),
-/* 47 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -997,7 +1227,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _cloneObject = __webpack_require__(48);
+var _cloneObject = __webpack_require__(52);
 
 var _cloneObject2 = _interopRequireDefault(_cloneObject);
 
@@ -1020,7 +1250,7 @@ function addView(candidate) {
 exports.default = addView;
 
 /***/ }),
-/* 48 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1059,7 +1289,7 @@ function cloneObject(obj) {
 exports.default = cloneObject;
 
 /***/ }),
-/* 49 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1069,7 +1299,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _hashLocation = __webpack_require__(3);
+var _hashLocation = __webpack_require__(4);
 
 var _hashLocation2 = _interopRequireDefault(_hashLocation);
 
@@ -1173,7 +1403,7 @@ function hashLocationSet(field, opt) {
 exports.default = hashLocationSet;
 
 /***/ }),
-/* 50 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1183,7 +1413,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _hashLocation = __webpack_require__(3);
+var _hashLocation = __webpack_require__(4);
 
 var _hashLocation2 = _interopRequireDefault(_hashLocation);
 
@@ -1203,7 +1433,7 @@ function hashLocationGet(field) {
 exports.default = hashLocationGet;
 
 /***/ }),
-/* 51 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1213,7 +1443,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _hashLocation = __webpack_require__(3);
+var _hashLocation = __webpack_require__(4);
 
 var _hashLocation2 = _interopRequireDefault(_hashLocation);
 
@@ -1226,7 +1456,7 @@ var utils = {
 exports.default = utils;
 
 /***/ }),
-/* 52 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1236,19 +1466,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _AdminPanelHomeView = __webpack_require__(53);
+var _AdminPanelHomeView = __webpack_require__(57);
 
 var _AdminPanelHomeView2 = _interopRequireDefault(_AdminPanelHomeView);
 
-var _AdminPanelAlbumFolderView = __webpack_require__(67);
+var _AdminPanelAlbumFolderView = __webpack_require__(72);
 
 var _AdminPanelAlbumFolderView2 = _interopRequireDefault(_AdminPanelAlbumFolderView);
 
-var _AdminPanelImageFolderView = __webpack_require__(83);
+var _AdminPanelImageFolderView = __webpack_require__(87);
 
 var _AdminPanelImageFolderView2 = _interopRequireDefault(_AdminPanelImageFolderView);
 
-var _AdminPanelUploaderView = __webpack_require__(89);
+var _AdminPanelUploaderView = __webpack_require__(93);
 
 var _AdminPanelUploaderView2 = _interopRequireDefault(_AdminPanelUploaderView);
 
@@ -1276,7 +1506,7 @@ var routes = [{
 exports.default = routes;
 
 /***/ }),
-/* 53 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1314,22 +1544,22 @@ exports.default = function (data) {
   window.scrollTo(0, 0);
 };
 
-var _firebaseConfig = __webpack_require__(4);
+var _firebaseConfig = __webpack_require__(5);
 
 var _firebaseConfig2 = _interopRequireDefault(_firebaseConfig);
 
-var _AdminPanelLoginContainer = __webpack_require__(54);
+var _AdminPanelLoginContainer = __webpack_require__(58);
 
 var _AdminPanelLoginContainer2 = _interopRequireDefault(_AdminPanelLoginContainer);
 
-var _AdminPanelStreamContainer = __webpack_require__(61);
+var _AdminPanelStreamContainer = __webpack_require__(65);
 
 var _AdminPanelStreamContainer2 = _interopRequireDefault(_AdminPanelStreamContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 54 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1341,9 +1571,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _NoInput = __webpack_require__(5);
+var _NoInput = __webpack_require__(2);
 
-var _AdminPanelLoginBtn = __webpack_require__(60);
+var _AdminPanelLoginBtn = __webpack_require__(64);
 
 var _AdminPanelLoginBtn2 = _interopRequireDefault(_AdminPanelLoginBtn);
 
@@ -1383,7 +1613,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 55 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1395,7 +1625,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _clearFormatting = __webpack_require__(56);
+var _clearFormatting = __webpack_require__(60);
 
 var _clearFormatting2 = _interopRequireDefault(_clearFormatting);
 
@@ -1422,7 +1652,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 56 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1443,7 +1673,7 @@ function clearFormatting(self, e) {
 exports.default = clearFormatting;
 
 /***/ }),
-/* 57 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1469,7 +1699,7 @@ exports.default = class extends _Text2.default {
 };
 
 /***/ }),
-/* 58 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1495,7 +1725,7 @@ exports.default = class extends _Text2.default {
 };
 
 /***/ }),
-/* 59 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1580,7 +1810,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 60 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1622,7 +1852,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 61 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1646,13 +1876,17 @@ var _ScrollToTopButton = __webpack_require__(8);
 
 var _ScrollToTopButton2 = _interopRequireDefault(_ScrollToTopButton);
 
-var _AdminPanelAlbumThumb = __webpack_require__(65);
+var _AdminPanelAlbumThumb = __webpack_require__(69);
 
 var _AdminPanelAlbumThumb2 = _interopRequireDefault(_AdminPanelAlbumThumb);
 
-var _AdminPanelImageThumb = __webpack_require__(66);
+var _AdminPanelImageThumb = __webpack_require__(70);
 
 var _AdminPanelImageThumb2 = _interopRequireDefault(_AdminPanelImageThumb);
+
+var _AdminPanelCreateThumb = __webpack_require__(71);
+
+var _AdminPanelCreateThumb2 = _interopRequireDefault(_AdminPanelCreateThumb);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1693,9 +1927,12 @@ exports.default = class extends _domrC.Component {
           var className = 'AdminPanel' + (_this.stream_type[0].toUpperCase() + _this.stream_type.slice(1)) + 'Thumb';
           var Thumb = dynamicClass(className);
           var thumb = new Thumb(content, _this.db_ref_object);
-          thumb.AddTo(tabBody);
+          thumb.AddFromStartTo(tabBody);
         }
       });
+    }).then(function () {
+      var Create = new _AdminPanelCreateThumb2.default(_this.stream_type);
+      Create.AddFromStartTo(tabBody);
     });
 
     (0, _scrollAction2.default)(thisSelf);
@@ -1703,7 +1940,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 62 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1736,7 +1973,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 63 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1768,7 +2005,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 64 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1801,7 +2038,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 65 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1858,7 +2095,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 66 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1896,7 +2133,33 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 67 */
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+exports.default = class extends _domrC.Component {
+  constructor() {
+    var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'image';
+
+    super();
+    this.type = type;
+  }
+
+  Markup() {
+    return '\n     <li class="thumb thumb--create thumb--create--' + this.type + '">\n      <a href="#/create?type=' + this.type + '"><svg role="img" class="icon"><use xlink:href="#icon-Interface-41"></use></svg></a>\n     </li>\n    ';
+  }
+};
+
+/***/ }),
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1929,18 +2192,18 @@ exports.default = function (data) {
   window.scrollTo(0, 0);
 };
 
-var _firebaseConfig = __webpack_require__(4);
+var _firebaseConfig = __webpack_require__(5);
 
 var _firebaseConfig2 = _interopRequireDefault(_firebaseConfig);
 
-var _AdminPanelAlbumFolderContainer = __webpack_require__(68);
+var _AdminPanelAlbumFolderContainer = __webpack_require__(73);
 
 var _AdminPanelAlbumFolderContainer2 = _interopRequireDefault(_AdminPanelAlbumFolderContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 68 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1952,7 +2215,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _sortablejs = __webpack_require__(69);
+var _sortablejs = __webpack_require__(74);
 
 var _sortablejs2 = _interopRequireDefault(_sortablejs);
 
@@ -1960,7 +2223,7 @@ var _scrollAction = __webpack_require__(6);
 
 var _scrollAction2 = _interopRequireDefault(_scrollAction);
 
-var _NoInput = __webpack_require__(5);
+var _NoInput = __webpack_require__(2);
 
 var _AdminPanelHeader = __webpack_require__(7);
 
@@ -1970,23 +2233,27 @@ var _ScrollToTopButton = __webpack_require__(8);
 
 var _ScrollToTopButton2 = _interopRequireDefault(_ScrollToTopButton);
 
-var _AdminPanelAlbumFolderGroup = __webpack_require__(70);
+var _AdminPanelAlbumFolderGroup = __webpack_require__(75);
 
 var _AdminPanelAlbumFolderGroup2 = _interopRequireDefault(_AdminPanelAlbumFolderGroup);
 
-var _AdminPanelAlbumEditBtn = __webpack_require__(71);
+var _AdminPanelAlbumEditBtn = __webpack_require__(76);
 
 var _AdminPanelAlbumEditBtn2 = _interopRequireDefault(_AdminPanelAlbumEditBtn);
 
-var _AdminPanelAlbumSaveBtn = __webpack_require__(72);
+var _AdminPanelAlbumSaveBtn = __webpack_require__(77);
 
 var _AdminPanelAlbumSaveBtn2 = _interopRequireDefault(_AdminPanelAlbumSaveBtn);
 
-var _AdminPanelAlbumCancelBtn = __webpack_require__(73);
+var _AdminPanelAlbumCancelBtn = __webpack_require__(78);
 
 var _AdminPanelAlbumCancelBtn2 = _interopRequireDefault(_AdminPanelAlbumCancelBtn);
 
-var _AdminPanelLayoutBtn = __webpack_require__(74);
+var _AdminPanelFolderDeleteBtn = __webpack_require__(18);
+
+var _AdminPanelFolderDeleteBtn2 = _interopRequireDefault(_AdminPanelFolderDeleteBtn);
+
+var _AdminPanelLayoutBtn = __webpack_require__(19);
 
 var _AdminPanelLayoutBtn2 = _interopRequireDefault(_AdminPanelLayoutBtn);
 
@@ -1994,11 +2261,11 @@ var _AdminPanelCoverPic = __webpack_require__(9);
 
 var _AdminPanelCoverPic2 = _interopRequireDefault(_AdminPanelCoverPic);
 
-var _AdminPanelAlbumChangeCoverBtn = __webpack_require__(75);
+var _AdminPanelAlbumChangeCoverBtn = __webpack_require__(79);
 
 var _AdminPanelAlbumChangeCoverBtn2 = _interopRequireDefault(_AdminPanelAlbumChangeCoverBtn);
 
-var _AdminPanelAlbumAddPhotosBtn = __webpack_require__(81);
+var _AdminPanelAlbumAddPhotosBtn = __webpack_require__(85);
 
 var _AdminPanelAlbumAddPhotosBtn2 = _interopRequireDefault(_AdminPanelAlbumAddPhotosBtn);
 
@@ -2086,9 +2353,11 @@ exports.default = class extends _domrC.Component {
           var coverPicDisplay = new _AdminPanelCoverPic2.default('' + (content.cover_pic ? content.cover_pic : ''), _this.db_ref_object);
           var changeCoverBtn = new _AdminPanelAlbumChangeCoverBtn2.default(content, _this.db_ref_object);
           var addPhotosBtn = new _AdminPanelAlbumAddPhotosBtn2.default(content, _this.db_ref_object);
+          var DeleteBtn = new _AdminPanelFolderDeleteBtn2.default(content, _this.firebase, 'album');
+
           albumName.textContent = content.name;
           album.setAttribute('data-key', key);
-          folder.innerHTML = '\n            <div>\n              <div class="info info--display">\n                <h1 class="info--display__name">' + content.name + '</h1>\n                <div class="info--display__description">' + content.description.trim() + '</div>\n                <div class="info--display__works-no-show" style="display:none">\n                    ' + (content.works_no_show ? '\n                      <input type="radio" name="works-no-show-display" value="true" checked />\n                      <input type="radio" name="works-no-show-display" value="false" />\n                      ' : '\n                      <input type="radio" name="works-no-show-display" value="true" />\n                      <input type="radio" name="works-no-show-display" value="false" checked />\n                      ') + '\n                  </div>\n                <div class="info--display__is-special" style="display:none">\n                  ' + (content.isSpecial ? '\n                      <input type="radio" name="is-album-special-display" value="true" checked/>\n                      <input type="radio" name="is-album-special-display" value="false" />\n                      ' : '\n                      <input type="radio" name="is-album-special-display" value="true" />\n                      <input type="radio" name="is-album-special-display" value="false" checked/>\n                      ') + '\n                </div>\n                <div class="info--display__cover" style="display:none">' + coverPicDisplay.Render() + '</div>\n                <div class="info--display__layout" style="display:none">\n                  ' + (content.layout ? '\n                    <input type="text" class="box" value="' + content.layout.box.toString() + '"/>\n                    <input type="text" class="gapr" value="' + content.layout.gapr.toString() + '"/>\n                    <input type="text" class="parts" value="' + content.layout.parts.toString() + '"/>\n                    ' : '\n                    <input type="text" class="box" value="true"/>\n                    <input type="text" class="gapr" value="false"/>\n                    <input type="text" class="parts" value="2"/>\n                    ') + '\n                </div>\n              </div>\n              <div class="info info--edit">\n                <div class="devide">\n                  <div class="info--edit__name">\n                    ' + albumNameEdit.Render() + '\n                  </div>\n                  <div class="info--edit__description">\n                    ' + albumDescriptionEdit.Render() + '\n                  </div>\n                  <div class="info--edit__works-no-show info--edit__choice">\n                    <h3>Show in works section on website</h3>\n                    <div class="btn-group">\n                      ' + (content.works_no_show ? '\n                        <label>\n                          <input type="radio" name="works-no-show" value="false" />\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="works-no-show" value="true" checked/>\n                          <span class="btn">No</span>\n                        </label>\n                        ' : '\n                        <label>\n                          <input type="radio" name="works-no-show" value="false" checked/>\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="works-no-show" value="true" />\n                          <span class="btn">No</span>\n                        </label>\n                        ') + '\n                    </div>\n                  </div>\n                  <div class="info--edit__is-special info--edit__choice">\n                    <h3>does album needs special treatment ?</h3>\n                    <div class="btn-group">\n                      ' + (content.isSpecial ? '\n                        <label>\n                          <input type="radio" name="is-album-special" value="true" checked/>\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="is-album-special" value="false" />\n                          <span class="btn">No</span>\n                        </label>\n                        ' : '\n                        <label>\n                          <input type="radio" name="is-album-special" value="true" />\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="is-album-special" value="false" checked/>\n                          <span class="btn">No</span>\n                        </label>\n                        ') + '\n                    </div>\n                  </div>\n                  <div class="info--edit__cover">\n                    <h3>Cover Pic</h3>\n                    <div class="cover-pic-holder">\n                      ' + coverPic.Render() + '\n                    </div>\n                    ' + changeCoverBtn.Render() + '\n                    <div class="change-cover-modal-holder"></div>\n                  </div>\n                    <div class="info--edit__layout">\n                      <h3>Album Layout</h3>\n                      ' + boxLayout.Render() + '\n                      <div class="layout" id="layout-edit">\n                        ' + gapRight.Render() + '\n                        <div class="preview">\n                          <ul class="preview__container">\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                          </ul>\n                        </div>\n                      </div>\n                      ' + stripe.Render() + '\n                    </div>\n                </div>\n                ' + addPhotosBtn.Render() + '\n              </div>\n              ' + folderGroup.Render() + '\n              ' + folderGroupSortable.Render() + '\n            </div>\n          ';
+          folder.innerHTML = '\n            <div>\n              <div class="info info--display">\n                <h1 class="info--display__name">' + content.name + '</h1>\n                <div class="info--display__description">' + content.description.trim() + '</div>\n                <div class="info--display__works-no-show" style="display:none">\n                    ' + (content.works_no_show ? '\n                      <input type="radio" name="works-no-show-display" value="true" checked />\n                      <input type="radio" name="works-no-show-display" value="false" />\n                      ' : '\n                      <input type="radio" name="works-no-show-display" value="true" />\n                      <input type="radio" name="works-no-show-display" value="false" checked />\n                      ') + '\n                  </div>\n                <div class="info--display__is-special" style="display:none">\n                  ' + (content.isSpecial ? '\n                      <input type="radio" name="is-album-special-display" value="true" checked/>\n                      <input type="radio" name="is-album-special-display" value="false" />\n                      ' : '\n                      <input type="radio" name="is-album-special-display" value="true" />\n                      <input type="radio" name="is-album-special-display" value="false" checked/>\n                      ') + '\n                </div>\n                <div class="info--display__cover" style="display:none">' + coverPicDisplay.Render() + '</div>\n                <div class="info--display__layout" style="display:none">\n                  ' + (content.layout ? '\n                    <input type="text" class="box" value="' + content.layout.box.toString() + '"/>\n                    <input type="text" class="gapr" value="' + content.layout.gapr.toString() + '"/>\n                    <input type="text" class="parts" value="' + content.layout.parts.toString() + '"/>\n                    ' : '\n                    <input type="text" class="box" value="true"/>\n                    <input type="text" class="gapr" value="false"/>\n                    <input type="text" class="parts" value="2"/>\n                    ') + '\n                </div>\n              </div>\n              <div class="info info--edit">\n                <div class="devide">\n                  <div class="info--edit__name">\n                    ' + albumNameEdit.Render() + '\n                  </div>\n                  <div class="info--edit__description">\n                    ' + albumDescriptionEdit.Render() + '\n                  </div>\n                  <div class="info--edit__works-no-show info--edit__choice">\n                    <h3>Show in works section on website</h3>\n                    <div class="btn-group">\n                      ' + (content.works_no_show ? '\n                        <label>\n                          <input type="radio" name="works-no-show" value="false" />\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="works-no-show" value="true" checked/>\n                          <span class="btn">No</span>\n                        </label>\n                        ' : '\n                        <label>\n                          <input type="radio" name="works-no-show" value="false" checked/>\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="works-no-show" value="true" />\n                          <span class="btn">No</span>\n                        </label>\n                        ') + '\n                    </div>\n                  </div>\n                  <div class="info--edit__is-special info--edit__choice">\n                    <h3>does album needs special treatment ?</h3>\n                    <div class="btn-group">\n                      ' + (content.isSpecial ? '\n                        <label>\n                          <input type="radio" name="is-album-special" value="true" checked/>\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="is-album-special" value="false" />\n                          <span class="btn">No</span>\n                        </label>\n                        ' : '\n                        <label>\n                          <input type="radio" name="is-album-special" value="true" />\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="is-album-special" value="false" checked/>\n                          <span class="btn">No</span>\n                        </label>\n                        ') + '\n                    </div>\n                  </div>\n                  <div class="info--edit__cover">\n                    <h3>Cover Pic</h3>\n                    <div class="cover-pic-holder">\n                      ' + coverPic.Render() + '\n                    </div>\n                    ' + changeCoverBtn.Render() + '\n                    <div class="change-cover-modal-holder"></div>\n                  </div>\n                    <div class="info--edit__layout">\n                      <h3>Album Layout</h3>\n                      ' + boxLayout.Render() + '\n                      <div class="layout" id="layout-edit">\n                        ' + gapRight.Render() + '\n                        <div class="preview">\n                          <ul class="preview__container">\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                          </ul>\n                        </div>\n                      </div>\n                      ' + stripe.Render() + '\n                    </div>\n                  <div class="info--edit__danger-zone">\n                    <h3>Danger Zone</h3>\n                    ' + DeleteBtn.Render() + '\n                  </div>\n                </div>\n                ' + addPhotosBtn.Render() + '\n              </div>\n              ' + folderGroup.Render() + '\n              ' + folderGroupSortable.Render() + '\n            </div>\n          ';
           folder.classList.add('found');
         }
       });
@@ -2103,7 +2372,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 69 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
@@ -3653,7 +3922,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
 
 
 /***/ }),
-/* 70 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3730,7 +3999,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 71 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3841,7 +4110,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 72 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3960,7 +4229,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 73 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3994,7 +4263,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 74 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4006,51 +4275,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-exports.default = class extends _domrC.Component {
-  constructor(text, className, classToInject, clicked) {
-    super('layout-btn');
-    this.text = text;
-    this.className = className || '';
-    this.classToInject = classToInject;
-    this.isClicked = clicked || false;
-  }
-
-  Markup() {
-    return '\n      <a href="#" class="btn ' + (this.isClicked ? 'btn--pressed' : '') + ' ' + this.className + '">' + this.text + '</a>\n    ';
-  }
-
-  Events() {
-    var _this = this;
-
-    this.Click(function (self, e) {
-      e.preventDefault();
-      var preview = document.getElementById('layout-edit').querySelector('.preview');
-
-      if (self.classList.contains('btn--pressed')) {
-        preview.classList.remove(_this.classToInject);
-        self.classList.remove('btn--pressed');
-      } else {
-        preview.classList.add(_this.classToInject);
-        self.classList.add('btn--pressed');
-      }
-    });
-  }
-};
-
-/***/ }),
-/* 75 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _domrC = __webpack_require__(0);
-
-var _AdminPanelChangeCoverModal = __webpack_require__(76);
+var _AdminPanelChangeCoverModal = __webpack_require__(80);
 
 var _AdminPanelChangeCoverModal2 = _interopRequireDefault(_AdminPanelChangeCoverModal);
 
@@ -4080,7 +4305,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 76 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4090,11 +4315,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _SuperModalWithHeader = __webpack_require__(17);
+var _SuperModalWithHeader = __webpack_require__(20);
 
 var _SuperModalWithHeader2 = _interopRequireDefault(_SuperModalWithHeader);
 
-var _AdminPanelSelectableImg = __webpack_require__(18);
+var _AdminPanelSelectableImg = __webpack_require__(21);
 
 var _AdminPanelSelectableImg2 = _interopRequireDefault(_AdminPanelSelectableImg);
 
@@ -4174,7 +4399,7 @@ exports.default = class extends _SuperModalWithHeader2.default {
 };
 
 /***/ }),
-/* 77 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4186,11 +4411,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _removeSuperModal = __webpack_require__(78);
+var _removeSuperModal = __webpack_require__(82);
 
 var _removeSuperModal2 = _interopRequireDefault(_removeSuperModal);
 
-var _SuperModalCloke = __webpack_require__(79);
+var _SuperModalCloke = __webpack_require__(83);
 
 var _SuperModalCloke2 = _interopRequireDefault(_SuperModalCloke);
 
@@ -4244,7 +4469,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 78 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4271,7 +4496,7 @@ function removeSuperModal() {
 exports.default = removeSuperModal;
 
 /***/ }),
-/* 79 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4303,7 +4528,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 80 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4347,7 +4572,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 81 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4359,7 +4584,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _AdminPanelAddPhotosModal = __webpack_require__(82);
+var _AdminPanelAddPhotosModal = __webpack_require__(86);
 
 var _AdminPanelAddPhotosModal2 = _interopRequireDefault(_AdminPanelAddPhotosModal);
 
@@ -4388,7 +4613,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 82 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4398,11 +4623,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _SuperModalWithHeader = __webpack_require__(17);
+var _SuperModalWithHeader = __webpack_require__(20);
 
 var _SuperModalWithHeader2 = _interopRequireDefault(_SuperModalWithHeader);
 
-var _AdminPanelSelectableImg = __webpack_require__(18);
+var _AdminPanelSelectableImg = __webpack_require__(21);
 
 var _AdminPanelSelectableImg2 = _interopRequireDefault(_AdminPanelSelectableImg);
 
@@ -4494,7 +4719,7 @@ exports.default = class extends _SuperModalWithHeader2.default {
 };
 
 /***/ }),
-/* 83 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4517,7 +4742,7 @@ exports.default = function (data) {
 
   fire.auth().onAuthStateChanged(function (fireUser) {
     if (fireUser) {
-      var imageFolder = new _AdminPanelImageFolderContainer2.default(fire, data.metadata.id);
+      var imageFolder = new _AdminPanelImageFolderContainer2.default(fire, data.metadata.id, 'clustertry');
       wrapper.innerHTML = imageFolder.Render();
     } else {
       location.hash = '#/';
@@ -4527,18 +4752,18 @@ exports.default = function (data) {
   window.scrollTo(0, 0);
 };
 
-var _firebaseConfig = __webpack_require__(4);
+var _firebaseConfig = __webpack_require__(5);
 
 var _firebaseConfig2 = _interopRequireDefault(_firebaseConfig);
 
-var _AdminPanelImageFolderContainer = __webpack_require__(84);
+var _AdminPanelImageFolderContainer = __webpack_require__(88);
 
 var _AdminPanelImageFolderContainer2 = _interopRequireDefault(_AdminPanelImageFolderContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 84 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4554,7 +4779,7 @@ var _scrollAction = __webpack_require__(6);
 
 var _scrollAction2 = _interopRequireDefault(_scrollAction);
 
-var _NoInput = __webpack_require__(5);
+var _NoInput = __webpack_require__(2);
 
 var _AdminPanelHeader = __webpack_require__(7);
 
@@ -4564,30 +4789,35 @@ var _ScrollToTopButton = __webpack_require__(8);
 
 var _ScrollToTopButton2 = _interopRequireDefault(_ScrollToTopButton);
 
-var _AdminPanelImageShowCase = __webpack_require__(85);
+var _AdminPanelImageShowCase = __webpack_require__(89);
 
 var _AdminPanelImageShowCase2 = _interopRequireDefault(_AdminPanelImageShowCase);
 
-var _AdminPanelImageEditBtn = __webpack_require__(86);
+var _AdminPanelImageEditBtn = __webpack_require__(90);
 
 var _AdminPanelImageEditBtn2 = _interopRequireDefault(_AdminPanelImageEditBtn);
 
-var _AdminPanelImageSaveBtn = __webpack_require__(87);
+var _AdminPanelImageSaveBtn = __webpack_require__(91);
 
 var _AdminPanelImageSaveBtn2 = _interopRequireDefault(_AdminPanelImageSaveBtn);
 
-var _AdminPanelImageCancelBtn = __webpack_require__(88);
+var _AdminPanelImageCancelBtn = __webpack_require__(92);
 
 var _AdminPanelImageCancelBtn2 = _interopRequireDefault(_AdminPanelImageCancelBtn);
+
+var _AdminPanelFolderDeleteBtn = __webpack_require__(18);
+
+var _AdminPanelFolderDeleteBtn2 = _interopRequireDefault(_AdminPanelFolderDeleteBtn);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = class extends _domrC.Component {
-  constructor(fire, imageId) {
+  constructor(fire, imageId, storagFolder) {
     super();
     this.firebase = fire;
     this.image_id = imageId;
     this.db_ref_object = this.firebase.database().ref();
+    this.storag_folder = storagFolder;
   }
 
   Markup() {
@@ -4627,8 +4857,9 @@ exports.default = class extends _domrC.Component {
             labelClass: 'description-edit',
             value: content.description
           });
+          var DeleteBtn = new _AdminPanelFolderDeleteBtn2.default(content, _this.firebase, 'image', _this.storag_folder);
           album.setAttribute('data-key', key);
-          folder.innerHTML = '\n            ' + imageShowCase.Render() + '\n            <div class="container">\n              <div class="info info--display">\n                <div class="info--display__isMature" data-value="' + (content.isMature ? 'true' : 'false') + '">\n                  <span>Mature Content</span>\n                </div>\n                <h1 class="info--display__name">' + content.name + '</h1>\n                <div class="info--display__description">' + content.description.trim() + '</div>\n              </div>\n              <div class="info info--edit">\n                <div class="devide">\n                  <div class="info--edit__name">\n                    ' + albumNameEdit.Render() + '\n                  </div>\n                  <div class="info--edit__description">\n                    ' + albumDescriptionEdit.Render() + '\n                  </div>\n                  <div class="info--edit__isMature info--edit__choice">\n                    <h3>Mature Content?</h3>\n                    <div class="btn-group">\n                      ' + (content.isMature ? '\n                        <label>\n                          <input type="radio" name="isMature" value="true" checked/>\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="isMature" value="false"/>\n                          <span class="btn">No</span>\n                        </label>\n                        ' : '\n                        <label>\n                          <input type="radio" name="isMature" value="true" />\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="isMature" value="false" checked/>\n                          <span class="btn">No</span>\n                        </label>\n                        ') + '\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n          ';
+          folder.innerHTML = '\n            ' + imageShowCase.Render() + '\n            <div class="container">\n              <div class="info info--display">\n                <div class="info--display__isMature" data-value="' + (content.isMature ? 'true' : 'false') + '">\n                  <span>Mature Content</span>\n                </div>\n                <h1 class="info--display__name">' + content.name + '</h1>\n                <div class="info--display__description">' + content.description.trim() + '</div>\n              </div>\n              <div class="info info--edit">\n                <div class="devide">\n                  <div class="info--edit__name">\n                    ' + albumNameEdit.Render() + '\n                  </div>\n                  <div class="info--edit__description">\n                    ' + albumDescriptionEdit.Render() + '\n                  </div>\n                  <div class="info--edit__isMature info--edit__choice">\n                    <h3>Mature Content?</h3>\n                    <div class="btn-group">\n                      ' + (content.isMature ? '\n                        <label>\n                          <input type="radio" name="isMature" value="true" checked/>\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="isMature" value="false"/>\n                          <span class="btn">No</span>\n                        </label>\n                        ' : '\n                        <label>\n                          <input type="radio" name="isMature" value="true" />\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="isMature" value="false" checked/>\n                          <span class="btn">No</span>\n                        </label>\n                        ') + '\n                    </div>\n                  </div>\n                  <div class="info--edit__danger-zone">\n                    <h3>Danger Zone</h3>\n                    ' + DeleteBtn.Render() + '\n                  </div>\n                </div>\n              </div>\n            </div>\n          ';
           folder.classList.add('found');
         }
       });
@@ -4643,7 +4874,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 85 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4680,7 +4911,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 86 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4729,7 +4960,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 87 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4795,7 +5026,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 88 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4829,7 +5060,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 89 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4868,18 +5099,18 @@ exports.default = function (data) {
   window.scrollTo(0, 0);
 };
 
-var _firebaseConfig = __webpack_require__(4);
+var _firebaseConfig = __webpack_require__(5);
 
 var _firebaseConfig2 = _interopRequireDefault(_firebaseConfig);
 
-var _AdminPanelUploaderContainer = __webpack_require__(90);
+var _AdminPanelUploaderContainer = __webpack_require__(94);
 
 var _AdminPanelUploaderContainer2 = _interopRequireDefault(_AdminPanelUploaderContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 90 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4903,11 +5134,11 @@ var _ScrollToTopButton = __webpack_require__(8);
 
 var _ScrollToTopButton2 = _interopRequireDefault(_ScrollToTopButton);
 
-var _AdminPanelImageUploader = __webpack_require__(91);
+var _AdminPanelImageUploader = __webpack_require__(95);
 
 var _AdminPanelImageUploader2 = _interopRequireDefault(_AdminPanelImageUploader);
 
-var _AdminPanelAlbumUploader = __webpack_require__(109);
+var _AdminPanelAlbumUploader = __webpack_require__(103);
 
 var _AdminPanelAlbumUploader2 = _interopRequireDefault(_AdminPanelAlbumUploader);
 
@@ -4956,7 +5187,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 91 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4968,11 +5199,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _AdminPanelImageUploaderSidebar = __webpack_require__(92);
+var _AdminPanelImageUploaderSidebar = __webpack_require__(96);
 
 var _AdminPanelImageUploaderSidebar2 = _interopRequireDefault(_AdminPanelImageUploaderSidebar);
 
-var _AdminPanelUploadArea = __webpack_require__(94);
+var _AdminPanelUploadArea = __webpack_require__(22);
 
 var _AdminPanelUploadArea2 = _interopRequireDefault(_AdminPanelUploadArea);
 
@@ -4995,7 +5226,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 92 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5007,7 +5238,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _AdminPanelImageUploaderPickAlbumThumb = __webpack_require__(93);
+var _AdminPanelImageUploaderPickAlbumThumb = __webpack_require__(97);
 
 var _AdminPanelImageUploaderPickAlbumThumb2 = _interopRequireDefault(_AdminPanelImageUploaderPickAlbumThumb);
 
@@ -5074,7 +5305,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 93 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5108,7 +5339,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 94 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5120,114 +5351,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _AdminPanelImageUploaderThumb = __webpack_require__(95);
-
-var _AdminPanelImageUploaderThumb2 = _interopRequireDefault(_AdminPanelImageUploaderThumb);
-
-var _resizeImage = __webpack_require__(96);
-
-var _resizeImage2 = _interopRequireDefault(_resizeImage);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = class extends _domrC.Component {
-  constructor(fire, storageFolder) {
-    super();
-    this.fire = fire;
-    this.storage_folder = storageFolder;
-  }
-
-  Markup() {
-    return '\n      <div class="uploader__area container">\n        <h3>Upload Area</h3>\n        <ul class="uploader__area__preview"></ul>\n        <label>\n          <input class="uploader__area__file" name="my-file" type="file" multiple />\n        </label>\n      </div>\n    ';
-  }
-
-  AfterRenderDone() {
-    var _this = this;
-
-    var thisSelf = this.GetThisComponent();
-    var myFile = thisSelf.querySelector('.uploader__area__file');
-    var preview = thisSelf.querySelector('.uploader__area__preview');
-
-    myFile.addEventListener('change', function (e) {
-      if (e.target.files[0]) {
-        var files = e.target.files;
-
-        preview.innerHTML = '';
-
-        for (var i = 0; i < files.length; i++) {
-          var file = files[i];
-          var fileType = file.type.toString();
-          if (fileType.includes('image')) {
-            (function () {
-              var thumb = new _AdminPanelImageUploaderThumb2.default(i, _this.fire, _this.storage_folder);
-              thumb.AddTo(preview);
-
-              var reader = new FileReader();
-              reader.onloadend = function () {
-                var result = reader.result;
-                var img = new Image();
-                img.src = result;
-
-                img.onload = function (imgResult) {
-                  var compress = (0, _resizeImage2.default)(imgResult.target, {
-                    height: 200,
-                    quality: 6
-                  });
-                  var thumbSmall = (0, _resizeImage2.default)(imgResult.target, {
-                    height: 200,
-                    quality: 8,
-                    strip_url: true
-                  });
-                  var thumbMedium = (0, _resizeImage2.default)(imgResult.target, {
-                    height: 600,
-                    quality: 8,
-                    strip_url: true
-                  });
-                  var thumbLarge = (0, _resizeImage2.default)(imgResult.target, {
-                    height: 1280,
-                    quality: 8,
-                    strip_url: true
-                  });
-                  thumb.Image(compress);
-
-                  thumb.Small(thumbSmall);
-                  thumb.Medium(thumbMedium);
-                  thumb.Large(thumbLarge);
-                };
-              };
-              reader.readAsDataURL(file);
-            })();
-          }
-        }
-      }
-    });
-  }
-};
-
-/***/ }),
-/* 95 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _domrC = __webpack_require__(0);
-
-var _uploadToFirebasePromise = __webpack_require__(105);
+var _uploadToFirebasePromise = __webpack_require__(99);
 
 var _uploadToFirebasePromise2 = _interopRequireDefault(_uploadToFirebasePromise);
 
-var _NoInput = __webpack_require__(5);
+var _NoInput = __webpack_require__(2);
 
-var _AdminPanelImageUploaderThumbDeleteBtn = __webpack_require__(103);
+var _AdminPanelImageUploaderThumbDeleteBtn = __webpack_require__(100);
 
 var _AdminPanelImageUploaderThumbDeleteBtn2 = _interopRequireDefault(_AdminPanelImageUploaderThumbDeleteBtn);
 
-var _AdminPanelImageUploaderThumbIsMatureBtn = __webpack_require__(108);
+var _AdminPanelImageUploaderThumbIsMatureBtn = __webpack_require__(101);
 
 var _AdminPanelImageUploaderThumbIsMatureBtn2 = _interopRequireDefault(_AdminPanelImageUploaderThumbIsMatureBtn);
 
@@ -5308,7 +5442,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 96 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5317,50 +5451,27 @@ exports.default = class extends _domrC.Component {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-function resizeImage(target) {
-  var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+function uploadToFirebase(fire, image, path) {
+  var promiseObj = new Promise(function (resolve, reject) {
+    var storageRef = fire.storage().ref(path);
+    var uploadTask = storageRef.putString(image, 'base64');
 
-  var thisTarget = target;
-  var height = config.height || 200;
-  var quality = config.quality || 8;
-  var stripUrl = config.strip_url || false;
-  var canvas = document.createElement('canvas');
-  var ctx = canvas.getContext('2d');
-  var maxHeight = height;
+    uploadTask.on('state_changed', function progress() {}, function error(err) {
+      reject(err);
+    }, function complete() {
+      storageRef.getDownloadURL().then(function (url) {
+        resolve(url);
+      });
+    });
+  });
 
-  thisTarget.width *= maxHeight / thisTarget.height;
-  thisTarget.height = maxHeight;
-
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  canvas.width = thisTarget.width;
-  canvas.height = thisTarget.height;
-  ctx.drawImage(thisTarget, 0, 0, thisTarget.width, thisTarget.height);
-
-  var result = canvas.toDataURL('image/jpeg', quality);
-
-  if (stripUrl) {
-    var split = result.split(',');
-    result = split[1];
-  }
-
-  return result;
+  return promiseObj;
 }
 
-exports.default = resizeImage;
+exports.default = uploadToFirebase;
 
 /***/ }),
-/* 97 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 98 */,
-/* 99 */,
-/* 100 */,
-/* 101 */,
-/* 102 */,
-/* 103 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5372,7 +5483,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _removeFromFirebasePromise = __webpack_require__(104);
+var _removeFromFirebasePromise = __webpack_require__(13);
 
 var _removeFromFirebasePromise2 = _interopRequireDefault(_removeFromFirebasePromise);
 
@@ -5416,6 +5527,124 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
+/* 101 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+var _removeFromFirebasePromise = __webpack_require__(13);
+
+var _removeFromFirebasePromise2 = _interopRequireDefault(_removeFromFirebasePromise);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = class extends _domrC.Component {
+  constructor() {
+    super();
+  }
+
+  Markup() {
+    return '\n      <a href="#" class="btn isMature-btn"></a>\n    ';
+  }
+
+  Events() {
+    this.Click(function (self, e) {
+      e.preventDefault();
+      var thisSelf = self;
+
+      thisSelf.classList.toggle('active');
+    });
+  }
+};
+
+/***/ }),
+/* 102 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function resizeImage(target) {
+  var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  var thisTarget = target;
+  var height = config.height || 200;
+  var quality = config.quality || 8;
+  var stripUrl = config.strip_url || false;
+  var canvas = document.createElement('canvas');
+  var ctx = canvas.getContext('2d');
+  var maxHeight = height;
+
+  thisTarget.width *= maxHeight / thisTarget.height;
+  thisTarget.height = maxHeight;
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  canvas.width = thisTarget.width;
+  canvas.height = thisTarget.height;
+  ctx.drawImage(thisTarget, 0, 0, thisTarget.width, thisTarget.height);
+
+  var result = canvas.toDataURL('image/jpeg', quality);
+
+  if (stripUrl) {
+    var split = result.split(',');
+    result = split[1];
+  }
+
+  return result;
+}
+
+exports.default = resizeImage;
+
+/***/ }),
+/* 103 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+var _AdminPanelAlbumUploaderSidebar = __webpack_require__(104);
+
+var _AdminPanelAlbumUploaderSidebar2 = _interopRequireDefault(_AdminPanelAlbumUploaderSidebar);
+
+var _AdminPanelUploadArea = __webpack_require__(22);
+
+var _AdminPanelUploadArea2 = _interopRequireDefault(_AdminPanelUploadArea);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = class extends _domrC.Component {
+  constructor(fire, dbRefObject, storageFolder) {
+    super();
+    this.firebase = fire;
+    this.db_ref_object = dbRefObject;
+    this.storage_folder = storageFolder;
+  }
+
+  Markup() {
+    var sidebar = new _AdminPanelAlbumUploaderSidebar2.default(this.db_ref_object);
+    var uploadArea = new _AdminPanelUploadArea2.default(this.firebase, this.storage_folder);
+
+    return '\n      <div class="uploader__body" data-uploader-type="album">\n        ' + sidebar.Render() + '\n        ' + uploadArea.Render() + '\n      </div>\n    ';
+  }
+};
+
+/***/ }),
 /* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5425,22 +5654,44 @@ exports.default = class extends _domrC.Component {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-function removeFromFirebase(fire, path) {
-  var promiseObj = new Promise(function (resolve, reject) {
-    var desertRef = fire.storage().ref(path);
 
-    desertRef.delete().then(function () {
-      console.log(path);
-      resolve();
-    }).catch(function (err) {
-      reject(err);
+var _domrC = __webpack_require__(0);
+
+var _NoInput = __webpack_require__(2);
+
+var _AdminPanelAlbumLayout = __webpack_require__(105);
+
+var _AdminPanelAlbumLayout2 = _interopRequireDefault(_AdminPanelAlbumLayout);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = class extends _domrC.Component {
+  constructor(dbRefObject) {
+    super();
+    this.db_ref_object = dbRefObject;
+    this.random = Math.random().toString(36).substring(2);
+    this.name = 'album-' + this.random;
+  }
+
+  Markup() {
+    var Title = new _NoInput.Text('album-name-edit', {
+      title: 'Title',
+      example: 'e.g. Sunset at Pondi',
+      placeholder: 'Enter Title',
+      labelClass: 'name-edit'
     });
-  });
 
-  return promiseObj;
-}
+    var Description = new _NoInput.TextArea('album-description-edit', {
+      title: 'Description',
+      placeholder: 'Enter Description',
+      labelClass: 'description-edit'
+    });
 
-exports.default = removeFromFirebase;
+    var Layout = (0, _AdminPanelAlbumLayout2.default)('uploader__sidebar__layout', 'layout-edit', 'Album Layout');
+
+    return '\n      <aside class="uploader__sidebar container" data-id="' + this.name + '">\n        <h1>Create Album</h1>\n        ' + Title.Render() + '\n        ' + Description.Render() + '\n        <div class="uploader__sidebar__type btn-choice">\n          <h3>Album Type</h3>\n          <div class="btn-choice__group">\n            <label>\n              <input type="radio" name="type" value="photography" checked>\n              <span class="btn">Photography</span>\n            </label>\n            <label>\n              <input type="radio" name="type" value="restoration">\n              <span class="btn">Restoration</span>\n            </label>\n            <label>\n              <input type="radio" name="type" value="demo">\n              <span class="btn">Demo</span>\n            </label>\n          </div>\n        </div>\n        <div class="uploader__sidebar__works-no-show btn-choice">\n          <h3>Show in works section on website</h3>\n          <div class="btn-choice__group">\n            <label>\n              <input type="radio" name="works-no-show" value="false" checked>\n              <span class="btn">Yes</span>\n            </label>\n            <label>\n              <input type="radio" name="works-no-show" value="true">\n              <span class="btn">No</span>\n            </label>\n          </div>\n        </div>\n        <div class="uploader__sidebar__isSpecial btn-choice">\n          <h3>does album needs special treatment ?</h3>\n          <div class="btn-choice__group">\n            <label>\n              <input type="radio" name="isSpecial" value="false">\n              <span class="btn">Yes</span>\n            </label>\n            <label>\n              <input type="radio" name="isSpecial" value="true" checked>\n              <span class="btn">No</span>\n            </label>\n          </div>\n        </div>\n        ' + Layout + '\n      </aside>\n    ';
+  }
+};
 
 /***/ }),
 /* 105 */
@@ -5452,24 +5703,59 @@ exports.default = removeFromFirebase;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-function uploadToFirebase(fire, image, path) {
-  var promiseObj = new Promise(function (resolve, reject) {
-    var storageRef = fire.storage().ref(path);
-    var uploadTask = storageRef.putString(image, 'base64');
 
-    uploadTask.on('state_changed', function progress() {}, function error(err) {
-      reject(err);
-    }, function complete() {
-      storageRef.getDownloadURL().then(function (url) {
-        resolve(url);
-      });
-    });
+exports.default = function () {
+  var className = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'info--edit__layout';
+  var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'layout-edit';
+  var heading = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'Album Layout';
+  var config = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : defaultConfig;
+
+  var stripe = new _NoInput.Stripe('layout-parts', {
+    labelClass: 'layout__parts-stripe',
+    value: config.stripeValue,
+    points: [{
+      point: 1,
+      value: 1
+    }, {
+      point: 2,
+      value: 2
+    }, {
+      point: 3,
+      value: 3
+    }, {
+      point: 4,
+      value: 4
+    }, {
+      point: 5,
+      value: 5
+    }],
+    callback: function callback(value) {
+      var preview = document.getElementById(id).querySelector('.preview');
+
+      preview.setAttribute('data-parts', value);
+    }
   });
 
-  return promiseObj;
-}
+  var boxLayout = new _AdminPanelLayoutBtn2.default('Boxed Layout', 'box-btn ' + (config.isBoxLayout ? 'btn--pressed' : ''), 'preview--box', false);
 
-exports.default = uploadToFirebase;
+  var gapRight = new _AdminPanelLayoutBtn2.default('R Gap', 'gap-right ' + (config.isGapRight ? 'btn--pressed' : ''), 'preview--gap-right', false);
+
+  return '\n    <div class="' + className + ' layout">\n      <h3>' + heading + '</h3>\n      ' + boxLayout.Render() + '\n      <div class="layout__box" id="layout-edit">\n        ' + gapRight.Render() + '\n        <div class="preview \n        ' + (config.isBoxLayout ? 'preview--box' : '') + '\n        ' + (config.isGapRight ? 'preview--gap-right' : '') + '\n        ">\n          <ul class="preview__container">\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n          </ul>\n        </div>\n      </div>\n      ' + stripe.Render() + '\n    </div>\n  ';
+};
+
+var _NoInput = __webpack_require__(2);
+
+var _AdminPanelLayoutBtn = __webpack_require__(19);
+
+var _AdminPanelLayoutBtn2 = _interopRequireDefault(_AdminPanelLayoutBtn);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var defaultConfig = {
+  isBoxLayout: true,
+  isGapRight: false,
+  stripeValue: 2
+};
 
 /***/ }),
 /* 106 */
@@ -5484,7 +5770,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _removeFromFirebasePromise = __webpack_require__(104);
+var _removeFromFirebasePromise = __webpack_require__(13);
 
 var _removeFromFirebasePromise2 = _interopRequireDefault(_removeFromFirebasePromise);
 
@@ -5544,6 +5830,18 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _domrC = __webpack_require__(0);
+
+function makeArrOfDataID(content) {
+  var arr = [];
+
+  content.forEach(function (thisContent) {
+    var dataId = thisContent.getAttribute('data-id');
+
+    arr.push(dataId);
+  });
+
+  return arr;
+}
 
 function findAlbumByKey(targetkey, dbRefObject) {
   var promiseObj = new Promise(function (resolve, reject) {
@@ -5628,7 +5926,37 @@ exports.default = class extends _domrC.Component {
             });
           });
 
-          if (uploaderType === 'album') {} else {
+          if (uploaderType === 'album') {
+            var aside = parent.querySelector('.uploader__sidebar');
+            var albumId = aside.getAttribute('data-id');
+            var name = aside.querySelector('[data-name="album-name-edit"]').textContent.trim();
+            var description = aside.querySelector('[data-name="album-description-edit"]').textContent.trim();
+            var date = Date.now();
+            var type = aside.querySelector('.uploader__sidebar__type').querySelector('input[type="radio"]:checked').value;
+            var worksNoShow = aside.querySelector('.uploader__sidebar__works-no-show').querySelector('input[type="radio"]:checked').value;
+            var isSpecial = aside.querySelector('.uploader__sidebar__isSpecial').querySelector('input[type="radio"]:checked').value;
+            var layout = aside.querySelector('.uploader__sidebar__layout');
+            var preview = layout.querySelector('.preview');
+            var uploadArea = parent.querySelector('.uploader__area__preview');
+            var photosList = uploadArea.querySelectorAll('.image-uploader__thumb');
+
+            _this.db_ref_object.push({
+              album_id: albumId,
+              name: name,
+              date: date,
+              description: description,
+              type: type,
+              works_no_show: JSON.parse(worksNoShow),
+              isSpecial: JSON.parse(isSpecial),
+              layout: {
+                box: preview.classList.contains('preview--box'),
+                gapr: preview.classList.contains('preview--gap-right'),
+                parts: preview.getAttribute('data-parts') ? preview.getAttribute('data-parts') : 2
+              },
+              photos_list: makeArrOfDataID(photosList),
+              cover_pic: photosList[0].getAttribute('data-id')
+            });
+          } else {
             var selectedAlbums = albumsPic.querySelectorAll('input[type="checkbox"]:checked');
             if (selectedAlbums[0]) {
               selectedAlbums.forEach(function (album) {
@@ -5663,119 +5991,9 @@ exports.default = class extends _domrC.Component {
 
 /***/ }),
 /* 108 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _domrC = __webpack_require__(0);
-
-var _removeFromFirebasePromise = __webpack_require__(104);
-
-var _removeFromFirebasePromise2 = _interopRequireDefault(_removeFromFirebasePromise);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = class extends _domrC.Component {
-  constructor() {
-    super();
-  }
-
-  Markup() {
-    return '\n      <a href="#" class="btn isMature-btn"></a>\n    ';
-  }
-
-  Events() {
-    this.Click(function (self, e) {
-      e.preventDefault();
-      var thisSelf = self;
-
-      thisSelf.classList.toggle('active');
-    });
-  }
-};
-
-/***/ }),
-/* 109 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _domrC = __webpack_require__(0);
-
-var _AdminPanelAlbumUploaderSidebar = __webpack_require__(110);
-
-var _AdminPanelAlbumUploaderSidebar2 = _interopRequireDefault(_AdminPanelAlbumUploaderSidebar);
-
-var _AdminPanelUploadArea = __webpack_require__(94);
-
-var _AdminPanelUploadArea2 = _interopRequireDefault(_AdminPanelUploadArea);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = class extends _domrC.Component {
-  constructor(fire, dbRefObject, storageFolder) {
-    super();
-    this.firebase = fire;
-    this.db_ref_object = dbRefObject;
-    this.storage_folder = storageFolder;
-  }
-
-  Markup() {
-    var sidebar = new _AdminPanelAlbumUploaderSidebar2.default(this.db_ref_object);
-    var uploadArea = new _AdminPanelUploadArea2.default(this.firebase, this.storage_folder);
-
-    return '\n      <div class="uploader__body" data-uploader-type="album">\n        ' + sidebar.Render() + '\n        ' + uploadArea.Render() + '\n      </div>\n    ';
-  }
-};
-
-/***/ }),
-/* 110 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _domrC = __webpack_require__(0);
-
-var _NoInput = __webpack_require__(5);
-
-exports.default = class extends _domrC.Component {
-  constructor(dbRefObject) {
-    super();
-    this.db_ref_object = dbRefObject;
-  }
-
-  Markup() {
-    var Title = new _NoInput.Text('image-name-edit', {
-      title: 'Title',
-      example: 'e.g. Sunset at Pondi',
-      placeholder: 'Enter Title',
-      labelClass: 'name-edit'
-    });
-
-    var Description = new _NoInput.TextArea('image-description-edit', {
-      title: 'Description',
-      placeholder: 'Enter Description',
-      labelClass: 'description-edit'
-    });
-
-    return '\n      <aside class="uploader__sidebar container">\n        <h1>Create Album</h1>\n        ' + Title.Render() + '\n        ' + Description.Render() + '\n      </aside>\n    ';
-  }
-};
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
