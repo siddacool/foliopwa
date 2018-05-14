@@ -104,9 +104,9 @@ exports.utils = _utils2.default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Stripe = exports.TextArea = exports.Password = exports.Text = undefined;
+exports.Stripe = exports.Radio = exports.Checkbox = exports.TextArea = exports.Password = exports.Text = undefined;
 
-var _Text = __webpack_require__(12);
+var _Text = __webpack_require__(13);
 
 var _Text2 = _interopRequireDefault(_Text);
 
@@ -118,7 +118,15 @@ var _TextArea = __webpack_require__(62);
 
 var _TextArea2 = _interopRequireDefault(_TextArea);
 
-var _Stripe = __webpack_require__(63);
+var _Checkbox = __webpack_require__(63);
+
+var _Checkbox2 = _interopRequireDefault(_Checkbox);
+
+var _Radio = __webpack_require__(64);
+
+var _Radio2 = _interopRequireDefault(_Radio);
+
+var _Stripe = __webpack_require__(65);
 
 var _Stripe2 = _interopRequireDefault(_Stripe);
 
@@ -127,6 +135,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.Text = _Text2.default;
 exports.Password = _Password2.default;
 exports.TextArea = _TextArea2.default;
+exports.Checkbox = _Checkbox2.default;
+exports.Radio = _Radio2.default;
 exports.Stripe = _Stripe2.default;
 
 /***/ }),
@@ -277,15 +287,15 @@ exports.default = function (fireBase) {
   return '\n    <header>\n        <a href="#/" class="logo">\n          <img src="./public/dist/favicon/favicon.png" alt="Logo" />\n        </a>\n        <div class="account">\n          ' + AccountPop.Render() + '\n          <div class="account__drop">\n            <div class="account__welcome">Hola ' + firebaseAuth.currentUser.email + '</div>\n            ' + AccountLogout.Render() + '\n          </div>\n          ' + AccountCloak.Render() + '\n        </div>\n     </header>\n  ';
 };
 
-var _AdminPanelAccountPop = __webpack_require__(66);
+var _AdminPanelAccountPop = __webpack_require__(68);
 
 var _AdminPanelAccountPop2 = _interopRequireDefault(_AdminPanelAccountPop);
 
-var _AdminPanelAccountCloak = __webpack_require__(67);
+var _AdminPanelAccountCloak = __webpack_require__(69);
 
 var _AdminPanelAccountCloak2 = _interopRequireDefault(_AdminPanelAccountCloak);
 
-var _AdminPanelAccountLogout = __webpack_require__(68);
+var _AdminPanelAccountLogout = __webpack_require__(70);
 
 var _AdminPanelAccountLogout2 = _interopRequireDefault(_AdminPanelAccountLogout);
 
@@ -379,9 +389,36 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 10 */,
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function removeFromFirebase(fire, path) {
+  var promiseObj = new Promise(function (resolve, reject) {
+    var desertRef = fire.storage().ref(path);
+
+    desertRef.delete().then(function () {
+      console.log(path);
+      resolve();
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+
+  return promiseObj;
+}
+
+exports.default = removeFromFirebase;
+
+/***/ }),
 /* 11 */,
-/* 12 */
+/* 12 */,
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -420,33 +457,6 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-function removeFromFirebase(fire, path) {
-  var promiseObj = new Promise(function (resolve, reject) {
-    var desertRef = fire.storage().ref(path);
-
-    desertRef.delete().then(function () {
-      console.log(path);
-      resolve();
-    }).catch(function (err) {
-      reject(err);
-    });
-  });
-
-  return promiseObj;
-}
-
-exports.default = removeFromFirebase;
-
-/***/ }),
 /* 14 */,
 /* 15 */,
 /* 16 */,
@@ -463,7 +473,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _removeFromFirebasePromise = __webpack_require__(13);
+var _removeFromFirebasePromise = __webpack_require__(10);
 
 var _removeFromFirebasePromise2 = _interopRequireDefault(_removeFromFirebasePromise);
 
@@ -567,11 +577,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _SuperModal = __webpack_require__(81);
+var _SuperModal = __webpack_require__(83);
 
 var _SuperModal2 = _interopRequireDefault(_SuperModal);
 
-var _SuperModalBtn = __webpack_require__(84);
+var _SuperModalBtn = __webpack_require__(86);
 
 var _SuperModalBtn2 = _interopRequireDefault(_SuperModalBtn);
 
@@ -655,11 +665,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _AdminPanelImageUploaderThumb = __webpack_require__(98);
+var _AdminPanelImageUploaderThumb = __webpack_require__(100);
 
 var _AdminPanelImageUploaderThumb2 = _interopRequireDefault(_AdminPanelImageUploaderThumb);
 
-var _resizeImage = __webpack_require__(102);
+var _resizeImage = __webpack_require__(104);
 
 var _resizeImage2 = _interopRequireDefault(_resizeImage);
 
@@ -769,7 +779,7 @@ exports.default = class extends _domrC.Component {
 
 __webpack_require__(45);
 
-__webpack_require__(108);
+__webpack_require__(110);
 
 /***/ }),
 /* 45 */
@@ -1470,15 +1480,15 @@ var _AdminPanelHomeView = __webpack_require__(57);
 
 var _AdminPanelHomeView2 = _interopRequireDefault(_AdminPanelHomeView);
 
-var _AdminPanelAlbumFolderView = __webpack_require__(72);
+var _AdminPanelAlbumFolderView = __webpack_require__(74);
 
 var _AdminPanelAlbumFolderView2 = _interopRequireDefault(_AdminPanelAlbumFolderView);
 
-var _AdminPanelImageFolderView = __webpack_require__(87);
+var _AdminPanelImageFolderView = __webpack_require__(89);
 
 var _AdminPanelImageFolderView2 = _interopRequireDefault(_AdminPanelImageFolderView);
 
-var _AdminPanelUploaderView = __webpack_require__(93);
+var _AdminPanelUploaderView = __webpack_require__(95);
 
 var _AdminPanelUploaderView2 = _interopRequireDefault(_AdminPanelUploaderView);
 
@@ -1552,7 +1562,7 @@ var _AdminPanelLoginContainer = __webpack_require__(58);
 
 var _AdminPanelLoginContainer2 = _interopRequireDefault(_AdminPanelLoginContainer);
 
-var _AdminPanelStreamContainer = __webpack_require__(65);
+var _AdminPanelStreamContainer = __webpack_require__(67);
 
 var _AdminPanelStreamContainer2 = _interopRequireDefault(_AdminPanelStreamContainer);
 
@@ -1573,7 +1583,7 @@ var _domrC = __webpack_require__(0);
 
 var _NoInput = __webpack_require__(2);
 
-var _AdminPanelLoginBtn = __webpack_require__(64);
+var _AdminPanelLoginBtn = __webpack_require__(66);
 
 var _AdminPanelLoginBtn2 = _interopRequireDefault(_AdminPanelLoginBtn);
 
@@ -1683,7 +1693,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Text = __webpack_require__(12);
+var _Text = __webpack_require__(13);
 
 var _Text2 = _interopRequireDefault(_Text);
 
@@ -1709,7 +1719,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Text = __webpack_require__(12);
+var _Text = __webpack_require__(13);
 
 var _Text2 = _interopRequireDefault(_Text);
 
@@ -1726,6 +1736,70 @@ exports.default = class extends _Text2.default {
 
 /***/ }),
 /* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+exports.default = class extends _domrC.Component {
+  constructor(name) {
+    var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    super();
+    this.name = name;
+    this.type = 'checkbox';
+    this.isChecked = config.isChecked || false;
+    this.title = config.title || '';
+    this.value = config.value || '';
+    this.label_class = config.labelClass || '';
+    this.group_name = config.groupName || '';
+  }
+
+  Markup() {
+    return '\n      <div class="' + this.label_class + ' no-input no-input--' + this.type + '">\n        <label>\n          <input type="checkbox"\n            data-name="' + this.name + '"\n            name="' + this.group_name + '"\n            value="' + this.value + '" \n            ' + (this.isChecked ? 'checked' : '') + '/>\n          <div class="styler">\n            <svg role="img" class="icon"><use xlink:href="#icon-iconmonstr-check-mark-2"></use></svg>\n          </div>\n          <span class="title">' + this.title + '</span>\n          <span class="backdrop"></span>\n        </label>\n      </div>\n    ';
+  }
+};
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _domrC = __webpack_require__(0);
+
+exports.default = class extends _domrC.Component {
+  constructor(name) {
+    var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    super();
+    this.name = name;
+    this.type = 'radio';
+    this.isChecked = config.isChecked || false;
+    this.title = config.title || '';
+    this.value = config.value || '';
+    this.label_class = config.labelClass || '';
+    this.group_name = config.groupName || '';
+  }
+
+  Markup() {
+    return '\n      <div class="' + this.label_class + ' no-input no-input--' + this.type + '">\n        <label>\n          <input type="radio"\n            data-name="' + this.name + '"\n            name="' + this.group_name + '"\n            value="' + this.value + '" \n            ' + (this.isChecked ? 'checked' : '') + '/>\n          <div class="styler"><span class="extender"></span></div>\n          <span class="title">' + this.title + '</span>\n          <span class="backdrop"></span>\n        </label>\n      </div>\n    ';
+  }
+};
+
+/***/ }),
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1810,7 +1884,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 64 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1852,7 +1926,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 65 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1876,15 +1950,15 @@ var _ScrollToTopButton = __webpack_require__(8);
 
 var _ScrollToTopButton2 = _interopRequireDefault(_ScrollToTopButton);
 
-var _AdminPanelAlbumThumb = __webpack_require__(69);
+var _AdminPanelAlbumThumb = __webpack_require__(71);
 
 var _AdminPanelAlbumThumb2 = _interopRequireDefault(_AdminPanelAlbumThumb);
 
-var _AdminPanelImageThumb = __webpack_require__(70);
+var _AdminPanelImageThumb = __webpack_require__(72);
 
 var _AdminPanelImageThumb2 = _interopRequireDefault(_AdminPanelImageThumb);
 
-var _AdminPanelCreateThumb = __webpack_require__(71);
+var _AdminPanelCreateThumb = __webpack_require__(73);
 
 var _AdminPanelCreateThumb2 = _interopRequireDefault(_AdminPanelCreateThumb);
 
@@ -1940,7 +2014,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 66 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1973,7 +2047,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 67 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2005,7 +2079,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 68 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2038,7 +2112,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 69 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2095,7 +2169,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 70 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2133,7 +2207,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 71 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2159,7 +2233,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 72 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2196,14 +2270,14 @@ var _firebaseConfig = __webpack_require__(5);
 
 var _firebaseConfig2 = _interopRequireDefault(_firebaseConfig);
 
-var _AdminPanelAlbumFolderContainer = __webpack_require__(73);
+var _AdminPanelAlbumFolderContainer = __webpack_require__(75);
 
 var _AdminPanelAlbumFolderContainer2 = _interopRequireDefault(_AdminPanelAlbumFolderContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 73 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2215,7 +2289,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _sortablejs = __webpack_require__(74);
+var _sortablejs = __webpack_require__(76);
 
 var _sortablejs2 = _interopRequireDefault(_sortablejs);
 
@@ -2233,19 +2307,19 @@ var _ScrollToTopButton = __webpack_require__(8);
 
 var _ScrollToTopButton2 = _interopRequireDefault(_ScrollToTopButton);
 
-var _AdminPanelAlbumFolderGroup = __webpack_require__(75);
+var _AdminPanelAlbumFolderGroup = __webpack_require__(77);
 
 var _AdminPanelAlbumFolderGroup2 = _interopRequireDefault(_AdminPanelAlbumFolderGroup);
 
-var _AdminPanelAlbumEditBtn = __webpack_require__(76);
+var _AdminPanelAlbumEditBtn = __webpack_require__(78);
 
 var _AdminPanelAlbumEditBtn2 = _interopRequireDefault(_AdminPanelAlbumEditBtn);
 
-var _AdminPanelAlbumSaveBtn = __webpack_require__(77);
+var _AdminPanelAlbumSaveBtn = __webpack_require__(79);
 
 var _AdminPanelAlbumSaveBtn2 = _interopRequireDefault(_AdminPanelAlbumSaveBtn);
 
-var _AdminPanelAlbumCancelBtn = __webpack_require__(78);
+var _AdminPanelAlbumCancelBtn = __webpack_require__(80);
 
 var _AdminPanelAlbumCancelBtn2 = _interopRequireDefault(_AdminPanelAlbumCancelBtn);
 
@@ -2261,11 +2335,11 @@ var _AdminPanelCoverPic = __webpack_require__(9);
 
 var _AdminPanelCoverPic2 = _interopRequireDefault(_AdminPanelCoverPic);
 
-var _AdminPanelAlbumChangeCoverBtn = __webpack_require__(79);
+var _AdminPanelAlbumChangeCoverBtn = __webpack_require__(81);
 
 var _AdminPanelAlbumChangeCoverBtn2 = _interopRequireDefault(_AdminPanelAlbumChangeCoverBtn);
 
-var _AdminPanelAlbumAddPhotosBtn = __webpack_require__(85);
+var _AdminPanelAlbumAddPhotosBtn = __webpack_require__(87);
 
 var _AdminPanelAlbumAddPhotosBtn2 = _interopRequireDefault(_AdminPanelAlbumAddPhotosBtn);
 
@@ -2372,7 +2446,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 74 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
@@ -3922,7 +3996,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
 
 
 /***/ }),
-/* 75 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3999,7 +4073,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 76 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4110,7 +4184,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 77 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4229,7 +4303,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 78 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4263,7 +4337,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 79 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4275,7 +4349,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _AdminPanelChangeCoverModal = __webpack_require__(80);
+var _AdminPanelChangeCoverModal = __webpack_require__(82);
 
 var _AdminPanelChangeCoverModal2 = _interopRequireDefault(_AdminPanelChangeCoverModal);
 
@@ -4305,7 +4379,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 80 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4399,7 +4473,7 @@ exports.default = class extends _SuperModalWithHeader2.default {
 };
 
 /***/ }),
-/* 81 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4411,11 +4485,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _removeSuperModal = __webpack_require__(82);
+var _removeSuperModal = __webpack_require__(84);
 
 var _removeSuperModal2 = _interopRequireDefault(_removeSuperModal);
 
-var _SuperModalCloke = __webpack_require__(83);
+var _SuperModalCloke = __webpack_require__(85);
 
 var _SuperModalCloke2 = _interopRequireDefault(_SuperModalCloke);
 
@@ -4469,7 +4543,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 82 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4496,7 +4570,7 @@ function removeSuperModal() {
 exports.default = removeSuperModal;
 
 /***/ }),
-/* 83 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4528,7 +4602,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 84 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4572,7 +4646,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 85 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4584,7 +4658,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _AdminPanelAddPhotosModal = __webpack_require__(86);
+var _AdminPanelAddPhotosModal = __webpack_require__(88);
 
 var _AdminPanelAddPhotosModal2 = _interopRequireDefault(_AdminPanelAddPhotosModal);
 
@@ -4613,7 +4687,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 86 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4719,7 +4793,7 @@ exports.default = class extends _SuperModalWithHeader2.default {
 };
 
 /***/ }),
-/* 87 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4756,14 +4830,14 @@ var _firebaseConfig = __webpack_require__(5);
 
 var _firebaseConfig2 = _interopRequireDefault(_firebaseConfig);
 
-var _AdminPanelImageFolderContainer = __webpack_require__(88);
+var _AdminPanelImageFolderContainer = __webpack_require__(90);
 
 var _AdminPanelImageFolderContainer2 = _interopRequireDefault(_AdminPanelImageFolderContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 88 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4789,19 +4863,19 @@ var _ScrollToTopButton = __webpack_require__(8);
 
 var _ScrollToTopButton2 = _interopRequireDefault(_ScrollToTopButton);
 
-var _AdminPanelImageShowCase = __webpack_require__(89);
+var _AdminPanelImageShowCase = __webpack_require__(91);
 
 var _AdminPanelImageShowCase2 = _interopRequireDefault(_AdminPanelImageShowCase);
 
-var _AdminPanelImageEditBtn = __webpack_require__(90);
+var _AdminPanelImageEditBtn = __webpack_require__(92);
 
 var _AdminPanelImageEditBtn2 = _interopRequireDefault(_AdminPanelImageEditBtn);
 
-var _AdminPanelImageSaveBtn = __webpack_require__(91);
+var _AdminPanelImageSaveBtn = __webpack_require__(93);
 
 var _AdminPanelImageSaveBtn2 = _interopRequireDefault(_AdminPanelImageSaveBtn);
 
-var _AdminPanelImageCancelBtn = __webpack_require__(92);
+var _AdminPanelImageCancelBtn = __webpack_require__(94);
 
 var _AdminPanelImageCancelBtn2 = _interopRequireDefault(_AdminPanelImageCancelBtn);
 
@@ -4874,7 +4948,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 89 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4911,7 +4985,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 90 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4960,7 +5034,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 91 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5026,7 +5100,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 92 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5060,7 +5134,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 93 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5103,14 +5177,14 @@ var _firebaseConfig = __webpack_require__(5);
 
 var _firebaseConfig2 = _interopRequireDefault(_firebaseConfig);
 
-var _AdminPanelUploaderContainer = __webpack_require__(94);
+var _AdminPanelUploaderContainer = __webpack_require__(96);
 
 var _AdminPanelUploaderContainer2 = _interopRequireDefault(_AdminPanelUploaderContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 94 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5134,19 +5208,19 @@ var _ScrollToTopButton = __webpack_require__(8);
 
 var _ScrollToTopButton2 = _interopRequireDefault(_ScrollToTopButton);
 
-var _AdminPanelImageUploader = __webpack_require__(95);
+var _AdminPanelImageUploader = __webpack_require__(97);
 
 var _AdminPanelImageUploader2 = _interopRequireDefault(_AdminPanelImageUploader);
 
-var _AdminPanelAlbumUploader = __webpack_require__(103);
+var _AdminPanelAlbumUploader = __webpack_require__(105);
 
 var _AdminPanelAlbumUploader2 = _interopRequireDefault(_AdminPanelAlbumUploader);
 
-var _AdminPanelUploaderCancelBtn = __webpack_require__(106);
+var _AdminPanelUploaderCancelBtn = __webpack_require__(108);
 
 var _AdminPanelUploaderCancelBtn2 = _interopRequireDefault(_AdminPanelUploaderCancelBtn);
 
-var _AdminPanelUploaderSaveBtn = __webpack_require__(107);
+var _AdminPanelUploaderSaveBtn = __webpack_require__(109);
 
 var _AdminPanelUploaderSaveBtn2 = _interopRequireDefault(_AdminPanelUploaderSaveBtn);
 
@@ -5187,7 +5261,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 95 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5199,7 +5273,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _AdminPanelImageUploaderSidebar = __webpack_require__(96);
+var _AdminPanelImageUploaderSidebar = __webpack_require__(98);
 
 var _AdminPanelImageUploaderSidebar2 = _interopRequireDefault(_AdminPanelImageUploaderSidebar);
 
@@ -5226,7 +5300,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 96 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5238,7 +5312,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _AdminPanelImageUploaderPickAlbumThumb = __webpack_require__(97);
+var _AdminPanelImageUploaderPickAlbumThumb = __webpack_require__(99);
 
 var _AdminPanelImageUploaderPickAlbumThumb2 = _interopRequireDefault(_AdminPanelImageUploaderPickAlbumThumb);
 
@@ -5305,7 +5379,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 97 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5339,7 +5413,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 98 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5351,17 +5425,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _uploadToFirebasePromise = __webpack_require__(99);
+var _uploadToFirebasePromise = __webpack_require__(101);
 
 var _uploadToFirebasePromise2 = _interopRequireDefault(_uploadToFirebasePromise);
 
 var _NoInput = __webpack_require__(2);
 
-var _AdminPanelImageUploaderThumbDeleteBtn = __webpack_require__(100);
+var _AdminPanelImageUploaderThumbDeleteBtn = __webpack_require__(102);
 
 var _AdminPanelImageUploaderThumbDeleteBtn2 = _interopRequireDefault(_AdminPanelImageUploaderThumbDeleteBtn);
 
-var _AdminPanelImageUploaderThumbIsMatureBtn = __webpack_require__(101);
+var _AdminPanelImageUploaderThumbIsMatureBtn = __webpack_require__(103);
 
 var _AdminPanelImageUploaderThumbIsMatureBtn2 = _interopRequireDefault(_AdminPanelImageUploaderThumbIsMatureBtn);
 
@@ -5442,7 +5516,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 99 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5471,7 +5545,7 @@ function uploadToFirebase(fire, image, path) {
 exports.default = uploadToFirebase;
 
 /***/ }),
-/* 100 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5483,7 +5557,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _removeFromFirebasePromise = __webpack_require__(13);
+var _removeFromFirebasePromise = __webpack_require__(10);
 
 var _removeFromFirebasePromise2 = _interopRequireDefault(_removeFromFirebasePromise);
 
@@ -5527,7 +5601,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 101 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5539,7 +5613,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _removeFromFirebasePromise = __webpack_require__(13);
+var _removeFromFirebasePromise = __webpack_require__(10);
 
 var _removeFromFirebasePromise2 = _interopRequireDefault(_removeFromFirebasePromise);
 
@@ -5565,7 +5639,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 102 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5606,7 +5680,7 @@ function resizeImage(target) {
 exports.default = resizeImage;
 
 /***/ }),
-/* 103 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5618,7 +5692,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _AdminPanelAlbumUploaderSidebar = __webpack_require__(104);
+var _AdminPanelAlbumUploaderSidebar = __webpack_require__(106);
 
 var _AdminPanelAlbumUploaderSidebar2 = _interopRequireDefault(_AdminPanelAlbumUploaderSidebar);
 
@@ -5645,7 +5719,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 104 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5659,7 +5733,7 @@ var _domrC = __webpack_require__(0);
 
 var _NoInput = __webpack_require__(2);
 
-var _AdminPanelAlbumLayout = __webpack_require__(105);
+var _AdminPanelAlbumLayout = __webpack_require__(107);
 
 var _AdminPanelAlbumLayout2 = _interopRequireDefault(_AdminPanelAlbumLayout);
 
@@ -5694,7 +5768,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 105 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5758,7 +5832,7 @@ var defaultConfig = {
 };
 
 /***/ }),
-/* 106 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5770,7 +5844,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
-var _removeFromFirebasePromise = __webpack_require__(13);
+var _removeFromFirebasePromise = __webpack_require__(10);
 
 var _removeFromFirebasePromise2 = _interopRequireDefault(_removeFromFirebasePromise);
 
@@ -5819,7 +5893,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 107 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5990,7 +6064,7 @@ exports.default = class extends _domrC.Component {
 };
 
 /***/ }),
-/* 108 */
+/* 110 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

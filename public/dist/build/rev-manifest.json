@@ -1,10 +1,10 @@
 {
   "login": {
-    "js": "public/dist/build/login.0543b45850d8088facca.js",
-    "css": "public/dist/build/login.5f0220386288d7ad0442307ab3e56c7a.css"
+    "js": "public/dist/build/login.1be1614f451f0e308e55.js",
+    "css": "public/dist/build/login.e52491ff870205eb37e303c80ce5890c.css"
   },
   "app": {
-    "js": "public/dist/build/app.0543b45850d8088facca.js",
+    "js": "public/dist/build/app.1be1614f451f0e308e55.js",
     "css": "public/dist/build/app.c32c683bdc5feae57f578d095a9f3478.css"
   }
 }

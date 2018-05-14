@@ -176,7 +176,8 @@ exports.default = hashLocation;
 /* 7 */,
 /* 8 */,
 /* 9 */,
-/* 10 */
+/* 10 */,
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -195,7 +196,7 @@ var api = {
 exports.default = api;
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -229,7 +230,6 @@ function goodOlAjaxPromise(url) {
 exports.default = goodOlAjaxPromise;
 
 /***/ }),
-/* 12 */,
 /* 13 */,
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -308,7 +308,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrA = __webpack_require__(1);
 
-var _goodOlAjaxPromise = __webpack_require__(11);
+var _goodOlAjaxPromise = __webpack_require__(12);
 
 var _goodOlAjaxPromise2 = _interopRequireDefault(_goodOlAjaxPromise);
 
@@ -1322,7 +1322,7 @@ exports.default = function (data) {
   main.innerHTML = homePageContainer.render();
 };
 
-var _apiSet = __webpack_require__(10);
+var _apiSet = __webpack_require__(11);
 
 var _apiSet2 = _interopRequireDefault(_apiSet);
 
@@ -1411,7 +1411,7 @@ exports.default = function (data) {
   }
 };
 
-var _apiSet = __webpack_require__(10);
+var _apiSet = __webpack_require__(11);
 
 var _apiSet2 = _interopRequireDefault(_apiSet);
 
@@ -1434,7 +1434,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrA = __webpack_require__(1);
 
-var _goodOlAjaxPromise = __webpack_require__(11);
+var _goodOlAjaxPromise = __webpack_require__(12);
 
 var _goodOlAjaxPromise2 = _interopRequireDefault(_goodOlAjaxPromise);
 
@@ -1490,7 +1490,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrA = __webpack_require__(1);
 
-var _goodOlAjaxPromise = __webpack_require__(11);
+var _goodOlAjaxPromise = __webpack_require__(12);
 
 var _goodOlAjaxPromise2 = _interopRequireDefault(_goodOlAjaxPromise);
 
@@ -1597,7 +1597,7 @@ exports.default = function (data) {
   }
 };
 
-var _apiSet = __webpack_require__(10);
+var _apiSet = __webpack_require__(11);
 
 var _apiSet2 = _interopRequireDefault(_apiSet);
 
