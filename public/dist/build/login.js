@@ -2124,6 +2124,17 @@ Object.defineProperty(exports, "__esModule", {
 
 var _domrC = __webpack_require__(0);
 
+function getLayoutStatus(content, field, defaultState) {
+  var defaultLayout = {};
+
+  defaultLayout[field] = defaultState;
+
+  var layout = content.layout || defaultLayout;
+  var theField = layout[field] !== undefined ? layout[field] : defaultState;
+
+  return theField;
+}
+
 exports.default = class extends _domrC.Component {
   constructor() {
     var content = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -2138,7 +2149,7 @@ exports.default = class extends _domrC.Component {
   }
 
   Markup() {
-    return '\n     <li data-key="' + this.content.key + '" class="thumb thumb--album">\n      <a href="#/album/' + this.content.album_id + '" data-id="' + this.content.album_id + '">\n        <div class="img"><img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="" alt="" /></div>\n        <div class="name"><span>' + this.name + '</span></div>\n      </a>\n     </li>\n    ';
+    return '\n     <li data-key="' + this.content.key + '" class="thumb thumb--album">\n      <a href="#/album/' + this.content.album_id + '" data-id="' + this.content.album_id + '">\n        <div class="img"><img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="" alt="" /></div>\n        <div class="name"><span>' + this.name + '</span></div>\n        <div class="info">\n          <span title="Homepage"class="info__dot info__dot--isHomepage ' + (this.content.isHomepage ? 'info__dot--active' : '') + '">\n            <svg role="img" class="icon"><use xlink:href="#icon-iconmonstr-home-9"></use></svg>\n          </span>\n          <span title="Not Shown in works"class="info__dot info__dot--works-no-show ' + (this.content.works_no_show ? 'info__dot--active' : '') + '">\n            <svg role="img" class="icon"><use xlink:href="#icon-iconmonstr-eye-8"></use></svg>\n          </span>\n          <span title="Box Layout"class="info__dot info__dot--layout info--layout--box ' + (getLayoutStatus(this.content, 'box', true) ? 'info__dot--active' : '') + '">\n            <svg role="img" class="icon"><use xlink:href="#icon-iconmonstr-checkbox-17"></use></svg>\n          </span>\n          <span title="Gap Right"class="info__dot info__dot--layout info--layout--gapr ' + (getLayoutStatus(this.content, 'gapr', false) ? 'info__dot--active' : '') + '">\n            <svg role="img" class="icon"><use xlink:href="#icon-iconmonstr-log-out-15"></use></svg>\n          </span>\n          <span title="Layout Parts"class="info__dot info__dot--layout info--layout--parts info__dot--active">' + (this.content.layout && this.content.layout.parts ? this.content.layout.parts : '2') + '</span>\n        </div>\n      </a>\n     </li>\n    ';
   }
 
   AfterRenderDone() {

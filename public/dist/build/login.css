@@ -1091,6 +1091,36 @@ h1 {
   width: min-content;
 }
 
+.thumb--album .info {
+  display: -webkit-flex;
+  display: flex;
+  padding: 8px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.thumb--album .info__dot {
+  -webkit-align-items: center;
+          align-items: center;
+  background-color: #f8f8f8;
+  border-radius: 50%;
+  display: none;
+  font-size: 14px;
+  font-weight: 800;
+  height: 30px;
+  -webkit-justify-content: center;
+          justify-content: center;
+  margin-left: 8px;
+  opacity: .8;
+  width: 30px;
+}
+
+.thumb--album .info__dot--active {
+  display: -webkit-inline-flex;
+  display: inline-flex;
+}
+
 @media only screen and (min-width: 1025px), screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
   .thumb--image {
     -webkit-justify-content: center;
