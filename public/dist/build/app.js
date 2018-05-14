@@ -318,6 +318,12 @@ var _HomePageAlbum2 = _interopRequireDefault(_HomePageAlbum);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var defaultLayout = {
+  box: true,
+  gapr: false,
+  parts: 2
+};
+
 function namePrint(titleText) {
   var name = 'The Photo';
 
@@ -338,8 +344,25 @@ function loadImageApi(imagesApi, albumData, targetContainer) {
   var photosList = albumData.photos_list;
   var homeContainer = targetContainer;
   var albumName = namePrint('' + (albumData.description ? albumData.description : albumData.name));
+  var layout = albumData.layout || defaultLayout;
+  var layoutBox = layout.box !== undefined ? layout.box : true;
+  var layoutGapR = layout.gapr !== undefined ? layout.gapr : false;
+  var layoutParts = layout.parts !== undefined ? layout.parts : 2;
 
   homeContainer.innerHTML += albumName;
+
+  homeContainer.classList.add('showcase--parts');
+  homeContainer.classList.add('showcase--parts--' + layoutParts);
+
+  console.log(albumData.layout);
+
+  if (layoutBox === true) {
+    homeContainer.classList.add('showcase--box');
+  }
+
+  if (layoutGapR === true) {
+    homeContainer.classList.add('showcase--gapr');
+  }
 
   (0, _goodOlAjaxPromise2.default)(imagesApi).then(function (response) {
     var images = response;
@@ -370,6 +393,12 @@ function loadImageApi(imagesApi, albumData, targetContainer) {
   });
 }
 
+function loopAlbums(albums, callback) {
+  albums.forEach(function (album) {
+    callback(album);
+  });
+}
+
 exports.default = class extends _domrA.Component {
   constructor() {
     var albumsApi = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
@@ -379,13 +408,13 @@ exports.default = class extends _domrA.Component {
     super();
     this.albums_api = albumsApi;
     this.images_api = imagesApi;
-    this.container_name = config.containerName || 'home-container';
-    this.album_id = config.albumid || '';
-    this.class_names = config.classNames || '';
+    this.load_homepage = config.loadHomepage || false;
+    this.album_id = config.albumid;
+    this.album_name = config.albumname;
   }
 
   dom() {
-    return '\n      <div class="container container--showcase ' + this.class_names + ' ' + this.container_name + '"></div>\n    ';
+    return '\n      <div class="container showcase ' + (this.load_homepage ? 'showcase--home' : '') + '"></div>\n    ';
   }
 
   delay() {
@@ -393,19 +422,30 @@ exports.default = class extends _domrA.Component {
 
     (0, _goodOlAjaxPromise2.default)(this.albums_api).then(function (response) {
       var albums = response;
-      albums.forEach(function (album) {
-        if (_this.album_id) {
-          if (album.album_id === _this.album_id) {
-            if (album.album_id === _this.album_id) {
-              loadImageApi(_this.images_api, album, _this.target());
-            }
+      if (_this.load_homepage) {
+        var homepage = loopAlbums(albums, function (album) {
+          var toReturn = '';
+          if (album.name === _this.album_name) {
+            toReturn = album;
           }
-        } else {
-          if (album.name === 'top-images') {
+
+          return toReturn;
+        });
+
+        loopAlbums(albums, function (album) {
+          if (album.isHomepage) {
+            homepage = album;
+          }
+        });
+
+        loadImageApi(_this.images_api, homepage, _this.target());
+      } else if (_this.album_id) {
+        loopAlbums(albums, function (album) {
+          if (album.album_id === _this.album_id) {
             loadImageApi(_this.images_api, album, _this.target());
           }
-        }
-      });
+        });
+      }
     });
   }
 };
@@ -1316,7 +1356,10 @@ exports.default = function (data) {
     albums = _apiSet2.default.albums;
     images = _apiSet2.default.images;
   }
-  var homePageContainer = new _ShowCase2.default(albums, images);
+  var homePageContainer = new _ShowCase2.default(albums, images, {
+    loadHomepage: true,
+    albumname: 'top-images'
+  });
 
   window.scrollTo(0, 0);
   main.innerHTML = homePageContainer.render();
@@ -1354,7 +1397,6 @@ exports.default = class extends _domrA.Component {
   }
 
   dom() {
-    console.log(this.photo.isMature);
     return '\n      <span class="img" data-image-src="' + this.photo.img.thumb_large + '" ' + (this.photo.isMature ? 'data-isMature' : '') + '>\n        <img src="' + this.photo.img.thumb_small + '"  class="' + (this.photo.isMature ? 'is-mature' : '') + '" alt="" />\n      </span>\n    ';
   }
 
@@ -1466,7 +1508,7 @@ exports.default = class extends _domrA.Component {
       var albums = response;
 
       albums.forEach(function (album) {
-        if (album.type === _this.work_is && album.name !== 'top-images') {
+        if (album.type === _this.work_is && !album.works_no_show) {
           var workAlbum = new _WorkAlbum2.default(album, _this.images_api);
           var self = _this.target();
 

@@ -2431,7 +2431,7 @@ exports.default = class extends _domrC.Component {
 
           albumName.textContent = content.name;
           album.setAttribute('data-key', key);
-          folder.innerHTML = '\n            <div>\n              <div class="info info--display">\n                <h1 class="info--display__name">' + content.name + '</h1>\n                <div class="info--display__description">' + content.description.trim() + '</div>\n                <div class="info--display__works-no-show" style="display:none">\n                    ' + (content.works_no_show ? '\n                      <input type="radio" name="works-no-show-display" value="true" checked />\n                      <input type="radio" name="works-no-show-display" value="false" />\n                      ' : '\n                      <input type="radio" name="works-no-show-display" value="true" />\n                      <input type="radio" name="works-no-show-display" value="false" checked />\n                      ') + '\n                  </div>\n                <div class="info--display__is-special" style="display:none">\n                  ' + (content.isSpecial ? '\n                      <input type="radio" name="is-album-special-display" value="true" checked/>\n                      <input type="radio" name="is-album-special-display" value="false" />\n                      ' : '\n                      <input type="radio" name="is-album-special-display" value="true" />\n                      <input type="radio" name="is-album-special-display" value="false" checked/>\n                      ') + '\n                </div>\n                <div class="info--display__cover" style="display:none">' + coverPicDisplay.Render() + '</div>\n                <div class="info--display__layout" style="display:none">\n                  ' + (content.layout ? '\n                    <input type="text" class="box" value="' + content.layout.box.toString() + '"/>\n                    <input type="text" class="gapr" value="' + content.layout.gapr.toString() + '"/>\n                    <input type="text" class="parts" value="' + content.layout.parts.toString() + '"/>\n                    ' : '\n                    <input type="text" class="box" value="true"/>\n                    <input type="text" class="gapr" value="false"/>\n                    <input type="text" class="parts" value="2"/>\n                    ') + '\n                </div>\n              </div>\n              <div class="info info--edit">\n                <div class="devide">\n                  <div class="info--edit__name">\n                    ' + albumNameEdit.Render() + '\n                  </div>\n                  <div class="info--edit__description">\n                    ' + albumDescriptionEdit.Render() + '\n                  </div>\n                  <div class="info--edit__works-no-show info--edit__choice">\n                    <h3>Show in works section on website</h3>\n                    <div class="btn-group">\n                      ' + (content.works_no_show ? '\n                        <label>\n                          <input type="radio" name="works-no-show" value="false" />\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="works-no-show" value="true" checked/>\n                          <span class="btn">No</span>\n                        </label>\n                        ' : '\n                        <label>\n                          <input type="radio" name="works-no-show" value="false" checked/>\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="works-no-show" value="true" />\n                          <span class="btn">No</span>\n                        </label>\n                        ') + '\n                    </div>\n                  </div>\n                  <div class="info--edit__is-special info--edit__choice">\n                    <h3>does album needs special treatment ?</h3>\n                    <div class="btn-group">\n                      ' + (content.isSpecial ? '\n                        <label>\n                          <input type="radio" name="is-album-special" value="true" checked/>\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="is-album-special" value="false" />\n                          <span class="btn">No</span>\n                        </label>\n                        ' : '\n                        <label>\n                          <input type="radio" name="is-album-special" value="true" />\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="is-album-special" value="false" checked/>\n                          <span class="btn">No</span>\n                        </label>\n                        ') + '\n                    </div>\n                  </div>\n                  <div class="info--edit__cover">\n                    <h3>Cover Pic</h3>\n                    <div class="cover-pic-holder">\n                      ' + coverPic.Render() + '\n                    </div>\n                    ' + changeCoverBtn.Render() + '\n                    <div class="change-cover-modal-holder"></div>\n                  </div>\n                    <div class="info--edit__layout">\n                      <h3>Album Layout</h3>\n                      ' + boxLayout.Render() + '\n                      <div class="layout" id="layout-edit">\n                        ' + gapRight.Render() + '\n                        <div class="preview">\n                          <ul class="preview__container">\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                          </ul>\n                        </div>\n                      </div>\n                      ' + stripe.Render() + '\n                    </div>\n                  <div class="info--edit__danger-zone">\n                    <h3>Danger Zone</h3>\n                    ' + DeleteBtn.Render() + '\n                  </div>\n                </div>\n                ' + addPhotosBtn.Render() + '\n              </div>\n              ' + folderGroup.Render() + '\n              ' + folderGroupSortable.Render() + '\n            </div>\n          ';
+          folder.innerHTML = '\n            <div>\n              <div class="info info--display">\n                <h1 class="info--display__name">' + content.name + '</h1>\n                <div class="info--display__description">' + content.description.trim() + '</div>\n                <div class="info--display__works-no-show" style="display:none">\n                    ' + (content.works_no_show ? '\n                      <input type="radio" name="works-no-show-display" value="true" checked />\n                      <input type="radio" name="works-no-show-display" value="false" />\n                      ' : '\n                      <input type="radio" name="works-no-show-display" value="true" />\n                      <input type="radio" name="works-no-show-display" value="false" checked />\n                      ') + '\n                </div>\n                <div class="info--display__isHomepage" style="display:none">\n                  ' + (content.isHomepage ? '\n                    <input type="radio" name="isHomepage-display" value="true" checked />\n                    <input type="radio" name="isHomepage-display" value="false" />\n                    ' : '\n                    <input type="radio" name="isHomepage-display" value="true" />\n                    <input type="radio" name="isHomepage-display" value="false" checked />\n                    ') + '\n                </div>\n                <div class="info--display__is-special" style="display:none">\n                  ' + (content.isSpecial ? '\n                      <input type="radio" name="is-album-special-display" value="true" checked/>\n                      <input type="radio" name="is-album-special-display" value="false" />\n                      ' : '\n                      <input type="radio" name="is-album-special-display" value="true" />\n                      <input type="radio" name="is-album-special-display" value="false" checked/>\n                      ') + '\n                </div>\n                <div class="info--display__cover" style="display:none">' + coverPicDisplay.Render() + '</div>\n                <div class="info--display__layout" style="display:none">\n                  ' + (content.layout ? '\n                    <input type="text" class="box" value="' + content.layout.box.toString() + '"/>\n                    <input type="text" class="gapr" value="' + content.layout.gapr.toString() + '"/>\n                    <input type="text" class="parts" value="' + content.layout.parts.toString() + '"/>\n                    ' : '\n                    <input type="text" class="box" value="true"/>\n                    <input type="text" class="gapr" value="false"/>\n                    <input type="text" class="parts" value="2"/>\n                    ') + '\n                </div>\n              </div>\n              <div class="info info--edit">\n                <div class="devide">\n                  <div class="info--edit__name">\n                    ' + albumNameEdit.Render() + '\n                  </div>\n                  <div class="info--edit__description">\n                    ' + albumDescriptionEdit.Render() + '\n                  </div>\n                  <div class="info--edit__works-no-show info--edit__choice">\n                    <h3>Show in works section on website</h3>\n                    <div class="btn-group">\n                      ' + (content.works_no_show ? '\n                        <label>\n                          <input type="radio" name="works-no-show" value="false" />\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="works-no-show" value="true" checked/>\n                          <span class="btn">No</span>\n                        </label>\n                        ' : '\n                        <label>\n                          <input type="radio" name="works-no-show" value="false" checked/>\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="works-no-show" value="true" />\n                          <span class="btn">No</span>\n                        </label>\n                        ') + '\n                    </div>\n                  </div>\n                  <div class="info--edit__isHomepage info--edit__choice">\n                    <h3>Display as Homepage</h3>\n                    <div class="btn-group">\n                      ' + (content.isHomepage ? '\n                        <label>\n                          <input type="radio" name="isHomepage" value="true" checked/>\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="isHomepage" value="false"/>\n                          <span class="btn">No</span>\n                        </label>\n                        ' : '\n                        <label>\n                          <input type="radio" name="isHomepage" value="true" />\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="isHomepage" value="false" checked/>\n                          <span class="btn">No</span>\n                        </label>\n                        ') + '\n                    </div>\n                  </div>\n                  <div class="info--edit__is-special info--edit__choice">\n                    <h3>does album needs special treatment ?</h3>\n                    <div class="btn-group">\n                      ' + (content.isSpecial ? '\n                        <label>\n                          <input type="radio" name="is-album-special" value="true" checked/>\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="is-album-special" value="false" />\n                          <span class="btn">No</span>\n                        </label>\n                        ' : '\n                        <label>\n                          <input type="radio" name="is-album-special" value="true" />\n                          <span class="btn">Yes</span>\n                        </label>\n                        <label>\n                          <input type="radio" name="is-album-special" value="false" checked/>\n                          <span class="btn">No</span>\n                        </label>\n                        ') + '\n                    </div>\n                  </div>\n                  <div class="info--edit__cover">\n                    <h3>Cover Pic</h3>\n                    <div class="cover-pic-holder">\n                      ' + coverPic.Render() + '\n                    </div>\n                    ' + changeCoverBtn.Render() + '\n                    <div class="change-cover-modal-holder"></div>\n                  </div>\n                    <div class="info--edit__layout">\n                      <h3>Album Layout</h3>\n                      ' + boxLayout.Render() + '\n                      <div class="layout" id="layout-edit">\n                        ' + gapRight.Render() + '\n                        <div class="preview">\n                          <ul class="preview__container">\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                            <li></li>\n                          </ul>\n                        </div>\n                      </div>\n                      ' + stripe.Render() + '\n                    </div>\n                  <div class="info--edit__danger-zone">\n                    <h3>Danger Zone</h3>\n                    ' + DeleteBtn.Render() + '\n                  </div>\n                </div>\n                ' + addPhotosBtn.Render() + '\n              </div>\n              ' + folderGroup.Render() + '\n              ' + folderGroupSortable.Render() + '\n            </div>\n          ';
           folder.classList.add('found');
         }
       });
@@ -4128,6 +4128,8 @@ exports.default = class extends _domrC.Component {
         var displayDescription = folder.querySelector('.info--display__description').textContent.trim();
         var displayWorksNoShow = folder.querySelector('input[name="works-no-show-display"]:checked');
         var worksNoShow = folder.querySelector('.info--edit__works-no-show').querySelector('input[value="' + displayWorksNoShow.value + '"]');
+        var displayIsHomepage = folder.querySelector('input[name="isHomepage-display"]:checked');
+        var isHomepage = folder.querySelector('.info--edit__isHomepage').querySelector('input[value="' + displayIsHomepage.value + '"]');
         var displayIsSpecial = folder.querySelector('input[name="is-album-special-display"]:checked');
         var isSpecial = folder.querySelector('.info--edit__is-special').querySelector('input[value="' + displayIsSpecial.value + '"]');
         var coverPicHolder = folder.querySelector('.info--edit__cover');
@@ -4150,6 +4152,7 @@ exports.default = class extends _domrC.Component {
         description.textContent = displayDescription;
         isSpecial.checked = true;
         worksNoShow.checked = true;
+        isHomepage.checked = true;
 
         var coverId = coverPicHolderDisplay.querySelector('.cover-pic').getAttribute('data-id');
         var coverPic = coverPicHolder.querySelector('.cover-pic');
@@ -4216,6 +4219,26 @@ function getSortedImageIDs(albumGroupSorted) {
   return imgArr;
 }
 
+function getAllAlbums(dbRefObject) {
+  var promiseObj = new Promise(function (resolve, reject) {
+    dbRefObject.once('value').then(function (snap) {
+      var valueSnap = snap.val();
+      Object.keys(valueSnap).forEach(function (key) {
+        var content = valueSnap[key];
+        content.key = key;
+
+        if (content.album_id) {
+          resolve(content);
+        }
+      });
+    }).catch(function (err) {
+      reject(err);
+    });
+  });
+
+  return promiseObj;
+}
+
 exports.default = class extends _domrC.Component {
   constructor(dbRefObject) {
     super();
@@ -4244,6 +4267,9 @@ exports.default = class extends _domrC.Component {
       var displayWorksNoShow = folder.querySelector('.info--display__works-no-show').querySelector('input[value="' + worksNoShow.value + '"]');
       var isSpecial = folder.querySelector('input[name="is-album-special"]:checked');
       var displayIsSpecial = folder.querySelector('.info--display__is-special').querySelector('input[value="' + isSpecial.value + '"]');
+      var isHomepage = folder.querySelector('input[name="isHomepage"]:checked');
+      var homePageValue = JSON.parse(isHomepage.value);
+      var displayIsHomepage = folder.querySelector('.info--display__isHomepage').querySelector('input[value="' + isHomepage.value + '"]');
       var coverPicHolder = folder.querySelector('.info--edit__cover');
       var coverPicHolderDisplay = folder.querySelector('.info--display__cover');
       var coverId = coverPicHolder.querySelector('.cover-pic').getAttribute('data-id');
@@ -4261,12 +4287,11 @@ exports.default = class extends _domrC.Component {
       cancel.style.display = 'none';
       thisSelf.style.margin = '0';
 
-      console.log(JSON.parse(worksNoShow.value));
-
       _this.db_ref_object.child(key).update({
         name: name,
         description: description,
         works_no_show: JSON.parse(worksNoShow.value),
+        isHomepage: homePageValue,
         isSpecial: JSON.parse(isSpecial.value),
         photos_list: getSortedImageIDs(albumGroupSorted),
         cover_pic: coverId,
@@ -4284,6 +4309,7 @@ exports.default = class extends _domrC.Component {
         displayDescription.textContent = description;
         displayIsSpecial.checked = true;
         displayWorksNoShow.checked = true;
+        displayIsHomepage.checked = true;
         folder.classList.remove('edit');
         thisSelf.textContent = thisSelf.getAttribute('data-og-text');
         cancel.style.display = '';
@@ -4297,6 +4323,22 @@ exports.default = class extends _domrC.Component {
 
         albumGroupDisplay.innerHTML = albumGroupSorted.innerHTML;
         window.scrollTo(0, 0);
+
+        if (homePageValue === true) {
+          _this.db_ref_object.once('value').then(function (snap) {
+            var valueSnap = snap.val();
+            Object.keys(valueSnap).forEach(function (albumkey) {
+              var content = valueSnap[albumkey];
+              content.key = albumkey;
+
+              if (content.album_id && content.key !== key) {
+                _this.db_ref_object.child(albumkey).update({
+                  isHomepage: false
+                });
+              }
+            });
+          });
+        }
       });
     });
   }
