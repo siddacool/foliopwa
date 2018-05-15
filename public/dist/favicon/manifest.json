@@ -2,8 +2,8 @@
   "name": "Admin Panel for Folio, Portfolio site of Siddhesh Mangela",
   "short_name": "Folio Admin",
   "display": "minimal-ui",
-  "start_url": "/foliopwa/",
-  "theme_color": "#673ab6",
+  "start_url": "/foliopwa/admin-panel/",
+  "theme_color": "#f5f5f5",
   "background_color": "#111111",
   "icons": [
     {
