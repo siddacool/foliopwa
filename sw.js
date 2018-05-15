@@ -15,7 +15,6 @@ var appShellFiles = [
   '/foliopwa/public/dist/favicon/icon-256.png',
   '/foliopwa/public/dist/favicon/icon-512.png',
   'https://fonts.googleapis.com/css?family=Montserrat:400,600,700,800',
-  'https://www.gstatic.com/firebasejs/4.12.0/firebase.js',
 ];
 
 var contentToCache = appShellFiles;
