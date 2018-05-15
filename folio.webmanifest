@@ -5,7 +5,7 @@
   "start_url": "/foliopwa/admin-panel.html",
   "icons": [
     {
-      "src": "public/dist/favicon/icon-192.png",
+      "src": "/foliopwa/public/dist/favicon/icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     }
