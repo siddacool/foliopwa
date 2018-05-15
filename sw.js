@@ -4,6 +4,8 @@ self.addEventListener('fetch', (event) => {
       return response || fetch(event.request);
     }),
   );
+}).catch((e) => {
+
 });
 
 self.addEventListener('install', (e) => {
