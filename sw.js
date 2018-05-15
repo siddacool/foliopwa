@@ -1,13 +1,13 @@
 var cacheName = 'folio-admin-v1';
 var appShellFiles = [
-  '/',
-  '/admin-panel.html',
-  '/site.js',
-  '/public/dist/build/login.js',
-  '/public/dist/build/login.css',
-  '/public/dist/favicon/favicon.ico',
-  '/public/dist/favicon/favicon.png',
-  '/public/dist/favicon/icon-192.png',
+  './foliopwa/',
+  './foliopwa/admin-panel.html',
+  './foliopwa/site.js',
+  './foliopwa/public/dist/build/login.js',
+  './foliopwa/public/dist/build/login.css',
+  './foliopwa/public/dist/favicon/favicon.ico',
+  './foliopwa/public/dist/favicon/favicon.png',
+  './foliopwa/public/dist/favicon/icon-192.png',
 ];
 
 var contentToCache = appShellFiles;
