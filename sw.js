@@ -1,14 +1,14 @@
-self.addEventListener('fetch', function(event) {
+self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then(function(response) {
+    caches.match(event.request).then((response) => {
       return response || fetch(event.request);
-    });
+    }),
   );
 });
 
-self.addEventListener('install', function(e) {
+self.addEventListener('install', (e) => {
   e.waitUntil(
-    caches.open('the-magic-cache').then(function(cache) {
+    caches.open('the-magic-cache').then((cache) => {
       return cache.addAll([
         '/',
         '/admin-panel.html',
