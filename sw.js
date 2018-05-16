@@ -1,5 +1,5 @@
 if (location.pathname.startsWith('/foliopwa/')) {
-  var cacheName = 'folio-admin-v2';
+  var cacheName = 'folio-admin-v1';
   var catchToClear;
 
   if (cacheName === 'folio-admin-v1') {
@@ -11,7 +11,7 @@ if (location.pathname.startsWith('/foliopwa/')) {
   var appShellFiles = [
     '/foliopwa/admin-panel.html',
     '/foliopwa/site.js',
-    '/foliopwa/public/dist/build/login.562352698ba83a7d6920.js',
+    '/foliopwa/public/dist/build/login.d8b900d8e2e6977060bb.js',
     '/foliopwa/public/dist/build/login.bc0758175b238f5f99c0994a46e11867.css',
     '/foliopwa/public/dist/favicon/favicon.ico',
     '/foliopwa/public/dist/favicon/favicon.png',
