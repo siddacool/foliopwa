@@ -1,9 +1,9 @@
 {
-  "name": "Folio Admin Panel",
+  "name": "Folio",
   "short_name": "Folio",
-  "description": "Admin Panel for Folio, Portfolio site of Siddhesh Mangela",
+  "description": "Admin Panel for Folio",
   "start_url": "/foliopwa/admin-panel.html",
-  "display": "fullscreen",
+  "display": "standalone",
   "theme_color": "#f5f5f5",
   "background_color": "#f5f5f5",
   "icons": [

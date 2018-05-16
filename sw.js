@@ -1,5 +1,5 @@
 if (location.pathname.startsWith('/foliopwa/')) {
-  var cacheName = 'folio-admin-v1';
+  var cacheName = 'folio-admin-v2';
   var catchToClear;
 
   if (cacheName === 'folio-admin-v1') {
